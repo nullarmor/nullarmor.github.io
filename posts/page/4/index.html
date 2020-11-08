@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Cybersec blog, HackTheBox & CTF Write-ups, Hacking related stuff and more!</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Cybersec blog, HackTheBox &amp; CTF Write-ups, Hacking related stuff and more!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/page/4/">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/page/4/">
+  <meta name="twitter:title" content="Cybersec blog, HackTheBox &amp; CTF Write-ups, Hacking related stuff and more!">
+  <meta name="twitter:description" content="">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    <meta property="og:image" content="https://nullarmor.github.io/assets/og-image-e75df5fef5320fbe0172148d751f5f49d1acbf4f62e1e119265137593fee2572.png">
+    <meta name="twitter:image" content="https://nullarmor.github.io/assets/og-image-e75df5fef5320fbe0172148d751f5f49d1acbf4f62e1e119265137593fee2572.png">
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <ul class="article-list">
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/netmon" title="Netmon - Hack The Box">
+        <h5>
+          Netmon - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/netmon" title="Netmon - Hack The Box">
+            <img src="/assets/hackthebox/netmon/netmon-00-609f732ac179c04dd798e967bc45a602b4d6143ab7bacbae6712b36a136fae5b.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the Netmon machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    May 19, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      5 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/legacy" title="Legacy - Hack The Box">
+        <h5>
+          Legacy - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/legacy" title="Legacy - Hack The Box">
+            <img src="/assets/hackthebox/legacy/legacy-00-5d46b84ca995b33d0484e9c2df8a04cbd935744237e963232056c325a82a151c.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the Legacy machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    May 18, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      2 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/lame" title="Lame - Hack The Box">
+        <h5>
+          Lame - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/lame" title="Lame - Hack The Box">
+            <img src="/assets/hackthebox/lame/lame-00-9347ce4ef80880707552c81c8342858ba00ab616da15058bce86e08b9156080a.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the Lame machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    May 18, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      3 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/jarvis" title="Jarvis - Hack The Box">
+        <h5>
+          Jarvis - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/jarvis" title="Jarvis - Hack The Box">
+            <img src="/assets/hackthebox/jarvis/jarvis-00-a45b9cf317a3cfe36b11a8127ea95125895bde7d1a63db444cce395a39a560c8.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the Jarvis machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    May 18, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      5 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/haystack" title="Haystack - Hack The Box">
+        <h5>
+          Haystack - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/haystack" title="Haystack - Hack The Box">
+            <img src="/assets/hackthebox/haystack/haystack-00-85d7d36fa4a71f6f747fc1ea7626891a315840184d30726d402d91943d32bb1f.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the Haystack machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    May 18, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      5 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/blue" title="Blue - Hack The Box">
+        <h5>
+          Blue - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/blue" title="Blue - Hack The Box">
+            <img src="/assets/hackthebox/blue/blue-00-c61a224439c287162ba848ea5135bb57358e129c0831961801b06cb1c8f16229.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the Blue machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    May 18, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      2 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/swagshop" title="SwagShop - Hack The Box">
+        <h5>
+          SwagShop - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/swagshop" title="SwagShop - Hack The Box">
+            <img src="/assets/hackthebox/swagshop/swagshop-00-409220d5fdb5edafd1f5006ed38f9d4d3192cacb8ef395986aaad52d539985d8.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the SwagShop machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    May 17, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      8 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/jerry" title="Jerry - Hack The Box">
+        <h5>
+          Jerry - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/jerry" title="Jerry - Hack The Box">
+            <img src="/assets/hackthebox/jerry/jerry-00-4567a3db301715b27c537b15eff25661d0bb63e557da670c334f7fa52dcc16ba.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the Jerry machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    April 19, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      2 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/celestial" title="Celestial - Hack The Box">
+        <h5>
+          Celestial - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/celestial" title="Celestial - Hack The Box">
+            <img src="/assets/hackthebox/celestial/celestial-00-7624192b92fa9d114a99d11a3e514d9ee8a59aca87da1e7980459c80374d1517.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the Celestial machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    April 19, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      3 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+    <li class="article-list-item scrollappear">
+      <a href="/posts/carrier" title="Carrier - Hack The Box">
+        <h5>
+          Carrier - Hack The Box
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+
+        </h5>
+      </a>
+      <p>
+        
+          <a href="/posts/carrier" title="Carrier - Hack The Box">
+            <img src="/assets/hackthebox/carrier/carrier-00-053b06c7b93c47271480f3ba9d8ccbcda25d9321992c14f7e38e22c9919119ae.png" width="50%" height="50%">
+          </a>
+        
+        <p>
+        
+          Resolution of the Carrier machine   
+        
+      </p>
+      <div class="article-list-footer">
+  <span class="article-list-date">
+    April 19, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      4 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+    </li>
+  
+  
+    <li class="article-pagination ">
+      
+        <a href="/posts/page/5/" class="article-pagination-left"><svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-left">
+  <use href="/assets/arrow-left-3fbaf3633c5b37e961028aa1ab5a308806edebadcfc1f9f0b30bcf35c3a4fb8c.svg#icon-arrow-left" xlink:href="/assets/arrow-left-3fbaf3633c5b37e961028aa1ab5a308806edebadcfc1f9f0b30bcf35c3a4fb8c.svg#icon-arrow-left"></use>
+</svg>
+ Older posts</a>
+      
+      
+        <a href="/posts/page/3/" class="article-pagination-right">Newer posts <svg xmlns="http://www.w3.org/2000/svg" class="icon-arrow-right">
+  <use href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right" xlink:href="/assets/arrow-right-05feb9da52810d15348895a9a885c61803f4d2ae681b4fc442b285fef184dd2b.svg#icon-arrow-right"></use>
+</svg>
+</a>
+      
+    </li>
+  
+</ul>
+
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

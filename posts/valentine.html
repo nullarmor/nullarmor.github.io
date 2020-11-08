@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Valentine - Hack The Box</title>
+  <meta name="description" content="Resolution of the Valentine machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Valentine - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/valentine">
+  <meta property="og:description" content="Resolution of the Valentine machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/valentine">
+  <meta name="twitter:title" content="Valentine - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Valentine machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/valentine/valentine-00-57c8bd88d522372d69b4b7451ba560c8008228e19ea7c91cae66806e738621a5.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/valentine/valentine-00-57c8bd88d522372d69b4b7451ba560c8008228e19ea7c91cae66806e738621a5.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Valentine - Hack The Box</h1>
+            <p>Resolution of the Valentine machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    June 25, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      4 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/valentine/valentine-00-57c8bd88d522372d69b4b7451ba560c8008228e19ea7c91cae66806e738621a5.png">
+  <img src="/assets/hackthebox/valentine/valentine-00-57c8bd88d522372d69b4b7451ba560c8008228e19ea7c91cae66806e738621a5.png" alt="Valentine banner" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-00-57c8bd88d522372d69b4b7451ba560c8008228e19ea7c91cae66806e738621a5.png" data-zooming-width="595" data-zooming-height="381" />
+</a></p>
+
+<p>Valentine is an easy level machine based on Linux, the initial approach is based on the <code class="highlighter-rouge">Heartbleed</code> vulnerability that leaks some critical informations from the server, allowing us to recover the private keys from the server.
+The privilege escalation step is pretty easy, based on tmux exploitation.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Fri Apr 10 12:40:46 2020 as: nmap -sC -sV -T4 -oA valentine 10.10.10.79</span>
+Nmap scan report <span class="k">for </span>10.10.10.79
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 997 closed ports
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 5.9p1 Debian 5ubuntu1.10 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   1024 96:4c:51:42:3c:ba:22:49:20:4d:3e:ec:90:cc:fd:0e <span class="o">(</span>DSA<span class="o">)</span>
+|   2048 46:bf:1f:cc:92:4f:1d:a0:42:b3:d2:16:a8:58:31:33 <span class="o">(</span>RSA<span class="o">)</span>
+|_  256 e6:2b:25:19:cb:7e:54:cb:0a:b9:ac:16:98:c6:7d:a9 <span class="o">(</span>ECDSA<span class="o">)</span>
+80/tcp  open  http     Apache httpd 2.2.22 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.2.22 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="o">)</span><span class="nb">.</span>
+443/tcp open  ssl/http Apache httpd 2.2.22 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.2.22 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="o">)</span><span class="nb">.</span>
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>valentine.htb/organizationName<span class="o">=</span>valentine.htb/stateOrProvinceName<span class="o">=</span>FL/countryName<span class="o">=</span>US
+| Not valid before: 2018-02-06T00:45:25
+|_Not valid after:  2019-02-06T00:45:25
+|_ssl-date: 2020-04-10T15:44:47+00:00<span class="p">;</span> +3m35s from scanner time.
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: 3m34s
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Fri Apr 10 12:41:13 2020 -- 1 IP address (1 host up) scanned in 27.15 seconds</span></code></pre></figure>
+
+<p>Port 80 and 443 has the same page:</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-01-689dcd197183bf842b194210b47b14df814a9e1a2eab30c7d6ff8fe314e08666.png">
+  <img src="/assets/hackthebox/valentine/valentine-01-689dcd197183bf842b194210b47b14df814a9e1a2eab30c7d6ff8fe314e08666.png" alt="Valentine Recon" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-01-689dcd197183bf842b194210b47b14df814a9e1a2eab30c7d6ff8fe314e08666.png" data-zooming-width="1212" data-zooming-height="551" />
+</a></p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-02-47423013e3ca4098e7277b281857c5f64d61ba627778067196d47d11922ebdda.png">
+  <img src="/assets/hackthebox/valentine/valentine-02-47423013e3ca4098e7277b281857c5f64d61ba627778067196d47d11922ebdda.png" alt="Valentine Recon" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-02-47423013e3ca4098e7277b281857c5f64d61ba627778067196d47d11922ebdda.png" data-zooming-width="1214" data-zooming-height="554" />
+</a></p>
+
+<p>Enumerating the web using the gobuster tool, we got some interesting results:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">./gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> 10.10.10.79 <span class="nt">-t20</span>
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.79
+<span class="o">[</span>+] Threads:        20
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/04/10 12:40:51 Starting gobuster
+<span class="o">===============================================================</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/cgi-bin/ <span class="o">(</span>Status: 403<span class="o">)</span>
+/decode <span class="o">(</span>Status: 200<span class="o">)</span>
+/dev <span class="o">(</span>Status: 301<span class="o">)</span>
+/encode <span class="o">(</span>Status: 200<span class="o">)</span>
+/index <span class="o">(</span>Status: 200<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/04/10 12:43:32 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The pages <code class="highlighter-rouge">/decode</code> and <code class="highlighter-rouge">/encode</code> has base64 encode &amp; decode functions.
+The page <code class="highlighter-rouge">/dev</code> has the following files:</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-03-ad2236cde2b8b6944492a15bcfd4b55af2c15d069022be72e213f8fea94fc3ce.png">
+  <img src="/assets/hackthebox/valentine/valentine-03-ad2236cde2b8b6944492a15bcfd4b55af2c15d069022be72e213f8fea94fc3ce.png" alt="Valentine Recon" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-03-ad2236cde2b8b6944492a15bcfd4b55af2c15d069022be72e213f8fea94fc3ce.png" data-zooming-width="584" data-zooming-height="299" />
+</a></p>
+
+<p>The <code class="highlighter-rouge">hype_key.txt</code> file contains a hexadecimal text, transforming to ASCII, we noticed that it’s actually a SSH private key!</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-04-89b9568a03d66862d1029328d4212fa090505d12c2dbc2a4c8b9e42a0b24a697.png">
+  <img src="/assets/hackthebox/valentine/valentine-04-89b9568a03d66862d1029328d4212fa090505d12c2dbc2a4c8b9e42a0b24a697.png" alt="Valentine Recon" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-04-89b9568a03d66862d1029328d4212fa090505d12c2dbc2a4c8b9e42a0b24a697.png" data-zooming-width="1312" data-zooming-height="512" />
+</a></p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-05-6ef7e4d4f6517581fcf7cf5d523b7b6e1a35be2c29bc2930238eb09b818db528.png">
+  <img src="/assets/hackthebox/valentine/valentine-05-6ef7e4d4f6517581fcf7cf5d523b7b6e1a35be2c29bc2930238eb09b818db528.png" alt="Valentine Recon" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-05-6ef7e4d4f6517581fcf7cf5d523b7b6e1a35be2c29bc2930238eb09b818db528.png" data-zooming-width="513" data-zooming-height="501" />
+</a></p>
+
+<p>Downloading the key and trying to open, we noticed that a password is required:</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-06-66baaadc211bae9e780cdec2815f26e8668c544abf1095c8e98982b732a2146a.png">
+  <img src="/assets/hackthebox/valentine/valentine-06-66baaadc211bae9e780cdec2815f26e8668c544abf1095c8e98982b732a2146a.png" alt="Valentine Recon" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-06-66baaadc211bae9e780cdec2815f26e8668c544abf1095c8e98982b732a2146a.png" data-zooming-width="500" data-zooming-height="431" />
+</a></p>
+
+<p>Moving on to the next file we have <code class="highlighter-rouge">notes.txt</code> with the following content:</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-07-3862e5c69fe26adc337efc2eff600c074709cc72cbb50ffb6e4b49bb021040b1.png">
+  <img src="/assets/hackthebox/valentine/valentine-07-3862e5c69fe26adc337efc2eff600c074709cc72cbb50ffb6e4b49bb021040b1.png" alt="Valentine Recon" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-07-3862e5c69fe26adc337efc2eff600c074709cc72cbb50ffb6e4b49bb021040b1.png" data-zooming-width="632" data-zooming-height="232" />
+</a></p>
+
+<h1 id="exploiting---heartbleed-vulnerability">Exploiting - Heartbleed vulnerability</h1>
+
+<p>After playing with the 443 port for some time, we noticed that there’s a vulnerability named <code class="highlighter-rouge">Heartbleed</code> where the attacker is able to compromise the server by leaking the server information through a OpenSSL bug.</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-08-67c4daf0de59f33a8751f70851edf65fc4ee1d3e5d0e970c6d4b63ae8810e93c.png">
+  <img src="/assets/hackthebox/valentine/valentine-08-67c4daf0de59f33a8751f70851edf65fc4ee1d3e5d0e970c6d4b63ae8810e93c.png" alt="Valentine Exploit" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-08-67c4daf0de59f33a8751f70851edf65fc4ee1d3e5d0e970c6d4b63ae8810e93c.png" data-zooming-width="1305" data-zooming-height="333" />
+</a></p>
+
+<p>There’s a Metasploit module for this vulnerability located at <code class="highlighter-rouge">auxiliary/scanner/ssl/openssl_heartbleed</code>:</p>
+
+<p><a href="https://www.rapid7.com/db/modules/auxiliary/scanner/ssl/openssl_heartbleed" target="_blank">OpenSSL Heartbeat (Heartbleed) Information Leak</a></p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-09-c6a71dcb40b4f4a6716a819692b5570bfc373192e932e76459aa18ecefb442ff.png">
+  <img src="/assets/hackthebox/valentine/valentine-09-c6a71dcb40b4f4a6716a819692b5570bfc373192e932e76459aa18ecefb442ff.png" alt="Valentine Exploit" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-09-c6a71dcb40b4f4a6716a819692b5570bfc373192e932e76459aa18ecefb442ff.png" data-zooming-width="1308" data-zooming-height="495" />
+</a></p>
+
+<p>After running for multiple times without any relevant information, we finally got something in the middle out of this byte-mess.
+What caught our attention is the HTTP request made in the beginning of the memory leak, the HTTP request was sent to <code class="highlighter-rouge">https://127.0.0.1/decode.php</code> with an argument named <code class="highlighter-rouge">text</code> with the following content: <code class="highlighter-rouge">aGVhcnRibGVlZGJlbGlldmV0aGVoeXBlCg==</code></p>
+
+<p>Accessing the page <code class="highlighter-rouge">https://10.10.10.79/decode.php</code> we got a page that decodes a base64 string. Inserting the base64 string from the leak came with result:</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-10-732eca622adc7bf7a66954818129545dbc84e978cc197bc6f91f8bbef2dc5b6a.png">
+  <img src="/assets/hackthebox/valentine/valentine-10-732eca622adc7bf7a66954818129545dbc84e978cc197bc6f91f8bbef2dc5b6a.png" alt="Valentine Exploit" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-10-732eca622adc7bf7a66954818129545dbc84e978cc197bc6f91f8bbef2dc5b6a.png" data-zooming-width="502" data-zooming-height="216" />
+</a></p>
+
+<p>Inserting the output in the password field of the RSA key results in a successfully private key hijacking:</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-11-0b51d2d361088fd94c032bf6c35ae253bd8ff2993962cf523916c92318676735.png">
+  <img src="/assets/hackthebox/valentine/valentine-11-0b51d2d361088fd94c032bf6c35ae253bd8ff2993962cf523916c92318676735.png" alt="Valentine Exploit" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-11-0b51d2d361088fd94c032bf6c35ae253bd8ff2993962cf523916c92318676735.png" data-zooming-width="499" data-zooming-height="428" />
+</a></p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-12-8b0b9e25c036e45674edd012c3fb36f08eee68023b4d13a88b6b22685155436f.png">
+  <img src="/assets/hackthebox/valentine/valentine-12-8b0b9e25c036e45674edd012c3fb36f08eee68023b4d13a88b6b22685155436f.png" alt="Valentine Exploit" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-12-8b0b9e25c036e45674edd012c3fb36f08eee68023b4d13a88b6b22685155436f.png" data-zooming-width="497" data-zooming-height="429" />
+</a></p>
+
+<p>Now it’s possible to login as hype user through SSH!</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-13-7675e89556972a3b484441024553f77ea7a25f7345247c7b1374de3f4adda9cb.png">
+  <img src="/assets/hackthebox/valentine/valentine-13-7675e89556972a3b484441024553f77ea7a25f7345247c7b1374de3f4adda9cb.png" alt="Valentine Exploit" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-13-7675e89556972a3b484441024553f77ea7a25f7345247c7b1374de3f4adda9cb.png" data-zooming-width="454" data-zooming-height="172" />
+</a></p>
+
+<h1 id="post-exploitation---hijacking-tmux-sessions">Post Exploitation - Hijacking tmux sessions</h1>
+
+<p>After a basic enumeration process using the LinEnum tool, we noticed that the <code class="highlighter-rouge">.bash_history</code> has some tmux commands:</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-14-2819b5a73e5659ebfe523be75ba28fae7d3167b53b374fc9ce9fef13ad61af24.png">
+  <img src="/assets/hackthebox/valentine/valentine-14-2819b5a73e5659ebfe523be75ba28fae7d3167b53b374fc9ce9fef13ad61af24.png" alt="Valentine Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-14-2819b5a73e5659ebfe523be75ba28fae7d3167b53b374fc9ce9fef13ad61af24.png" data-zooming-width="484" data-zooming-height="234" />
+</a></p>
+
+<p>Running the command to restore a tmux session:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">tmux <span class="nt">-S</span> /.devs/dev_sess</code></pre></figure>
+
+<p>Now we have a tmux shell as root user!</p>
+
+<p><a href="/assets/hackthebox/valentine/valentine-15-027ea9df944e354c91c62b1e24d6e388b117d5e46e40f8d5306bbaef4c9bd548.png">
+  <img src="/assets/hackthebox/valentine/valentine-15-027ea9df944e354c91c62b1e24d6e388b117d5e46e40f8d5306bbaef4c9bd548.png" alt="Valentine Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/valentine/valentine-15-027ea9df944e354c91c62b1e24d6e388b117d5e46e40f8d5306bbaef4c9bd548.png" data-zooming-width="395" data-zooming-height="56" />
+</a></p>
+
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Valentine+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/valentine%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/valentine" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

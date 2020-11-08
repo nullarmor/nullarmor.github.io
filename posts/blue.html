@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Blue - Hack The Box</title>
+  <meta name="description" content="Resolution of the Blue machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Blue - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/blue">
+  <meta property="og:description" content="Resolution of the Blue machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/blue">
+  <meta name="twitter:title" content="Blue - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Blue machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/blue/blue-00-c61a224439c287162ba848ea5135bb57358e129c0831961801b06cb1c8f16229.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/blue/blue-00-c61a224439c287162ba848ea5135bb57358e129c0831961801b06cb1c8f16229.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Blue - Hack The Box</h1>
+            <p>Resolution of the Blue machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    May 18, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      2 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/blue/blue-00-c61a224439c287162ba848ea5135bb57358e129c0831961801b06cb1c8f16229.png">
+  <img src="/assets/hackthebox/blue/blue-00-c61a224439c287162ba848ea5135bb57358e129c0831961801b06cb1c8f16229.png" alt="Blue banner" class="zooming" data-rjs="/assets/hackthebox/blue/blue-00-c61a224439c287162ba848ea5135bb57358e129c0831961801b06cb1c8f16229.png" data-zooming-width="595" data-zooming-height="380" />
+</a></p>
+
+<p>Blue is an easy level machine based on Windows, the main vulnerability is an infamous exploit named <code class="highlighter-rouge">EternalBlue</code>. Blue doesn’t require privilege escalation.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Mon Jan 13 11:16:27 2020 as: nmap -sV -sC -oA blue -T4 -Pn 10.10.10.40</span>
+Nmap scan report <span class="k">for </span>10.10.10.40
+Host is up <span class="o">(</span>0.18s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 991 closed ports
+PORT      STATE SERVICE      VERSION
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds Windows 7 Professional 7601 Service Pack 1 microsoft-ds <span class="o">(</span>workgroup: WORKGROUP<span class="o">)</span>
+49152/tcp open  msrpc        Microsoft Windows RPC
+49153/tcp open  msrpc        Microsoft Windows RPC
+49154/tcp open  msrpc        Microsoft Windows RPC
+49155/tcp open  msrpc        Microsoft Windows RPC
+49156/tcp open  msrpc        Microsoft Windows RPC
+49157/tcp open  msrpc        Microsoft Windows RPC
+Service Info: Host: HARIS-PC<span class="p">;</span> OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 1m29s, deviation: 1s, median: 1m29s
+| smb-os-discovery: 
+|   OS: Windows 7 Professional 7601 Service Pack 1 <span class="o">(</span>Windows 7 Professional 6.1<span class="o">)</span>
+|   OS CPE: cpe:/o:microsoft:windows_7::sp1:professional
+|   Computer name: haris-PC
+|   NetBIOS computer name: HARIS-PC<span class="se">\x</span>00
+|   Workgroup: WORKGROUP<span class="se">\x</span>00
+|_  System <span class="nb">time</span>: 2020-01-13T13:19:14+00:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled <span class="o">(</span>dangerous, but default<span class="o">)</span>
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   <span class="nb">date</span>: 2020-01-13 11:19:17
+|_  start_date: 2020-01-13 10:52:29
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Mon Jan 13 11:17:55 2020 -- 1 IP address (1 host up) scanned in 87.70 seconds</span></code></pre></figure>
+
+<p>Looking for exploits and we found an exploit for the SMB running under Windows 7 named <code class="highlighter-rouge">EternalBlue</code>, the NSA leaked exploit.</p>
+
+<p>To check if the machine is vulnerable we can use a Nmap script named <code class="highlighter-rouge">smb-vuln-ms17-010</code></p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>nmap <span class="nt">-p445</span> <span class="nt">--script</span> smb-vuln-ms17-010 10.10.10.40</code></pre></figure>
+
+<p><a href="/assets/hackthebox/blue/blue-01-a0722777ffadb8f8daef94e7bcc0840bdceb8b8d87a10a69193b523b15c1f35d.png">
+  <img src="/assets/hackthebox/blue/blue-01-a0722777ffadb8f8daef94e7bcc0840bdceb8b8d87a10a69193b523b15c1f35d.png" alt="Blue Recon" class="zooming" data-rjs="/assets/hackthebox/blue/blue-01-a0722777ffadb8f8daef94e7bcc0840bdceb8b8d87a10a69193b523b15c1f35d.png" data-zooming-width="723" data-zooming-height="381" />
+</a></p>
+
+<p>The machine is vulnerable to EternalBlue exploit but we can also use another exploit checker, the second checked is part of the metasploit EternalBlue module named <code class="highlighter-rouge">windows/smb/ms17_010_eternalblue</code>:</p>
+
+<p><a href="/assets/hackthebox/blue/blue-02-03af2158c7e4fb367e521eb667bc7124c7d8465e01a2dc7726c925306bb39eb5.png">
+  <img src="/assets/hackthebox/blue/blue-02-03af2158c7e4fb367e521eb667bc7124c7d8465e01a2dc7726c925306bb39eb5.png" alt="Blue Recon" class="zooming" data-rjs="/assets/hackthebox/blue/blue-02-03af2158c7e4fb367e521eb667bc7124c7d8465e01a2dc7726c925306bb39eb5.png" data-zooming-width="895" data-zooming-height="437" />
+</a></p>
+
+<h1 id="exploiting---exploiting-the-smb">Exploiting - Exploiting the SMB</h1>
+
+<p>Metasploit has a module for this exploit, it’s named <code class="highlighter-rouge">windows/smb/ms17_010_eternalblue</code></p>
+
+<p><a href="/assets/hackthebox/blue/blue-02-03af2158c7e4fb367e521eb667bc7124c7d8465e01a2dc7726c925306bb39eb5.png">
+  <img src="/assets/hackthebox/blue/blue-03-a3b3c73b29b760fcfcf935dcd04010d215eed1dc90a1317040b8c361822d7f02.png" alt="Blue Exploiting" class="zooming" data-rjs="/assets/hackthebox/blue/blue-02-03af2158c7e4fb367e521eb667bc7124c7d8465e01a2dc7726c925306bb39eb5.png" data-zooming-width="895" data-zooming-height="437" />
+</a></p>
+
+<p>Now we have access to the machine as <code class="highlighter-rouge">HARIS-PC</code> user, he has administrative permissions and it allow us to capture both flags :)</p>
+
+<p><a href="/assets/hackthebox/blue/blue-04-1d3a07947dff28020099ce91c0313d8847fd4fb7e4bae2d25b4507fa2a163461.png">
+  <img src="/assets/hackthebox/blue/blue-04-1d3a07947dff28020099ce91c0313d8847fd4fb7e4bae2d25b4507fa2a163461.png" alt="Blue Exploiting" class="zooming" data-rjs="/assets/hackthebox/blue/blue-04-1d3a07947dff28020099ce91c0313d8847fd4fb7e4bae2d25b4507fa2a163461.png" data-zooming-width="487" data-zooming-height="205" />
+</a></p>
+
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Blue+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/blue%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/blue" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

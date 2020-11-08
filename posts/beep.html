@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Beep - Hack The Box</title>
+  <meta name="description" content="Resolution of the Beep machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Beep - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/beep">
+  <meta property="og:description" content="Resolution of the Beep machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/beep">
+  <meta name="twitter:title" content="Beep - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Beep machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/beep/beep-00-c3e82497fc829035b76b670c509f90533c12259f3e416c61dd8b748a06364701.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/beep/beep-00-c3e82497fc829035b76b670c509f90533c12259f3e416c61dd8b748a06364701.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Beep - Hack The Box</h1>
+            <p>Resolution of the Beep machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    June 24, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      6 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/beep/beep-00-c3e82497fc829035b76b670c509f90533c12259f3e416c61dd8b748a06364701.png">
+  <img src="/assets/hackthebox/beep/beep-00-c3e82497fc829035b76b670c509f90533c12259f3e416c61dd8b748a06364701.png" alt="Beep banner" class="zooming" data-rjs="/assets/hackthebox/beep/beep-00-c3e82497fc829035b76b670c509f90533c12259f3e416c61dd8b748a06364701.png" data-zooming-width="596" data-zooming-height="347" />
+</a></p>
+
+<p>Beep is an easy level machine based on Linux, with multiple ways to hack into the machine.
+The initial approach has 2 vulnerable services hidden into multiple services with open ports, difficulting the exploitation.
+The privilege escalation process is pretty easy, with multiple vulnerable binaries.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Wed Feb  5 16:36:12 2020 as: nmap -sC -sV -oA beep -T4 -p- 10.10.10.7</span>
+Nmap scan report <span class="k">for </span>10.10.10.7
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65519 closed ports
+PORT      STATE SERVICE    VERSION
+22/tcp    open  ssh        OpenSSH 4.3 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   1024 ad:ee:5a:bb:69:37:fb:27:af:b8:30:72:a0:f9:6f:53 <span class="o">(</span>DSA<span class="o">)</span>
+|_  2048 bc:c6:73:59:13:a1:8a:4b:55:07:50:f6:65:1d:6d:0d <span class="o">(</span>RSA<span class="o">)</span>
+25/tcp    open  smtp       Postfix smtpd
+|_smtp-commands: beep.localdomain, PIPELINING, SIZE 10240000, VRFY, ETRN, ENHANCEDSTATUSCODES, 8BITMIME, DSN, 
+80/tcp    open  http       Apache httpd 2.2.3
+|_http-server-header: Apache/2.2.3 <span class="o">(</span>CentOS<span class="o">)</span>
+|_http-title: Did not follow redirect to https://10.10.10.7/
+110/tcp   open  pop3       Cyrus pop3d 2.3.7-Invoca-RPM-2.3.7-7.el5_6.4
+|_pop3-capabilities: APOP STLS LOGIN-DELAY<span class="o">(</span>0<span class="o">)</span> PIPELINING EXPIRE<span class="o">(</span>NEVER<span class="o">)</span> TOP RESP-CODES IMPLEMENTATION<span class="o">(</span>Cyrus POP3 server v2<span class="o">)</span> USER AUTH-RESP-CODE UIDL
+111/tcp   open  rpcbind    2 <span class="o">(</span>RPC <span class="c">#100000)</span>
+| rpcinfo: 
+|   program version   port/proto  service
+|   100000  2            111/tcp  rpcbind
+|   100000  2            111/udp  rpcbind
+|   100024  1            876/udp  status
+|_  100024  1            879/tcp  status
+143/tcp   open  imap       Cyrus imapd 2.3.7-Invoca-RPM-2.3.7-7.el5_6.4
+|_imap-capabilities: IMAP4rev1 NO IMAP4 LIST-SUBSCRIBED URLAUTHA0001 X-NETSCAPE ID OK UNSELECT RENAME ATOMIC UIDPLUS ANNOTATEMORE <span class="nv">SORT</span><span class="o">=</span>MODSEQ BINARY CONDSTORE ACL CATENATE NAMESPACE <span class="nv">THREAD</span><span class="o">=</span>REFERENCES LISTEXT IDLE MAILBOX-REFERRALS MULTIAPPEND SORT QUOTA LITERAL+ Completed CHILDREN <span class="nv">THREAD</span><span class="o">=</span>ORDEREDSUBJECT <span class="nv">RIGHTS</span><span class="o">=</span>kxte STARTTLS
+443/tcp   open  ssl/https?
+|_ssl-date: 2020-02-05T19:52:11+00:00<span class="p">;</span> +1h01m46s from scanner time.
+879/tcp   open  status     1 <span class="o">(</span>RPC <span class="c">#100024)</span>
+993/tcp   open  ssl/imap   Cyrus imapd
+|_imap-capabilities: CAPABILITY
+995/tcp   open  pop3       Cyrus pop3d
+3306/tcp  open  mysql      MySQL <span class="o">(</span>unauthorized<span class="o">)</span>
+4190/tcp  open  sieve      Cyrus timsieved 2.3.7-Invoca-RPM-2.3.7-7.el5_6.4 <span class="o">(</span>included w/cyrus imap<span class="o">)</span>
+4445/tcp  open  upnotifyp?
+4559/tcp  open  hylafax    HylaFAX 4.3.10
+5038/tcp  open  asterisk   Asterisk Call Manager 1.1
+10000/tcp open  http       MiniServ 1.570 <span class="o">(</span>Webmin httpd<span class="o">)</span>
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="p">;</span> <span class="nv">Charset</span><span class="o">=</span>iso-8859-1<span class="o">)</span><span class="nb">.</span>
+Service Info: Hosts:  beep.localdomain, 127.0.0.1, example.com, localhost<span class="p">;</span> OS: Unix
+
+Host script results:
+|_clock-skew: mean: 1h01m45s, deviation: 0s, median: 1h01m45s
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Wed Feb  5 16:53:32 2020 -- 1 IP address (1 host up) scanned in 1039.65 seconds</span></code></pre></figure>
+
+<p>There’s too much services with open ports, making it confusing to us.
+After checking service by service, we noticed that most of them are not vulnerable, a classical rabbit hole.
+The service running on port 443 seems interesting because it’s a web application named <code class="highlighter-rouge">Elastix</code>.</p>
+
+<p><a href="/assets/hackthebox/beep/beep-01-7ccb6adfdd5627ef6c2b9a4c7d34df25afcb35fa924430fb1af1dc7b8f185fcd.png">
+  <img src="/assets/hackthebox/beep/beep-01-7ccb6adfdd5627ef6c2b9a4c7d34df25afcb35fa924430fb1af1dc7b8f185fcd.png" alt="Beep Recon" class="zooming" data-rjs="/assets/hackthebox/beep/beep-01-7ccb6adfdd5627ef6c2b9a4c7d34df25afcb35fa924430fb1af1dc7b8f185fcd.png" data-zooming-width="1013" data-zooming-height="524" />
+</a></p>
+
+<p>Doing a web enumeration using the gobuster tool we got the following output:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> https://10.10.10.7 <span class="nt">-t</span> 25 <span class="nt">-k</span>
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            https://10.10.10.7
+<span class="o">[</span>+] Threads:        25
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/02/05 16:36:57 Starting gobuster
+<span class="o">===============================================================</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/admin <span class="o">(</span>Status: 301<span class="o">)</span>
+/cgi-bin/ <span class="o">(</span>Status: 403<span class="o">)</span>
+/configs <span class="o">(</span>Status: 301<span class="o">)</span>
+/favicon.ico <span class="o">(</span>Status: 200<span class="o">)</span>
+/help <span class="o">(</span>Status: 301<span class="o">)</span>
+/images <span class="o">(</span>Status: 301<span class="o">)</span>
+/lang <span class="o">(</span>Status: 301<span class="o">)</span>
+/libs <span class="o">(</span>Status: 301<span class="o">)</span>
+/mail <span class="o">(</span>Status: 301<span class="o">)</span>
+/modules <span class="o">(</span>Status: 301<span class="o">)</span>
+/panel <span class="o">(</span>Status: 301<span class="o">)</span>
+/recordings <span class="o">(</span>Status: 301<span class="o">)</span>
+/robots.txt <span class="o">(</span>Status: 200<span class="o">)</span>
+/static <span class="o">(</span>Status: 301<span class="o">)</span>
+/themes <span class="o">(</span>Status: 301<span class="o">)</span>
+/var <span class="o">(</span>Status: 301<span class="o">)</span>
+/vtigercrm <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/02/05 16:46:27 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">vtigercrm</code> has another web application:</p>
+
+<p><a href="/assets/hackthebox/beep/beep-02-ff4811a5c56dff69f9ac21510cb31b7f3d31b9b38bc43d9b5431839e4bc14c27.png">
+  <img src="/assets/hackthebox/beep/beep-02-ff4811a5c56dff69f9ac21510cb31b7f3d31b9b38bc43d9b5431839e4bc14c27.png" alt="Beep Recon" class="zooming" data-rjs="/assets/hackthebox/beep/beep-02-ff4811a5c56dff69f9ac21510cb31b7f3d31b9b38bc43d9b5431839e4bc14c27.png" data-zooming-width="1018" data-zooming-height="545" />
+</a></p>
+
+<h1 id="exploiting---lfi--rce-1st-method">Exploiting - LFI + RCE (1st method)</h1>
+
+<p>The web application <code class="highlighter-rouge">vtiger CRM 5.1.0</code> has the following LFI vulnerability exploit available:</p>
+
+<p><a href="https://www.exploit-db.com/exploits/18770" target="_blank">vTiger CRM 5.1.0 - Local File Inclusion</a></p>
+
+<p>The vulnerability is present in the module named <em>sortfieldjson</em>:</p>
+
+<blockquote>
+  <p>https://localhost/vtigercrm/modules/com_vtiger_workflow/sortfieldsjson.php?module_name=../../../../../../../../etc/passwd%00</p>
+</blockquote>
+
+<p><a href="/assets/hackthebox/beep/beep-03-7f549f0ff78ac641bb8536c72f04f5aa72a84da2f5755da2d75a1a197e1e7795.png">
+  <img src="/assets/hackthebox/beep/beep-03-7f549f0ff78ac641bb8536c72f04f5aa72a84da2f5755da2d75a1a197e1e7795.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-03-7f549f0ff78ac641bb8536c72f04f5aa72a84da2f5755da2d75a1a197e1e7795.png" data-zooming-width="954" data-zooming-height="549" />
+</a></p>
+
+<p>So now we’re able to read some system files. Googling about the web application config files that has some kind of critical information we got a documentation, in this documentation there’s an interesting file named <code class="highlighter-rouge">manager.conf</code> where the admin password is supposedly to be stored in plain text!</p>
+
+<p><a href="/assets/hackthebox/beep/beep-04-0f33049a94519f594ebca9758ad1b888dabe820d9bebba0a2acc3f299036d57a.png">
+  <img src="/assets/hackthebox/beep/beep-04-0f33049a94519f594ebca9758ad1b888dabe820d9bebba0a2acc3f299036d57a.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-04-0f33049a94519f594ebca9758ad1b888dabe820d9bebba0a2acc3f299036d57a.png" data-zooming-width="526" data-zooming-height="455" />
+</a></p>
+
+<p>Verifying the existence of this file through our LFI vulnerability, the admin credentials is found!</p>
+
+<p><a href="/assets/hackthebox/beep/beep-05-98aa36c5cfb821e8a20fad875938768b8d65f678556ccec82767010a508be3ca.png">
+  <img src="/assets/hackthebox/beep/beep-05-98aa36c5cfb821e8a20fad875938768b8d65f678556ccec82767010a508be3ca.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-05-98aa36c5cfb821e8a20fad875938768b8d65f678556ccec82767010a508be3ca.png" data-zooming-width="756" data-zooming-height="413" />
+</a></p>
+
+<p>These credentials works as well!</p>
+
+<p><a href="/assets/hackthebox/beep/beep-06-016e01e25949a8f6fe9e20c27888b16cf6fc24bd9ccc15f4fcc67d3030d78e13.png">
+  <img src="/assets/hackthebox/beep/beep-06-016e01e25949a8f6fe9e20c27888b16cf6fc24bd9ccc15f4fcc67d3030d78e13.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-06-016e01e25949a8f6fe9e20c27888b16cf6fc24bd9ccc15f4fcc67d3030d78e13.png" data-zooming-width="1296" data-zooming-height="409" />
+</a></p>
+
+<p>Using these credentials to login as root on SSH works and after that we are able to read the user and root flags!</p>
+
+<p><a href="/assets/hackthebox/beep/beep-07-c11880018dbb72d2f01e05672ad72ccdb639443c71d295bcd47d32a668f1b00d.png">
+  <img src="/assets/hackthebox/beep/beep-07-c11880018dbb72d2f01e05672ad72ccdb639443c71d295bcd47d32a668f1b00d.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-07-c11880018dbb72d2f01e05672ad72ccdb639443c71d295bcd47d32a668f1b00d.png" data-zooming-width="608" data-zooming-height="217" />
+</a></p>
+
+<h1 id="exploiting---lfi--rce-2nd-method">Exploiting - LFI + RCE (2nd method)</h1>
+
+<p>To exploit the server using this method, we’re going to login on <code class="highlighter-rouge">Elastix</code> web application using the credentials found early:</p>
+
+<p><a href="/assets/hackthebox/beep/beep-08-620cd4b5642c4431ffdf18617930269f050bb4a1f674285f8f965d5aa2543a03.png">
+  <img src="/assets/hackthebox/beep/beep-08-620cd4b5642c4431ffdf18617930269f050bb4a1f674285f8f965d5aa2543a03.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-08-620cd4b5642c4431ffdf18617930269f050bb4a1f674285f8f965d5aa2543a03.png" data-zooming-width="1017" data-zooming-height="554" />
+</a></p>
+
+<p>Searching on Google for suitable exploits we found a potential RCE exploit:</p>
+
+<p><a href="https://www.exploit-db.com/exploits/18650" target="_blank">FreePBX 2.10.0 / Elastix 2.2.0 - Remote Code Execution</a></p>
+
+<p>After a couple tries trying to make it work, we noticed that the exploit has a wrong caller extesion for Asterisk Call Manager.
+Using a tool named <code class="highlighter-rouge">svwar</code> we successfully got the right call extension: <code class="highlighter-rouge">233</code></p>
+
+<p><a href="/assets/hackthebox/beep/beep-09-6e575a3dc664d139e32a90de38ee91d86a0aac453229e521f31690613a77726d.png">
+  <img src="/assets/hackthebox/beep/beep-09-6e575a3dc664d139e32a90de38ee91d86a0aac453229e521f31690613a77726d.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-09-6e575a3dc664d139e32a90de38ee91d86a0aac453229e521f31690613a77726d.png" data-zooming-width="945" data-zooming-height="322" />
+</a></p>
+
+<p>Edit the script and change the default call extension number to 233.
+Now executing the exploit and listening on port 4444, a reverse shell is spawned as <code class="highlighter-rouge">asterisk</code> user, letting us capture the first flag:</p>
+
+<p><a href="/assets/hackthebox/beep/beep-10-4a6ccf145794ea7785186712236305dbbe8b12f1433227f59b1b77b9e6361243.png">
+  <img src="/assets/hackthebox/beep/beep-10-4a6ccf145794ea7785186712236305dbbe8b12f1433227f59b1b77b9e6361243.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-10-4a6ccf145794ea7785186712236305dbbe8b12f1433227f59b1b77b9e6361243.png" data-zooming-width="406" data-zooming-height="114" />
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that authenticate on Webmin panel and inject the payload on the vulnerable package module, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/beep" target="_blank">Beep Exploit</a></p>
+
+<p><a href="/assets/hackthebox/beep/beep-11-ad76becacb794dfba0f8e6439f8990b764c8e8f3632d17903162e2660ee7578f.png">
+  <img src="/assets/hackthebox/beep/beep-11-ad76becacb794dfba0f8e6439f8990b764c8e8f3632d17903162e2660ee7578f.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-11-ad76becacb794dfba0f8e6439f8990b764c8e8f3632d17903162e2660ee7578f.png" data-zooming-width="713" data-zooming-height="155" />
+</a></p>
+
+<h1 id="exploiting---shellshock">Exploiting - Shellshock</h1>
+
+<p>Googling about suitable exploits for the web application named <code class="highlighter-rouge">Webmin</code>, we found the following metasploit module:</p>
+
+<p><a href="https://www.exploit-db.com/exploits/21851" target="_blank">Webmin 1.580 - ‘/file/show.cgi’ Remote Command Execution (Metasploit)</a></p>
+
+<p>The exploit description says that it only works if we’re authenticated but it’s possible to exploit this server without any authentication reaching the <code class="highlighter-rouge">/file/show.cgi</code> file.</p>
+
+<p>I made a custom shellshock exploit specifically designed for this box, this script uses the shellshock vulnerability and spawn an interactive shell us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/beep" target="_blank">Beep Exploit</a></p>
+
+<p><a href="/assets/hackthebox/beep/beep-12-c0fc72812385ca4a1e020d66e9115b61dde47fb16960270b5222e49d733078a5.png">
+  <img src="/assets/hackthebox/beep/beep-12-c0fc72812385ca4a1e020d66e9115b61dde47fb16960270b5222e49d733078a5.png" alt="Beep Exploit" class="zooming" data-rjs="/assets/hackthebox/beep/beep-12-c0fc72812385ca4a1e020d66e9115b61dde47fb16960270b5222e49d733078a5.png" data-zooming-width="799" data-zooming-height="179" />
+</a></p>
+
+<h1 id="post-exploitation---exploiting-an-old-nmap-module-named-interactive">Post Exploitation - Exploiting an old Nmap module named interactive</h1>
+
+<p>A simple <code class="highlighter-rouge">sudo -l</code> show us a huge list of binaries allowed to be executed as root by any user:</p>
+
+<p><a href="/assets/hackthebox/beep/beep-13-a0fcfb4a34ca3aa3cb4e329bd7ac04ef89e4268512911099e9a428c75b8977f8.png">
+  <img src="/assets/hackthebox/beep/beep-13-a0fcfb4a34ca3aa3cb4e329bd7ac04ef89e4268512911099e9a428c75b8977f8.png" alt="Beep Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/beep/beep-13-a0fcfb4a34ca3aa3cb4e329bd7ac04ef89e4268512911099e9a428c75b8977f8.png" data-zooming-width="615" data-zooming-height="346" />
+</a></p>
+
+<p>One binary caught our attention, it’s the <code class="highlighter-rouge">nmap</code>:</p>
+
+<blockquote>
+  <p>sudo -u root /usr/bin/nmap -V</p>
+
+  <p>Nmap version 4.11 ( http://www.insecure.org/nmap/ )</p>
+</blockquote>
+
+<p>Nmap versions between <code class="highlighter-rouge">2.02</code> and <code class="highlighter-rouge">5.21</code> has a module named <code class="highlighter-rouge">interactive</code> that spawns a shell, knowing this we’ll escalate our privileges with the following command:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo</span> <span class="nt">-u</span> root /usr/bin/nmap <span class="nt">--interactive</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/beep/beep-14-38ab9a40b510a45436c1e1ce4bf5cee833ee31dccb5cd34cb1fbdd78594716f1.png">
+  <img src="/assets/hackthebox/beep/beep-14-38ab9a40b510a45436c1e1ce4bf5cee833ee31dccb5cd34cb1fbdd78594716f1.png" alt="Beep Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/beep/beep-14-38ab9a40b510a45436c1e1ce4bf5cee833ee31dccb5cd34cb1fbdd78594716f1.png" data-zooming-width="614" data-zooming-height="107" />
+</a></p>
+
+<p>After that we got the root shell!</p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Beep+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/beep%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/beep" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

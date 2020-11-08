@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Mirai - Hack The Box</title>
+  <meta name="description" content="Resolution of the Mirai machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Mirai - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/mirai">
+  <meta property="og:description" content="Resolution of the Mirai machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/mirai">
+  <meta name="twitter:title" content="Mirai - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Mirai machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/mirai/mirai-00-e6507f284e00877e52304ea62da046dd103e9d131c6c1fd12d135e340d487c5c.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/mirai/mirai-00-e6507f284e00877e52304ea62da046dd103e9d131c6c1fd12d135e340d487c5c.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Mirai - Hack The Box</h1>
+            <p>Resolution of the Mirai machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    July 1, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      3 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/mirai/mirai-00-e6507f284e00877e52304ea62da046dd103e9d131c6c1fd12d135e340d487c5c.png">
+  <img src="/assets/hackthebox/mirai/mirai-00-e6507f284e00877e52304ea62da046dd103e9d131c6c1fd12d135e340d487c5c.png" alt="Mirai banner" class="zooming" data-rjs="/assets/hackthebox/mirai/mirai-00-e6507f284e00877e52304ea62da046dd103e9d131c6c1fd12d135e340d487c5c.png" data-zooming-width="596" data-zooming-height="380">
+</a></p>
+
+<p>Mirai is an easy level machine based on Linux, the initial approach has no exploits, just default credentials to SSH provided by Raspberry Pi.
+The privilege escalation stage requires some knowledge about Linux partitions and how them works after some user actions.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Wed Apr 29 19:15:50 2020 as: nmap -sV -sC -T4 -oA mirai 10.10.10.48</span>
+Nmap scan report <span class="k">for </span>10.10.10.48
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 997 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 6.7p1 Debian 5+deb8u3 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   1024 aa:ef:5c:e0:8e:86:97:82:47:ff:4a:e5:40:18:90:c5 <span class="o">(</span>DSA<span class="o">)</span>
+|   2048 e8:c1:9d:c5:43:ab:fe:61:23:3b:d7:e4:af:9b:74:18 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 b6:a0:78:38:d0:c8:10:94:8b:44:b2:ea:a0:17:42:2b <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 4d:68:40:f7:20:c4:e5:52:80:7a:44:38:b8:a2:a7:52 <span class="o">(</span>ED25519<span class="o">)</span>
+53/tcp open  domain  dnsmasq 2.76
+| dns-nsid: 
+|_  bind.version: dnsmasq-2.76
+80/tcp open  http    lighttpd 1.4.35
+|_http-server-header: lighttpd/1.4.35
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8<span class="o">)</span><span class="nb">.</span>
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Wed Apr 29 19:16:11 2020 -- 1 IP address (1 host up) scanned in 20.50 seconds</span></code></pre></figure>
+
+<p>On port 80, the server has a blank page, after running the gobuster tool for web enumeration we got the following output:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://10.10.10.48/ <span class="nt">-t</span> 50
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.48/
+<span class="o">[</span>+] Threads:        50
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/05/07 15:16:13 Starting gobuster
+<span class="o">===============================================================</span>
+/admin <span class="o">(</span>Status: 301<span class="o">)</span>
+/versions <span class="o">(</span>Status: 200<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/05/07 15:17:31 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">/admin</code> web directory has an administration dashboard named <code class="highlighter-rouge">Pi-hole</code>, a web interface for Raspberry Pi administration:</p>
+
+<p><a href="/assets/hackthebox/mirai/mirai-01-0e24d8764eb2d7de5590ad9bfe706e728b2ad7e851672dce8446a1e34b67260e.png">
+  <img src="/assets/hackthebox/mirai/mirai-01-0e24d8764eb2d7de5590ad9bfe706e728b2ad7e851672dce8446a1e34b67260e.png" alt="Mirai Recon" class="zooming" data-rjs="/assets/hackthebox/mirai/mirai-01-0e24d8764eb2d7de5590ad9bfe706e728b2ad7e851672dce8446a1e34b67260e.png" data-zooming-width="1318" data-zooming-height="557">
+</a></p>
+
+<p>The Pi-hole default credentials doesn’t work.</p>
+
+<h1 id="exploiting---using-raspberry-pi-default-ssh-credentials">Exploiting - Using Raspberry Pi default SSH credentials</h1>
+
+<p>Raspberry Pi devices comes with default SSH credentials, <code class="highlighter-rouge">pi:raspberry</code>, with that info we can try if the machine has these credentials:</p>
+
+<p><a href="/assets/hackthebox/mirai/mirai-02-76a9a286995cfbe3f99155b4ce197916012536d91c1aaefd5330d2f04b720e65.png">
+  <img src="/assets/hackthebox/mirai/mirai-02-76a9a286995cfbe3f99155b4ce197916012536d91c1aaefd5330d2f04b720e65.png" alt="Mirai Exploit" class="zooming" data-rjs="/assets/hackthebox/mirai/mirai-02-76a9a286995cfbe3f99155b4ce197916012536d91c1aaefd5330d2f04b720e65.png" data-zooming-width="756" data-zooming-height="355">
+</a></p>
+
+<p>Done, now we have access to the machine as <code class="highlighter-rouge">pi</code> user!</p>
+
+<h1 id="post-exploitation---dealing-with-linux-partitions-and-user-file-actions">Post Exploitation - Dealing with Linux partitions and user file actions</h1>
+
+<p>After the system enumeration we noticed in <code class="highlighter-rouge">sudo -l</code> output that we’re able to escalate our privileges to root with a simple <code class="highlighter-rouge">sudo su</code>:</p>
+
+<p><a href="/assets/hackthebox/mirai/mirai-03-4bcee598bbc9860825c41de693208b695877451dca2eee54a078bc9236a7a1cd.png">
+  <img src="/assets/hackthebox/mirai/mirai-03-4bcee598bbc9860825c41de693208b695877451dca2eee54a078bc9236a7a1cd.png" alt="Mirai Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/mirai/mirai-03-4bcee598bbc9860825c41de693208b695877451dca2eee54a078bc9236a7a1cd.png" data-zooming-width="760" data-zooming-height="153">
+</a></p>
+
+<p>Now we have root privileges but there’s a trick:</p>
+
+<p>The <code class="highlighter-rouge">root.txt</code> flag has the following content:</p>
+
+<blockquote>
+  <p>I lost my original root.txt! I think I may have a backup on my USB stick…</p>
+</blockquote>
+
+<p>We need to enumerate Linux partitions to find the USB partition:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">df</span> <span class="nt">-h</span></code></pre></figure>
+
+<p>There’s a USB partition located at <code class="highlighter-rouge">/media/usbstick</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">Filesystem      Size  Used Avail Use% Mounted on
+aufs            8.5G  2.8G  5.3G  34% /
+tmpfs           100M  4.8M   96M   5% /run
+/dev/sda1       1.3G  1.3G     0 100% /lib/live/mount/persistence/sda1
+/dev/loop0      1.3G  1.3G     0 100% /lib/live/mount/rootfs/filesystem.squashfs
+tmpfs           250M     0  250M   0% /lib/live/mount/overlay
+/dev/sda2       8.5G  2.8G  5.3G  34% /lib/live/mount/persistence/sda2
+devtmpfs         10M     0   10M   0% /dev
+tmpfs           250M  8.0K  250M   1% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs           250M     0  250M   0% /sys/fs/cgroup
+tmpfs           250M  8.0K  250M   1% /tmp
+/dev/sdb        8.7M   93K  7.9M   2% /media/usbstick
+tmpfs            50M     0   50M   0% /run/user/999
+tmpfs            50M     0   50M   0% /run/user/1000</code></pre></figure>
+
+<p>In this partition there’s a file named <code class="highlighter-rouge">damnit.txt</code> with the following content:</p>
+
+<blockquote>
+  <p>Damnit! Sorry man I accidentally deleted your files off the USB stick. Do you know if there is any way to get them back?</p>
+
+  <p>-James</p>
+</blockquote>
+
+<p>Knowing that James deleted the flag file, we can try to recover it with the following command:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">grep</span> <span class="nt">-a</span> <span class="nt">-C</span> 200 <span class="s1">'root'</span> /dev/sdb | <span class="nb">tee</span> /tmp/root.txt</code></pre></figure>
+
+<p><a href="https://unix.stackexchange.com/questions/80270/unix-linux-undelete-recover-deleted-files" target="_blank">Unix/Linux undelete/recover deleted files</a></p>
+
+<p>The output is a bit messy but there’s a <code class="highlighter-rouge">hash</code>, probably the root.txt content:</p>
+
+<p><a href="/assets/hackthebox/mirai/mirai-04-df5b72d690343270944ec155e7ffc73d5c2e9abbe5e9eb02bf78641b2980ba4c.png">
+  <img src="/assets/hackthebox/mirai/mirai-04-df5b72d690343270944ec155e7ffc73d5c2e9abbe5e9eb02bf78641b2980ba4c.png" alt="Mirai Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/mirai/mirai-04-df5b72d690343270944ec155e7ffc73d5c2e9abbe5e9eb02bf78641b2980ba4c.png" data-zooming-width="1305" data-zooming-height="456">
+</a></p>
+
+<p>Done, the hash string is the root.txt content!</p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Mirai+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/mirai%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"></path></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/mirai" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"></path></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

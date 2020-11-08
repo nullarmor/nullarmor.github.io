@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>nullarmor | Poison - Hack The Box</title>
+  <meta name="description" content="Resolution of the Poison machine">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Poison - Hack The Box">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nullarmor.github.io/posts/poison">
+  <meta property="og:description" content="Resolution of the Poison machine">
+  <meta property="og:site_name" content="nullarmor">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://nullarmor.github.io/posts/poison">
+  <meta name="twitter:title" content="Poison - Hack The Box">
+  <meta name="twitter:description" content="Resolution of the Poison machine">
+  <meta name="google-site-verification" content="1sfOj2zDu7c444806MBQqbqFzNWxik880zgryQLMj-o" />
+
+  
+    
+      <meta property="og:image" content="https://nullarmor.github.io/assets/hackthebox/poison/poison-00-4c8750813ad6b6c580ec21e95f80ba556fd3e287e81b70c3d1b73c0d05f33cdb.png">
+      <meta name="twitter:image" content="https://nullarmor.github.io/assets/hackthebox/poison/poison-00-4c8750813ad6b6c580ec21e95f80ba556fd3e287e81b70c3d1b73c0d05f33cdb.png">
+    
+  
+
+  <link href="https://nullarmor.github.io/feed.xml" type="application/rss+xml" rel="alternate" title="nullarmor Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="apple-touch-icon" href="/assets/favicon-5df081ea197cddd592e345971da85e359e2f613dae2506c368835a695a297f82.gif">
+      <link rel="stylesheet" type="text/css" title="light" id="light" href="/assets/light-fd3e34295723b96a04f635903b3650e5bb101ebdcc4d959165c3b4d2d88abe5e.css">
+      <link rel="stylesheet" type="text/css" title="dark" id="dark" href="/assets/dark-0f2545b8bdef934d32dd563b17074c614e7f4f4d5c3e682d4089a07fed36aa84.css" disabled="false">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="nullarmor">nullarmor</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nullarmor" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nullarmor" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://www.linkedin.com/in/renan-almeida-8137a81a6" rel="noreferrer noopener" target="_blank" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-linkedin">
+  <use href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin" xlink:href="/assets/linkedin-cdc5c107044324a3dfbea2e9ead15873f8dee304c37d73a046988956b706256e.svg#icon-linkedin"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="mailto:nullarmor@protonmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-email">
+  <use href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email" xlink:href="/assets/email-782473193bf750036fdb90e8daa075508a20509d01854c09f3237c144a3f0601.svg#icon-email"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+      <li>
+        <a onclick="toggle()" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-theme">
+  <use href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme" xlink:href="/assets/theme-66869e0bf8dab34bae1c86bda400327b772e0be69e8dc28d3ede896e771320ed.svg#icon-theme"></use>
+</svg>
+
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <ul class="header-tags scrollappear">
+    
+    
+      
+        <li><a href="/tag/ctf">Ctf</a></li>
+    
+      
+        <li><a href="/tag/cybrics">Cybrics</a></li>
+    
+      
+        <li><a href="/tag/hackthebox">Hackthebox</a></li>
+    
+      
+        <li><a href="/tag/hacktivitycon">Hacktivitycon</a></li>
+    
+      
+        <li><a href="/tag/pwn">Pwn</a></li>
+    
+      
+        <li><a href="/tag/rev">Rev</a></li>
+    
+      
+        <li><a href="/tag/rgbctf">Rgbctf</a></li>
+    
+      
+        <li><a href="/tag/web">Web</a></li>
+    
+  </ul>
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Poison - Hack The Box</h1>
+            <p>Resolution of the Poison machine</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    April 15, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      4 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/hackthebox" title="See all posts with tag 'HackTheBox'">HackTheBox</a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <p><a href="/assets/hackthebox/poison/poison-00-4c8750813ad6b6c580ec21e95f80ba556fd3e287e81b70c3d1b73c0d05f33cdb.png">
+  <img src="/assets/hackthebox/poison/poison-00-4c8750813ad6b6c580ec21e95f80ba556fd3e287e81b70c3d1b73c0d05f33cdb.png" alt="Poison Banner" class="zooming" data-rjs="/assets/hackthebox/poison/poison-00-4c8750813ad6b6c580ec21e95f80ba556fd3e287e81b70c3d1b73c0d05f33cdb.png" data-zooming-width="595" data-zooming-height="377">
+</a></p>
+
+<p>Poison is a middle level machine based on FreeBSD with a very easy pwn-user stage, has <code class="highlighter-rouge">three different ways</code> to retrieve the initial shell, two using a <code class="highlighter-rouge">LFI vulnerability</code> and one with a simple base64 decode that just give us the SSH credentials.</p>
+
+<h1 id="recon">Recon</h1>
+
+<p>Starting with Nmap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Starting Nmap 7.70 ( https://nmap.org ) at 2019-11-19 11:43 -02</span>
+Nmap scan report <span class="k">for </span>10.10.10.84
+Host is up <span class="o">(</span>0.15s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65533 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2 <span class="o">(</span>FreeBSD 20161230<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 e3:3b:7d:3c:8f:4b:8c:f9:cd:7f:d2:3a:ce:2d:ff:bb <span class="o">(</span>RSA<span class="o">)</span>
+|   256 4c:e8:c6:02:bd:fc:83:ff:c9:80:01:54:7d:22:81:72 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 0b:8f:d5:71:85:90:13:85:61:8b:eb:34:13:5f:94:3b <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    Apache httpd 2.4.29 <span class="o">((</span>FreeBSD<span class="o">)</span> PHP/5.6.32<span class="o">)</span>
+|_http-server-header: Apache/2.4.29 <span class="o">(</span>FreeBSD<span class="o">)</span> PHP/5.6.32
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8<span class="o">)</span><span class="nb">.</span>
+Service Info: OS: FreeBSD<span class="p">;</span> CPE: cpe:/o:freebsd:freebsd
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+<span class="c"># Nmap done: 1 IP address (1 host up) scanned in 1755.86 seconds</span></code></pre></figure>
+
+<p>Accessing the web port we have a web site that list a few PHP files.</p>
+
+<p><a href="/assets/hackthebox/poison/poison-01-7c16e261e72cd850b4bba9643fe068f79d2810fd7f0ea8a28c74682ae7dab15e.png">
+  <img src="/assets/hackthebox/poison/poison-01-7c16e261e72cd850b4bba9643fe068f79d2810fd7f0ea8a28c74682ae7dab15e.png" alt="Poison Web" class="zooming" data-rjs="/assets/hackthebox/poison/poison-01-7c16e261e72cd850b4bba9643fe068f79d2810fd7f0ea8a28c74682ae7dab15e.png" data-zooming-width="809" data-zooming-height="141">
+</a></p>
+
+<p>Submiting anything different from these filenames we have some PHP errors, indicating that it may has some LFI vulnerability.</p>
+
+<p><a href="/assets/hackthebox/poison/poison-02-3277302c4774f9247fa4afeda3845ed95f51847845029d3637de5951f44f53d4.png">
+  <img src="/assets/hackthebox/poison/poison-02-3277302c4774f9247fa4afeda3845ed95f51847845029d3637de5951f44f53d4.png" alt="Poison Web" class="zooming" data-rjs="/assets/hackthebox/poison/poison-02-3277302c4774f9247fa4afeda3845ed95f51847845029d3637de5951f44f53d4.png" data-zooming-width="1166" data-zooming-height="214">
+</a></p>
+
+<p>Exploiting the file parameter we can list to files, a LFI vulnerability</p>
+
+<p><a href="/assets/hackthebox/poison/poison-03-fc4581f7b615a4dac3e6b00b1e3cbe2ee27410f029b42f2b8308ebd1d5f38ab6.png">
+  <img src="/assets/hackthebox/poison/poison-03-fc4581f7b615a4dac3e6b00b1e3cbe2ee27410f029b42f2b8308ebd1d5f38ab6.png" alt="Poison Web" class="zooming" data-rjs="/assets/hackthebox/poison/poison-03-fc4581f7b615a4dac3e6b00b1e3cbe2ee27410f029b42f2b8308ebd1d5f38ab6.png" data-zooming-width="669" data-zooming-height="542">
+</a></p>
+
+<p>Back to the other files found early, there’s a special file that came to our eyes named <code class="highlighter-rouge">pwdbackup.txt</code></p>
+
+<p><a href="/assets/hackthebox/poison/poison-04-ae2b17d87b32ac34d25f2d96d8dc44f8c19698b40447a7129a87199ffad19040.png">
+  <img src="/assets/hackthebox/poison/poison-04-ae2b17d87b32ac34d25f2d96d8dc44f8c19698b40447a7129a87199ffad19040.png" alt="Poison Web" class="zooming" data-rjs="/assets/hackthebox/poison/poison-04-ae2b17d87b32ac34d25f2d96d8dc44f8c19698b40447a7129a87199ffad19040.png" data-zooming-width="546" data-zooming-height="251">
+</a></p>
+
+<p>And has the following content:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">This password is secure, its encoded atleast 13 times.. what could go wrong really..
+
+Vm0wd2QyUXlVWGxWV0d4WFlURndVRlpzWkZOalJsWjBUVlpPV0ZKc2JETlhhMk0xVmpKS1IySkVU
+bGhoTVVwVVZtcEdZV015U2tWVQpiR2hvVFZWd1ZWWnRjRWRUTWxKSVZtdGtXQXBpUm5CUFdWZDBS
+bVZHV25SalJYUlVUVlUxU1ZadGRGZFZaM0JwVmxad1dWWnRNVFJqCk1EQjRXa1prWVZKR1NsVlVW
+M040VGtaa2NtRkdaR2hWV0VKVVdXeGFTMVZHWkZoTlZGSlRDazFFUWpSV01qVlRZVEZLYzJOSVRs
+WmkKV0doNlZHeGFZVk5IVWtsVWJXaFdWMFZLVlZkWGVHRlRNbEY0VjI1U2ExSXdXbUZEYkZwelYy
+eG9XR0V4Y0hKWFZscExVakZPZEZKcwpaR2dLWVRCWk1GWkhkR0ZaVms1R1RsWmtZVkl5YUZkV01G
+WkxWbFprV0dWSFJsUk5WbkJZVmpKMGExWnRSWHBWYmtKRVlYcEdlVmxyClVsTldNREZ4Vm10NFYw
+MXVUak5hVm1SSFVqRldjd3BqUjJ0TFZXMDFRMkl4WkhOYVJGSlhUV3hLUjFSc1dtdFpWa2w1WVVa
+T1YwMUcKV2t4V2JGcHJWMGRXU0dSSGJFNWlSWEEyVmpKMFlXRXhXblJTV0hCV1ltczFSVmxzVm5k
+WFJsbDVDbVJIT1ZkTlJFWjRWbTEwTkZkRwpXbk5qUlhoV1lXdGFVRmw2UmxkamQzQlhZa2RPVEZk
+WGRHOVJiVlp6VjI1U2FsSlhVbGRVVmxwelRrWlplVTVWT1ZwV2EydzFXVlZhCmExWXdNVWNLVjJ0
+NFYySkdjR2hhUlZWNFZsWkdkR1JGTldoTmJtTjNWbXBLTUdJeFVYaGlSbVJWWVRKb1YxbHJWVEZT
+Vm14elZteHcKVG1KR2NEQkRiVlpJVDFaa2FWWllRa3BYVmxadlpERlpkd3BOV0VaVFlrZG9hRlZz
+WkZOWFJsWnhVbXM1YW1RelFtaFZiVEZQVkVaawpXR1ZHV210TmJFWTBWakowVjFVeVNraFZiRnBW
+VmpOU00xcFhlRmRYUjFaSFdrWldhVkpZUW1GV2EyUXdDazVHU2tkalJGbExWRlZTCmMxSkdjRFpO
+<span class="nv">Ukd4RVdub3dPVU5uUFQwSwo</span><span class="o">=</span></code></pre></figure>
+
+<p>It’s base64 but encoded 13 times so I wrote a small script in Python to decode this quickly</p>
+
+<p><a href="/assets/hackthebox/poison/poison-05-b3e7e867414f0bdc5b6b55f6424ba3a2a3353fdfd4c1b2fb35393703a2f04482.png">
+  <img src="/assets/hackthebox/poison/poison-05-b3e7e867414f0bdc5b6b55f6424ba3a2a3353fdfd4c1b2fb35393703a2f04482.png" alt="Poison Web" class="zooming" data-rjs="/assets/hackthebox/poison/poison-05-b3e7e867414f0bdc5b6b55f6424ba3a2a3353fdfd4c1b2fb35393703a2f04482.png" data-zooming-width="1067" data-zooming-height="257">
+</a></p>
+
+<p>Done, now we have what apparently is the SSH credentials?</p>
+
+<h1 id="exploiting---login-with-the-leaked-password-1st-method">Exploiting - Login with the leaked password (1st method)</h1>
+
+<p>Using the first method we login on SSH using the password obtained previously</p>
+
+<p><a href="/assets/hackthebox/poison/poison-06-3c1e1d90d01b94de6a2c1136a8db122390baa37d721e10863a382230590093f0.png">
+  <img src="/assets/hackthebox/poison/poison-06-3c1e1d90d01b94de6a2c1136a8db122390baa37d721e10863a382230590093f0.png" alt="Poison Exploit" class="zooming" data-rjs="/assets/hackthebox/poison/poison-06-3c1e1d90d01b94de6a2c1136a8db122390baa37d721e10863a382230590093f0.png" data-zooming-width="555" data-zooming-height="312">
+</a></p>
+
+<p>Then we capture the first flag and move on.</p>
+
+<p><a href="/assets/hackthebox/poison/poison-07-4274def25b0fc0e0ce6d04db06f90a3b7c2e4b8294dfa3e33a684600f018e9bc.png">
+  <img src="/assets/hackthebox/poison/poison-07-4274def25b0fc0e0ce6d04db06f90a3b7c2e4b8294dfa3e33a684600f018e9bc.png" alt="Poison Exploit" class="zooming" data-rjs="/assets/hackthebox/poison/poison-07-4274def25b0fc0e0ce6d04db06f90a3b7c2e4b8294dfa3e33a684600f018e9bc.png" data-zooming-width="233" data-zooming-height="24">
+</a></p>
+
+<h1 id="exploiting---log-poisoning-then-rce-2nd-method">Exploiting - Log Poisoning then RCE (2nd method)</h1>
+
+<p>It’s possible to execute system commands through LFI, more specifically using the technique named <code class="highlighter-rouge">log poisoning</code>.
+In order to exploit this we need to find a log file that execute PHP code, let’s try <code class="highlighter-rouge">/var/log/httpd-access.log</code>, the Apache log file.
+Every HTTP request is stored on this file so everything we need to do is change your HTTP Header with a malicious PHP command.</p>
+
+<p><a href="/assets/hackthebox/poison/poison-08-b395c21ea06e11af0b9b7f6abfaba82b70efb853985f95c19e213085fd6cf344.png">
+  <img src="/assets/hackthebox/poison/poison-08-b395c21ea06e11af0b9b7f6abfaba82b70efb853985f95c19e213085fd6cf344.png" alt="Poison Exploit" class="zooming" data-rjs="/assets/hackthebox/poison/poison-08-b395c21ea06e11af0b9b7f6abfaba82b70efb853985f95c19e213085fd6cf344.png" data-zooming-width="1233" data-zooming-height="458">
+</a></p>
+
+<h1 id="exploiting---rce-through-phpinfo-poisoning-3rd-method">Exploiting - RCE through PHPInfo Poisoning (3rd method)</h1>
+
+<p>This method is more complex because it requires some specific scenario in order to work properly.
+This scenario includes a PHP Info page and a LFI entrypoint.
+It exploits a race condition on PHP temporary mechanism that allows the attacker to trigger the temporary file before the delete-process (less than 1 second).</p>
+
+<h3 id="more-info">More info:</h3>
+
+<p><a href="http://gynvael.coldwind.pl/download.php?f=PHP_LFI_rfc1867_temporary_files.pdf" target="_blank">PHP LFI to arbitratry code execution via rfc1867 file upload temporary files</a></p>
+
+<p><a href="https://insomniasec.com/downloads/publications/LFI%20With%20PHPInfo%20Assistance.pdf" target="_blank">LFI with PHPInfo() assistance</a></p>
+
+<p>I made my own script that exploit this, using the original script as a start point and base.
+It supports LHOST, LPORT, RHOST and RPORT and is available on my GitHub!</p>
+
+<p><a href="https://github.com/nullarmor/hackthebox-exploits/tree/master/poison" target="_blank">Poison Exploit</a></p>
+
+<p><a href="https://github.com/M4LV0/LFI-phpinfo-RCE" target="_blank">Original Exploit</a></p>
+
+<p>Executing my exploit you can set your listening netcat and wait for the reverse shell session…</p>
+
+<p><a href="/assets/hackthebox/poison/poison-09-44330e8d8340e0edff670decd804054e9c936951651df92264449031cf86c409.png">
+  <img src="/assets/hackthebox/poison/poison-09-44330e8d8340e0edff670decd804054e9c936951651df92264449031cf86c409.png" alt="Poison Exploit" class="zooming" data-rjs="/assets/hackthebox/poison/poison-09-44330e8d8340e0edff670decd804054e9c936951651df92264449031cf86c409.png" data-zooming-width="748" data-zooming-height="44">
+</a></p>
+
+<p><a href="/assets/hackthebox/poison/poison-10-c8cecfae2490f3362b3e6694ee1fa90d1b83a6db0131a8ab468346f528ccfda0.png">
+  <img src="/assets/hackthebox/poison/poison-10-c8cecfae2490f3362b3e6694ee1fa90d1b83a6db0131a8ab468346f528ccfda0.png" alt="Poison Exploit" class="zooming" data-rjs="/assets/hackthebox/poison/poison-10-c8cecfae2490f3362b3e6694ee1fa90d1b83a6db0131a8ab468346f528ccfda0.png" data-zooming-width="439" data-zooming-height="131">
+</a></p>
+
+<h2 id="post-exploitation---enumeration-and-privilege-escalation">Post Exploitation - Enumeration and Privilege Escalation</h2>
+
+<p>Listing our home files we can see a file named <code class="highlighter-rouge">secret.zip</code>, trying to decompress we see that he needs a password, giving the password using the parameter <code class="highlighter-rouge">-P</code> we found that this option is disabled, so all we need is to do this step locally, in your machine.</p>
+
+<p>We create a temporary web server using Python:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">python <span class="nt">-m</span> SimpleHTTPServer 8000</code></pre></figure>
+
+<p>Downloading and applying the <code class="highlighter-rouge">-P</code> parameter works as expected and now we can see the file named <code class="highlighter-rouge">secret</code>.
+The content of this file is a mess then we left him for a moment.</p>
+
+<p>Doing an enumeration we can see that the root user is executing a Xvnc session on port 5901.</p>
+
+<p><a href="/assets/hackthebox/poison/poison-11-2f2f55f7a65c84f5111d060cd989be598c722a569e8688f8cabd042dba677179.png">
+  <img src="/assets/hackthebox/poison/poison-11-2f2f55f7a65c84f5111d060cd989be598c722a569e8688f8cabd042dba677179.png" alt="Poison Privilege Escalation" class="zooming" data-rjs="/assets/hackthebox/poison/poison-11-2f2f55f7a65c84f5111d060cd989be598c722a569e8688f8cabd042dba677179.png" data-zooming-width="537" data-zooming-height="346">
+</a></p>
+
+<p>All we need to do is set up a port fowarding that redirect the port 5901 to your local machine using SSH.</p>
+
+<p><a href="/assets/hackthebox/poison/poison-12-8538fe314acf02db84253e535eb36c94884bb034def19fdbb06bc2a420380fae.png">
+  <img src="/assets/hackthebox/poison/poison-12-8538fe314acf02db84253e535eb36c94884bb034def19fdbb06bc2a420380fae.png" alt="Poison Privilege Escalation" class="zooming" data-rjs="/assets/hackthebox/poison/poison-12-8538fe314acf02db84253e535eb36c94884bb034def19fdbb06bc2a420380fae.png" data-zooming-width="503" data-zooming-height="97">
+</a></p>
+
+<p>Then we access the VNC using the tool named <code class="highlighter-rouge">vncviewer</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>vncviewer localhost:5901</code></pre></figure>
+
+<p>But a password is necessary to authenticate, the <code class="highlighter-rouge">secret</code> file is the key right now.
+It’s possible to provide a key file as parameter on vncviewer using the argument <code class="highlighter-rouge">-passwd</code></p>
+
+<p><a href="/assets/hackthebox/poison/poison-13-b918815abc799d5bd89d79c9481e5b63f8851ec5b54e9e2ecb033d3aff80b1d4.png">
+  <img src="/assets/hackthebox/poison/poison-13-b918815abc799d5bd89d79c9481e5b63f8851ec5b54e9e2ecb033d3aff80b1d4.png" alt="Poison Privilege Escalation" class="zooming" data-rjs="/assets/hackthebox/poison/poison-13-b918815abc799d5bd89d79c9481e5b63f8851ec5b54e9e2ecb033d3aff80b1d4.png" data-zooming-width="496" data-zooming-height="109">
+</a></p>
+
+<p>Now we have a root shell session and the root flag!</p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Poison+-+Hack+The+Box%20-%20https://nullarmor.github.io/posts/poison%20by%20@nullarmor" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"></path></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://nullarmor.github.io/posts/poison" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewbox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"></path></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://nullarmor.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    This site uses Chalk theme made by Nielsen Ramon.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159304176-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-159304176-1');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-2c224c53eb697c739f9490c38819a72184f09472739fd9e492272ef174090428.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+  <script type="text/javascript" src="/assets/themetoggle-df0d3d73164dc26dffbd630182ae4d0dfa7bee6b694a2b5d565d73595b582bbf.js"></script>
+
+</body>
+</html>
